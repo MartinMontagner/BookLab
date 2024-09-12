@@ -39,16 +39,16 @@ void login (nodoListaUsuarios * lista)
     while (ret!=1 && control!=27);
     if(ret==1)
     {
-        idCliente=buscarUsuario(userIngresado,lista);// modificar linea y crear funcion necesaria para la busqueda
-        if(buscaRol(userIngresado,archiC)==1)//crear funcion para ver si es admin o cliente
+        nodoListaUsuarios * aux=buscarUsuario(userIngresado,lista);// modificar linea y crear funcion necesaria para la busqueda
+        if(aux->usuario.esAdmin==1)
         {
-            admin1(idCliente);// crear un menu para el administrador
+            adminMenu();// crear un menu para el administrador
         }
         else
         {
-            if(verificarEstado(userIngresado,archiC)==1)//crear y modificar funcion
+            if(verificarEstado(idUsuario,lista)==1)//crear y modificar funcion
             {
-                cliente(idCliente);// crear un menu para el cliente
+                clienteMenu();// crear un menu para el cliente
             }
             else
             {
