@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1726177768 source:c:\users\martin\desktop\booklab\controlador.c
+
+1726178784 source:c:\users\martin\desktop\booklab\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<strings.h>
+	<time.h>
+	"user.h"
+
+1726177848 c:\users\martin\desktop\booklab\user.h
+
+1726178395 source:c:\users\martin\desktop\booklab\user.c
+	"user.h"
+	<ctype.h>
+

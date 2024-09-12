@@ -12,10 +12,13 @@ int verificar(char userIngresado[],char claveIngresado[],nodoListaUsuarios * lis
         {
             flag=1;
         }
-        else{
+        else
+        {
             printf("Clave incorrecta!\n");
         }
-    }else{
+    }
+    else
+    {
         printf("Usuario inexistente\n");
 
     }
@@ -58,35 +61,71 @@ int verificarPassword(char claveIngresado[], nodoListaUsuarios * userAux)
     int flag=0;
     if(strcmp(userAux->usuario.password,claveIngresado)==0)
     {
-        if(verificacionPasswordCondiciones(userAux)==1)
-        {//agregar verificacion de password con mayusculas La contraseña debe contener por lo menos 1 mayúscula y 1 minúscula.
         flag=1;
+    }
+    return flag;
+}
+int verificacionPasswordCondiciones(nodoListaUsuario * user)//funcion para cuando se registran personas
+{
+    int tieneMayuscula = 0;
+    int tieneMinuscula = 0;
+    int flag = 0;
+    char password[50];
+    strcpy(password,user->usuario.password);
+    if(user)
+    {
+
+        while (*password)  // Mientras no lleguemos al final de la cadena
+        {
+
+            if (isupper((unsigned char)*password))  // Verifica si el carácter actual es mayúscula
+            {
+                tieneMayuscula = 1;
+            }
+            else if (islower((unsigned char)*password))  // Verifica si el carácter actual es minúscula
+            {
+                tieneMinuscula = 1;
+            }
+
+            // Si ya se encontró al menos una mayúscula y una minúscula
+            if (tieneMayuscula && tieneMinuscula)
+            {
+                flag = 1;
+                break;  // Salimos del bucle porque ya encontramos lo que necesitamos
+            }
+
+            password++;  // Avanzamos al siguiente carácter
         }
     }
     return flag;
 }
-int verificacionPasswordCondiciones(nodoListaUsuarios * user)
+/*int verificacionPasswordCondiciones(char password[])//nodoListaUsuarios * user)
 {
     int tieneMayuscula=0;
     int tieneMinuscula=0;
     int flag=0;
-    char password[]=user->usuario.password;
-    if(user)
-    {
+    //char password[]=user->usuario.password;
+    //if(user)
+    //{
         while(*password)
         {
-            if(isupper(user->usuario.password))
+            printf("ingreso al while");
+            if(isupper(password)==0)//user->usuario.password))
             {
                 tieneMayuscula=1;
+                printf("if que verifica mayuscula");
             }else
-            if(islower(user->usuario.password))
+            if(islower(password)==0)//user->usuario.password))
             {
                 tieneMinuscula=1;
+                printf("if que verifica minuscula");
             }
-            if(tieneMayuscula=1 && tieneMinuscula=1){
+            if(tieneMayuscula==1 && tieneMinuscula==1){
                 flag=1;
+                printf("if que verifica los dos");
             }
             password++;
         }
-    }return flag;
-}
+    //}
+    return flag;
+}*/

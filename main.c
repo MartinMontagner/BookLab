@@ -12,6 +12,7 @@ nodoListaUsuarios * archivoToLista(char nombreArchivo[], nodoListaUsuarios * lis
 int main()
 {
     printf("Hello world!\n");
+
     return 0;
 }
 nodoListaUsuarios *  archivoToLista(char nombreArchivo[], nodoListaUsuarios * lista){
