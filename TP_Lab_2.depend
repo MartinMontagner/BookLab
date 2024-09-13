@@ -1,0 +1,31 @@
+# depslib dependency file v1.0
+1726265928 source:c:\users\40306\desktop\facultad\programacion 2\recursada\tp_lab_2\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<strings.h>
+	<time.h>
+	"user.h"
+
+1726265765 c:\users\40306\desktop\facultad\programacion 2\recursada\tp_lab_2\user.h
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<strings.h>
+	<time.h>
+
+1726265892 source:c:\users\40306\desktop\facultad\programacion 2\recursada\tp_lab_2\controlador.c
+	"controlador.h"
+
+1726265650 c:\users\40306\desktop\facultad\programacion 2\recursada\tp_lab_2\controlador.h
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<strings.h>
+	<time.h>
+	"user.h"
+
+1726265880 source:c:\users\40306\desktop\facultad\programacion 2\recursada\tp_lab_2\user.c
+	"user.h"
+	<ctype.h>
+

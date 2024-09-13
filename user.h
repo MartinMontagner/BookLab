@@ -1,6 +1,12 @@
 #ifndef USER_H_INCLUDED
 #define USER_H_INCLUDED
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <strings.h>
+#include <time.h>
+
 
 typedef struct{
     char calle[50];
@@ -30,7 +36,7 @@ typedef struct{
 
 typedef struct{
     stUsuario usuario;
-    nodoListaUsuarios * nodoListaUser;
+    struct nodoListaUsuarios * sig;
 }nodoListaUsuarios;
 
 //funcion de login

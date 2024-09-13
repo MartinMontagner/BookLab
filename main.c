@@ -22,7 +22,7 @@ nodoListaUsuarios *  archivoToLista(char nombreArchivo[], nodoListaUsuarios * li
 
     if(buffer){
         while(fread(&aux, sizeof(stUsuario), 1, buffer) > 0){
-            lista = agregarEnOrdenDNI(lista,crearNodo(aux));
+            lista = agregarEnOrdenId(lista,crearNodo(aux));
         }
         fclose(buffer);
     }
