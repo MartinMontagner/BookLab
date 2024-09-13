@@ -55,7 +55,7 @@ nodoListaUsuarios * agregarEnOrdenId(nodoListaUsuarios * lista, nodoListaUsuario
 int verificar(char userIngresado[],char claveIngresado[],nodoListaUsuarios * lista);
 nodoListaUsuarios * buscarUsuario(char userIngresado[], nodoListaUsuarios * lista);
 int verificarPassword(char claveIngresado[], nodoListaUsuarios * userAux);
-int verificacionPasswordCondiciones(nodoListaUsuario * user);
+int verificacionPasswordCondiciones(nodoListaUsuarios * user);
 
 
 

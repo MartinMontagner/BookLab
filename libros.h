@@ -19,5 +19,13 @@
 
 stLibro cargaUnLibro();
 nodo2Libros * inicListaDoble();
+nodo2Libros *insertarNodoPorId (nodo2Libros * lista, nodo2Libros * nuevoNodo);
+nodo2Libros * crearNodoDoble(stLibro libro);
+nodo2Libros *  archivoToLista2(char nombreArchivo[], nodo2Libros * listaDoble);
+void muestraUnLibro(stLibro a);
+int randomRango(int min, int max);
+void setTituloRandom(char titulo[]);
+void setEditorialRandom(char editorial[]);
+void setAutorRandom(char autor[]);
 
 #endif // LIBROS_H_INCLUDED

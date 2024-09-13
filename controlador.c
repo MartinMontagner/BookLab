@@ -30,7 +30,7 @@ void login (nodoListaUsuarios * lista)
 
         }
         while(password[i]!='\0');
-        ret=verificar(userIngresado,claveIngresado,lista);//crear funcion verificar
+        ret=verificar(email,password,lista);//crear funcion verificar
         if(ret==0)
         {
             system("pause");
@@ -40,14 +40,14 @@ void login (nodoListaUsuarios * lista)
     while (ret!=1 && control!=27);
     if(ret==1)
     {
-        nodoListaUsuarios * aux=buscarUsuario(userIngresado,lista);// modificar linea y crear funcion necesaria para la busqueda
+        nodoListaUsuarios * aux=buscarUsuario(email,lista);// modificar linea y crear funcion necesaria para la busqueda
         if(aux->usuario.esAdmin==1)
         {
             adminMenu();// crear un menu para el administrador
         }
         else
         {
-            if(verificarEstado(idUsuario,lista)==1)//crear y modificar funcion
+            if(aux->usuario.eliminado==0)//crear y modificar funcion
             {
                 clienteMenu();// crear un menu para el cliente
             }

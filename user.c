@@ -78,12 +78,12 @@ nodoListaUsuarios * agregarEnOrdenId(nodoListaUsuarios * lista, nodoListaUsuario
     else
     {
         nodoListaUsuarios * aux = lista; // ante
-        if(atoi(aux->usuario.idUsuario) >  atoi(nuevo->usuario.idUsuario))
+        if((aux->usuario.idUsuario) >  (nuevo->usuario.idUsuario))
                 lista = agregarPrincipio(aux,nuevo);
                 else
         {
             nodoListaUsuarios * seg = lista;
-            while(seg && atoi(aux->usuario.idUsuario) < atoi(nuevo->usuario.idUsuario))
+            while(seg && (aux->usuario.idUsuario) < (nuevo->usuario.idUsuario))
                 {
                     aux = seg;
                     seg = seg->sig;
@@ -128,7 +128,7 @@ nodoListaUsuarios * buscarUsuario(char userIngresado[], nodoListaUsuarios * list
     nodoListaUsuarios * aux=NULL;
     nodoListaUsuarios * seg=lista;
     int flag=0;
-    if(lista && strcmp(lista->usuario.username,userIngresado)==0)
+    if(lista && strcmp(lista->usuario.email,userIngresado)==0)
     {
         aux=lista;
     }
@@ -138,7 +138,7 @@ nodoListaUsuarios * buscarUsuario(char userIngresado[], nodoListaUsuarios * list
         seg=lista->sig;
         while(seg && flag==0)
         {
-            if(strcmp(seg->usuario.username,userIngresado)==0)
+            if(strcmp(seg->usuario.email,userIngresado)==0)
             {
                 aux=seg;
             }
@@ -162,7 +162,7 @@ int verificarPassword(char claveIngresado[], nodoListaUsuarios * userAux)
     }
     return flag;
 }
-int verificacionPasswordCondiciones(nodoListaUsuario * user)//funcion para cuando se registran personas
+int verificacionPasswordCondiciones(nodoListaUsuarios * user)//funcion para cuando se registran personas
 {
     int tieneMayuscula = 0;
     int tieneMinuscula = 0;

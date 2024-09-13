@@ -6,7 +6,7 @@ stLibro cargaUnLibro()
 {
 
     stLibro aux;
-    idLibro
+    /*idLibro*/
     printf("Ingrese el titulo del libro: \n");
     fflush(stdin);
     gets(aux.titulo);
@@ -82,7 +82,7 @@ void setAutorRandom(char autor[])
 
     strcpy(autor, arregloAutor[randomRango(0,sizeof(arregloAutores)/50)]);
 }
-stAlumno cargaRandomLibro()
+/*stLibro cargaRandomLibro()
 {
 
     stLibro libro;
@@ -93,7 +93,7 @@ stAlumno cargaRandomLibro()
 
     /*strcat(alumno.nombre, " ");
     setApellidoRandom(apellidoAux);
-    strcat(alumno.nombre, apellidoAux);*/
+    strcat(alumno.nombre, apellidoAux);
 
     setDni(alumno.dni);
     alumno.genero = getGenero();
@@ -102,7 +102,7 @@ stAlumno cargaRandomLibro()
 
     return alumno;
 
-}
+}*/
 
 nodo2Libros * inicListaDoble()
 {
@@ -131,16 +131,16 @@ nodo2Libros *  archivoToLista2(char nombreArchivo[], nodo2Libros * listaDoble)
     {
         while(fread(&aux, sizeof(stLibro), 1, buffer) > 0)
         {
-            lista = agregarEnOrdenDNI(listaDoble,crearNodoDoble(aux));//agregarEnOrden ?
+            listaDoble = insertarNodoPorId(listaDoble,crearNodoDoble(aux));//agregarEnOrden ?
         }
         fclose(buffer);
     }
 
-    return lista;
+    return listaDoble;
 
 }
 
-nodoDoble* borrarNodoPorDni (nodoDoble * lista, char dniBusca[])
+/*nodoDoble* borrarNodoPorDni (nodoDoble * lista, char dniBusca[])
 {
     nodoDoble*actual= NULL;
     nodoDoble*aux=NULL;
@@ -177,8 +177,8 @@ nodoDoble* borrarNodoPorDni (nodoDoble * lista, char dniBusca[])
         }
     }
     return lista;
-}
-nodo2Libros * agregarEnOrdenId(nodo2Libros * lista, nodo2Libros * nuevo)
+}*/
+/*nodo2Libros * agregarEnOrdenId(nodo2Libros * lista, nodo2Libros * nuevo)
 {
 
     if(!lista)
@@ -188,22 +188,22 @@ nodo2Libros * agregarEnOrdenId(nodo2Libros * lista, nodo2Libros * nuevo)
     else
     {
         nodo2Libros* aux = lista; // ante
-        if(atoi(aux->dato.id) > atoi(nuevo->dato.dni))
+        if((aux->dato.idLibro) > (nuevo->dato.dni))
         {
             lista = agregarPrincipio(aux,nuevo);
         }
         else
         {
-            nodoSimple * seg = lista;
+            nodo2Libros * seg = lista;
 
-            while(seg && atoi(aux->dato.dni) < atoi(nuevo->dato.dni))
+            while(seg && (aux->dato.dni) < (nuevo->dato.dni))
             {
                 aux = seg;
                 seg = seg->sig;
             }
 
-            aux->sig = nuevo;
-            nuevo->sig = seg;
+            aux->ste = nuevo;
+            nuevo->ste = seg;
 
 
         }
@@ -212,5 +212,35 @@ nodo2Libros * agregarEnOrdenId(nodo2Libros * lista, nodo2Libros * nuevo)
 
     return lista;
 
+}*/
+nodo2Libros *insertarNodoPorId (nodo2Libros * lista, nodo2Libros * nuevoNodo)
+{
+    if(lista==NULL)
+    {
+        lista=nuevoNodo;
+    }
+    else if (nuevoNodo->dato.idLibro < lista->dato.idLibro)
+    {
+        lista=agregarAlPrincipio(lista,nuevoNodo);
+    }
+    else
+    {
+        nodo2Libros * anterior=lista;
+        nodo2Libros * seg=lista->ste;
 
+        while (seg!=NULL && seg->dato.idLibro < nuevoNodo->dato.idLibro)
+        {
+            anterior=seg;
+            seg->ste;
+        }
+        anterior->ste=nuevoNodo;
+        nuevoNodo->ante=anterior;
+        nuevoNodo->ste=seg;
+
+        if(seg!=NULL)
+        {
+            seg->ante=nuevoNodo;
+        }
+    }
+    return lista;
 }
