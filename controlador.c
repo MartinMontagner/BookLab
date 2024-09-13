@@ -1,4 +1,4 @@
-
+#include "controlador.h"
 void login (nodoListaUsuarios * lista)
 {
     char email[100];
@@ -60,3 +60,16 @@ void login (nodoListaUsuarios * lista)
         }
     }
 }
+void registrarse(nodoListaUsuarios * lista)
+{
+    nodoListaUsuarios * user;
+//    user=crearUser();
+    if(!lista)
+    {
+        user=lista;
+    }else
+    {
+        lista=agregarEnOrdenId(lista,user);
+    }
+}
+

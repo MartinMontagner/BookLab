@@ -1,6 +1,11 @@
 #ifndef USER_H_INCLUDED
 #define USER_H_INCLUDED
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <strings.h>
+#include <time.h>
 
 typedef struct{
     char calle[50];
@@ -30,7 +35,7 @@ typedef struct{
 
 typedef struct{
     stUsuario usuario;
-    nodoListaUsuarios * nodoListaUser;
+    struct nodoListaUsuarios * sig;
 }nodoListaUsuarios;
 
 //funcion de login
@@ -38,9 +43,19 @@ typedef struct{
 //verificacion user
 //verificacion password
 //verificacion que la password este bien contemplando las reglas
+nodoListaUsuarios * inicLista();
+nodoListaUsuarios * crearNodo(stUsuario usuario);
+nodoListaUsuarios * agregarPrincipio(nodoListaUsuarios * lista, nodoListaUsuarios * nuevoNodo);
+void muestraUnUsuario(stUsuario u);
+void muestraNodoUser(nodoListaUsuarios * nodo);
+void muestraLista(nodoListaUsuarios * lista);
+nodoListaUsuarios* buscarUltimo(nodoListaUsuarios* lista);
+nodoListaUsuarios* agregarAlFinal(nodoListaUsuarios* lista, nodoListaUsuarios* nuevo);
+nodoListaUsuarios * agregarEnOrdenId(nodoListaUsuarios * lista, nodoListaUsuarios * nuevo);
 int verificar(char userIngresado[],char claveIngresado[],nodoListaUsuarios * lista);
 nodoListaUsuarios * buscarUsuario(char userIngresado[], nodoListaUsuarios * lista);
 int verificarPassword(char claveIngresado[], nodoListaUsuarios * userAux);
+int verificacionPasswordCondiciones(nodoListaUsuario * user);
 
 
 
