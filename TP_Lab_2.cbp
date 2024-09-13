@@ -35,6 +35,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="controlador.h" />
+		<Unit filename="libros.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="libros.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
