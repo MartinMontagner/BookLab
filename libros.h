@@ -13,8 +13,8 @@
 
  typedef struct{
     stLibro dato;
-    nodo2Libros * ste;
-    nodo2Libros * ante;
+    struct nodo2Libros * ste;
+    struct nodo2Libros * ante;
 }nodo2Libros;
 
 stLibro cargaUnLibro();

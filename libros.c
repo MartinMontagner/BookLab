@@ -89,11 +89,11 @@ stAlumno cargaRandomLibro()
 
     char apellidoAux[30];
 
-    setNombreRandom(alumno.nombre);
+    setTituloRandom(libro.titulo);
 
-    strcat(alumno.nombre, " ");
+    /*strcat(alumno.nombre, " ");
     setApellidoRandom(apellidoAux);
-    strcat(alumno.nombre, apellidoAux);
+    strcat(alumno.nombre, apellidoAux);*/
 
     setDni(alumno.dni);
     alumno.genero = getGenero();
@@ -177,4 +177,40 @@ nodoDoble* borrarNodoPorDni (nodoDoble * lista, char dniBusca[])
         }
     }
     return lista;
+}
+nodo2Libros * agregarEnOrdenId(nodo2Libros * lista, nodo2Libros * nuevo)
+{
+
+    if(!lista)
+    {
+        lista = nuevo;
+    }
+    else
+    {
+        nodo2Libros* aux = lista; // ante
+        if(atoi(aux->dato.id) > atoi(nuevo->dato.dni))
+        {
+            lista = agregarPrincipio(aux,nuevo);
+        }
+        else
+        {
+            nodoSimple * seg = lista;
+
+            while(seg && atoi(aux->dato.dni) < atoi(nuevo->dato.dni))
+            {
+                aux = seg;
+                seg = seg->sig;
+            }
+
+            aux->sig = nuevo;
+            nuevo->sig = seg;
+
+
+        }
+
+    }
+
+    return lista;
+
+
 }
