@@ -1,11 +1,72 @@
 #include "libros.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <conio.h>
-stLibro cargaUnLibro()
+
+
+///Funciones para crear contenido random
+int randomRango(int min, int max)
+{
+    return  min +  rand()% (max - min +1);
+}
+void setTituloRandom(char titulo[])
+{
+
+    char arregloTitulos[][100] = {"Cien anios de soledad", "Don Quijote de la Mancha", "El gran Gatsby", "Moby Dick", "Guerra y paz", "Orgullo y prejuicio", "Matar a un ruisenior", "El guardian entre el centeno", "La Odisea", "La Divina Comedia", "Crimen y castigo", "Los hermanos Karamazov",
+                                  "Un mundo feliz", "La Iliada", "1984", "El Señor de los Anillos", "Ana Karenina", "Ulises", "El ruido y la furia", "Cumbres borrascosas", "Los miserables", "El retrato de Dorian Gray", "Jane Eyre", "Fahrenheit 451", "Frankenstein", "Dracula", "El corazon de las tinieblas", "Grandes esperanzas",
+                                  "Las aventuras de Huckleberry Finn", "Alicia en el pais de las maravillas", "El Hobbit", "Las uvas de la ira", "El extranjero", "El proceso", "Madame Bovary", "El viejo y el mar", "La metamorfosis", "El conde de Montecristo", "La letra escarlata", "La campana de cristal", "Beloved",
+                                  "El cuento de la criada", "La carretera", "El hombre invisible", "Historia de dos ciudades", "Matadero cinco", "Lolita", "En el camino", "Cometas en el cielo", "Trampa 22", "El resplandor"
+                                 };
+    int cantTitulos=(sizeof(arregloTitulos) / sizeof(arregloTitulos[0]));
+    int indiceAleatorio = randomRango(0, cantTitulos - 1);
+    strcpy(titulo, arregloTitulos[indiceAleatorio]);
+}
+
+void setEditorialRandom(char editorial[])
+{
+    char arregloEditorial[][50] = {" Sudamericana", "Francisco de Robles", "Lumen", "Alfaguara",
+                                   "Penguin Books", "Anagrama", "Alianza ", "Tusquets Editores", "Planeta", "Random House", "Salamandra",
+                                   "Siruela", "Destino", "Plaza & Janes", "Ediciones B", "Seix Barral", "Edhasa", "Akal", "Turner", "Acantilado",
+                                   "RBA", "Debolsillo", " Gredos", " Critica", "Nordica Libros", "Impedimenta", "Galaxia Gutenberg", "Minotauro", "Circulo de Lectores", "Alianza Literaria", "Austral", "Ediciones Catedra", "Biblioteca Castro", "Sexto Piso", "Siglo XXI",
+                                   "Ediciones Siruela", "Pre-Textos", "Atalanta", "Errata Naturae", "Blackie Books", "Valdemar", "Nube de Tinta",
+                                   "Oceano", "Libros del Asteroide", "Periferica", "Paginas de Espuma", " Renacimiento", " Trotta",
+                                   "Espasa", "Kailas", "Arte y Literatura", "Funambulista"
+                                  };
+    int cantEditoriales=(sizeof(arregloEditorial) / sizeof(arregloEditorial[0]));
+    int indiceAleatorio = randomRango(0, cantEditoriales - 1);
+    strcpy(editorial, arregloEditorial[indiceAleatorio]);
+}
+void setAutorRandom(char autor[])
+{
+    char arregloAutores[][50] = {"Gabriel Garcia Marquez", "Miguel de Cervantes", "F. Scott Fitzgerald", "Herman Melville", "Leon Tolstoi", "Jane Austen", "Harper Lee", "J.D. Salinger", "Homero", "Dante Alighieri", "Fiodor Dostoievski", "Aldous Huxley",
+                                 "George Orwell", "J.R.R. Tolkien", "Lev Tolstoi", "James Joyce", "William Faulkner",
+                                 "Emily Bronte", "Victor Hugo", "Oscar Wilde", "Charlotte Bronte", "Ray Bradbury", "Mary Shelley",
+                                 "Bram Stoker", "Joseph Conrad", "Charles Dickens", "Mark Twain", "Lewis Carroll", "John Steinbeck", "Albert Camus", "Franz Kafka", "Gustave Flaubert", "Ernest Hemingway", "Franz Kafka", "Alejandro Dumas", "Nathaniel Hawthorne", "Sylvia Plath", "Toni Morrison", "Margaret Atwood",
+                                 "Cormac McCarthy", "Ralph Ellison", "Kurt Vonnegut", "Vladimir Nabokov", "Jack Kerouac", "Khaled Hosseini", "Stephen King", "Ken Kesey", "Henry James", "Jorge Luis Borges", "Virginia Woolf", "H.G. Wells", "George R.R. Martin"
+                                };
+    int cantAutores=(sizeof(arregloAutores) / sizeof(arregloAutores[0]));
+    int indiceAleatorio = randomRango(0, cantAutores - 1);
+    strcpy(autor, arregloAutores[indiceAleatorio]);
+}
+void setCategoria(char categoria[])
+{
+    char arregloCategoria[][50] = {"Novela", "Ciencia ficcion", "Fantasia", "Poesia", "Misterio", "Terror",
+                                   "Romance", "Ficcion historica","Aventura", "Biografia"
+                                  };
+    int cantCategorias=(sizeof(arregloCategoria) / sizeof(arregloCategoria[0]));
+    int indiceAleatorio = randomRango(0, cantCategorias - 1);
+    strcpy(categoria, arregloCategoria[indiceAleatorio]);
+}
+///Carga de libros
+stLibro cargaUnLibro(nodo2Libros * listaDoble)
 {
 
     stLibro aux;
+    int ultimo=buscarUltimoId(listaDoble);
+    int id=ultimo;
+    id++;
+    aux.idLibro=id;
     /*idLibro*/
     printf("Ingrese el titulo del libro: \n");
     fflush(stdin);
@@ -21,7 +82,7 @@ stLibro cargaUnLibro()
 
     printf("Ingrese la categoria: \n");
     fflush(stdin);
-    scanf("%d", &aux.categoria);
+    gets(aux.categoria);
 
     /*printf("Ingrese la valoracion: \n");
     fflush(stdin);
@@ -30,80 +91,31 @@ stLibro cargaUnLibro()
 
     return aux;
 }
-void muestraUnLibro(stLibro a)
-{
 
-    printf("\n-----------------------\n");
-    printf("Nombre: ..............%s\n",a.titulo);
-    printf("Editorial: ..............%s\n",a.editorial);
-    printf("Autor: ..............%s\n",a.autor);
-    printf("Categoria: ................%s\n",a.categoria);
-    printf("ID: ................%d\n",a.idLibro);
-    printf("\n-----------------------\n");
-}
-
-int randomRango(int min, int max)
-{
-    return  min +  rand()% (max - min +1);
-}
-void setTituloRandom(char titulo[])
-{
-
-    char arreglosTitulos[][100] = {"Cien años de soledad", "Don Quijote de la Mancha", "El gran Gatsby", "Moby Dick", "Guerra y paz", "Orgullo y prejuicio", "Matar a un ruiseñor", "El guardian entre el centeno", "La Odisea", "La Divina Comedia", "Crimen y castigo", "Los hermanos Karamazov",
-                                   "Un mundo feliz", "La Iliada", "1984", "El Señor de los Anillos", "Ana Karenina", "Ulises", "El ruido y la furia", "Cumbres borrascosas", "Los miserables", "El retrato de Dorian Gray", "Jane Eyre", "Fahrenheit 451", "Frankenstein", "Dracula", "El corazon de las tinieblas", "Grandes esperanzas",
-                                   "Las aventuras de Huckleberry Finn", "Alicia en el pais de las maravillas", "El Hobbit", "Las uvas de la ira", "El extranjero", "El proceso", "Madame Bovary", "El viejo y el mar", "La metamorfosis", "El conde de Montecristo", "La letra escarlata", "La campana de cristal", "Beloved",
-                                   "El cuento de la criada", "La carretera", "El hombre invisible", "Historia de dos ciudades", "Matadero cinco", "Lolita", "En el camino", "Cometas en el cielo", "Trampa 22", "El resplandor"
-                                  };
-
-    strcpy(titulo,arreglosTitulos[randomRango(0,sizeof(arreglosTitulos)/100)]);
-}
-
-void setEditorialRandom(char editorial[])
-{
-    char arregloEditorial[][50] = {" Sudamericana", "Francisco de Robles", "Lumen", "Alfaguara",
-                                   "Penguin Books", "Anagrama", "Alianza ", "Tusquets Editores", "Planeta", "Random House", "Salamandra",
-                                   "Siruela", "Destino", "Plaza & Janes", "Ediciones B", "Seix Barral", "Edhasa", "Akal", "Turner", "Acantilado",
-                                   "RBA", "Debolsillo", " Gredos", " Crítica", "Nordica Libros", "Impedimenta", "Galaxia Gutenberg", "Minotauro", "Circulo de Lectores", "Alianza Literaria", "Austral", "Ediciones Catedra", "Biblioteca Castro", "Sexto Piso", "Siglo XXI",
-                                   "Ediciones Siruela", "Pre-Textos", "Atalanta", "Errata Naturae", "Blackie Books", "Valdemar", "Nube de Tinta",
-                                   "Oceano", "Libros del Asteroide", "Periférica", "Páginas de Espuma", " Renacimiento", " Trotta",
-                                   "Espasa", "Kailas", "Arte y Literatura", "Funambulista"
-                                  };
-
-    strcpy(editorial, arregloEditorial[randomRango(0,sizeof(arregloEditorial)/50)]);
-}
-void setAutorRandom(char autor[])
-{
-    char arregloAutores[][50] = {"Gabriel Garcia Marquez", "Miguel de Cervantes", "F. Scott Fitzgerald", "Herman Melville", "Leon Tolstoi", "Jane Austen", "Harper Lee", "J.D. Salinger", "Homero", "Dante Alighieri", "Fiodor Dostoievski", "Aldous Huxley",
-                                 "George Orwell", "J.R.R. Tolkien", "Lev Tolstoi", "James Joyce", "William Faulkner",
-                                 "Emily Bronte", "Victor Hugo", "Oscar Wilde", "Charlotte Bronte", "Ray Bradbury", "Mary Shelley",
-                                 "Bram Stoker", "Joseph Conrad", "Charles Dickens", "Mark Twain", "Lewis Carroll", "John Steinbeck", "Albert Camus", "Franz Kafka", "Gustave Flaubert", "Ernest Hemingway", "Franz Kafka", "Alejandro Dumas", "Nathaniel Hawthorne", "Sylvia Plath", "Toni Morrison", "Margaret Atwood",
-                                 "Cormac McCarthy", "Ralph Ellison", "Kurt Vonnegut", "Vladimir Nabokov", "Jack Kerouac", "Khaled Hosseini", "Stephen King", "Ken Kesey", "Henry James", "Jorge Luis Borges", "Virginia Woolf", "H.G. Wells", "George R.R. Martin"
-                                };
-
-    strcpy(autor, arregloAutor[randomRango(0,sizeof(arregloAutores)/50)]);
-}
-/*stLibro cargaRandomLibro()
+stLibro cargaRandomLibro()
 {
 
     stLibro libro;
-
-    char apellidoAux[30];
-
+    static int id=0;
+    id++;
+    libro.idLibro=id;
     setTituloRandom(libro.titulo);
-
-    /*strcat(alumno.nombre, " ");
-    setApellidoRandom(apellidoAux);
-    strcat(alumno.nombre, apellidoAux);
-
-    setDni(alumno.dni);
-    alumno.genero = getGenero();
-    alumno.nota = randomRango(1,10);
-
-
-    return alumno;
-
-}*/
-
+    setEditorialRandom(libro.editorial);
+    setAutorRandom(libro.autor);
+    setCategoria(libro.categoria);
+    libro.eliminado=0;
+    libro.valoracion=0;
+    return libro;
+}
+///Busqueda de Id para seguir incrementando
+int buscarUltimoId (nodo2Libros* listaDoble)
+{
+    nodo2Libros * ultimo= buscarUltimoLibro(listaDoble);
+    int id=0;
+    id=ultimo->dato.idLibro;
+    return id;
+}
+///Funciones de listas que devuelven listas
 nodo2Libros * inicListaDoble()
 {
     return NULL;
@@ -119,100 +131,68 @@ nodo2Libros * crearNodoDoble(stLibro libro)
     return nuevo;
 }
 
-
-nodo2Libros *  archivoToLista2(char nombreArchivo[], nodo2Libros * listaDoble)
+nodo2Libros * agregarPrincipioLibro(nodo2Libros * listaDoble, nodo2Libros * nuevo)
 {
-
-    FILE * buffer = fopen(nombreArchivo, "rb");
-    stLibro aux;
-
-
-    if(buffer)
+    nuevo->ste = listaDoble;
+    if(listaDoble)
     {
-        while(fread(&aux, sizeof(stLibro), 1, buffer) > 0)
-        {
-            listaDoble = insertarNodoPorId(listaDoble,crearNodoDoble(aux));//agregarEnOrden ?
-        }
-        fclose(buffer);
+        listaDoble->ante = nuevo;
     }
-
-    return listaDoble;
-
+    return nuevo;
 }
 
-/*nodoDoble* borrarNodoPorDni (nodoDoble * lista, char dniBusca[])
+nodo2Libros* buscarUltimoLibro(nodo2Libros* listaDoble)
 {
-    nodoDoble*actual= NULL;
-    nodoDoble*aux=NULL;
-    nodoDoble*seg=NULL;
-    int flag=0;
-    if(lista )
+    nodo2Libros * seg = listaDoble;
+    while(seg->ste != NULL)
     {
-        if( strcmp(lista->dato.dni,dniBusca)==0)
-        {
-            actual=lista;
-            lista=lista->sig;
-            if(lista)
-            {
-                lista->ante=NULL;
-            }
-            free(actual);
-        }
-        else
-        {
-            seg=lista;
-            while(seg && strcmp(seg->dato.dni,dniBusca)!=0)
-            {
-                {
-                    ante=seg;
-                    seg=seg->sig;
-                }
-                if(seg)
-                {
-                    ante->sig=seg->sig;
-                    seg->ante=ante;
-                    free(seg);
-                }
-            }
-        }
+        seg = seg->ste;
     }
-    return lista;
-}*/
-/*nodo2Libros * agregarEnOrdenId(nodo2Libros * lista, nodo2Libros * nuevo)
-{
+    return seg;
+}
 
-    if(!lista)
+nodo2Libros * agregarAlFinalLibro(nodo2Libros * listaDoble, nodo2Libros* nuevo)
+{
+    if(!listaDoble)
     {
-        lista = nuevo;
+        listaDoble = nuevo;
     }
     else
     {
-        nodo2Libros* aux = lista; // ante
-        if((aux->dato.idLibro) > (nuevo->dato.dni))
-        {
-            lista = agregarPrincipio(aux,nuevo);
-        }
-        else
-        {
-            nodo2Libros * seg = lista;
-
-            while(seg && (aux->dato.dni) < (nuevo->dato.dni))
-            {
-                aux = seg;
-                seg = seg->sig;
-            }
-
-            aux->ste = nuevo;
-            nuevo->ste = seg;
-
-
-        }
-
+        nodo2Libros* ultimo = buscarUltimoLibro(listaDoble);
+        ultimo->ste = nuevo;
+        nuevo->ante = ultimo;
     }
 
-    return lista;
+    return listaDoble;
+}
+//preguntar por que no andaaaaaaaaaaa
+nodo2Libros * buscaLibrosPorCategoria (nodo2Libros * lista, char categoria[])
+{
+    nodo2Libros * listaCategoria=NULL;
 
-}*/
+    nodo2Libros * actual= lista;
+    if(actual)
+    {
+        while (actual->ste!=NULL)
+        {
+            if(strcmpi(actual->dato.categoria,categoria)==0)
+            {
+                listaCategoria=agregarPrincipioLibro(listaCategoria,actual);
+            }
+            actual=actual->ste;
+        }
+    }
+
+    if(!listaCategoria)
+    {
+        printf("\nNo existen libros de esa categoria\n");
+    }
+
+    return listaCategoria;
+}
+
+
 nodo2Libros *insertarNodoPorId (nodo2Libros * lista, nodo2Libros * nuevoNodo)
 {
     if(lista==NULL)
@@ -221,7 +201,7 @@ nodo2Libros *insertarNodoPorId (nodo2Libros * lista, nodo2Libros * nuevoNodo)
     }
     else if (nuevoNodo->dato.idLibro < lista->dato.idLibro)
     {
-        lista=agregarAlPrincipio(lista,nuevoNodo);
+        lista=agregarPrincipioLibro(lista,nuevoNodo);
     }
     else
     {
@@ -231,7 +211,7 @@ nodo2Libros *insertarNodoPorId (nodo2Libros * lista, nodo2Libros * nuevoNodo)
         while (seg!=NULL && seg->dato.idLibro < nuevoNodo->dato.idLibro)
         {
             anterior=seg;
-            seg->ste;
+            seg=seg->ste;
         }
         anterior->ste=nuevoNodo;
         nuevoNodo->ante=anterior;
@@ -243,4 +223,46 @@ nodo2Libros *insertarNodoPorId (nodo2Libros * lista, nodo2Libros * nuevoNodo)
         }
     }
     return lista;
+}
+nodo2Libros * borrarPrimerNodoListaLibros(nodo2Libros * lista)
+{
+    nodo2Libros * aBorrar = NULL;
+
+    if(lista)
+    {
+        aBorrar = lista;
+        lista = lista->ste;
+        if(lista)
+        {
+            lista->ante = NULL;
+        }
+        free(aBorrar);
+    }
+    return lista;
+}
+///Funciones para mostrar
+void muestraUnLibro(stLibro a)
+{
+
+    printf("\n-----------------------\n");
+    printf("Nombre: ..............%s\n",a.titulo);
+    printf("Editorial: ..............%s\n",a.editorial);
+    printf("Autor: ..............%s\n",a.autor);
+    printf("Categoria: ................%s\n",a.categoria);
+    printf("ID: ................%d\n",a.idLibro);
+    printf("\n-----------------------\n");
+}
+
+void muestraNodoDobleLibro(nodo2Libros * nodo)
+{
+    muestraUnLibro(nodo->dato);
+}
+void muestraListaLibros(nodo2Libros * lista)
+{
+
+    while(lista)
+    {
+        muestraNodoDobleLibro(lista);
+        lista = lista->ste;
+    }
 }

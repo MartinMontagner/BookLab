@@ -16,13 +16,25 @@
     struct nodo2Libros * ste;
     struct nodo2Libros * ante;
 }nodo2Libros;
-
-stLibro cargaUnLibro();
+///Carga de libros
+stLibro cargaRandomLibro();
+stLibro cargaUnLibro(nodo2Libros * listaDoble);
+///Funciones de listas que devuelven listas
 nodo2Libros * inicListaDoble();
-nodo2Libros *insertarNodoPorId (nodo2Libros * lista, nodo2Libros * nuevoNodo);
+nodo2Libros * insertarNodoPorId (nodo2Libros * lista, nodo2Libros * nuevoNodo);
 nodo2Libros * crearNodoDoble(stLibro libro);
-nodo2Libros *  archivoToLista2(char nombreArchivo[], nodo2Libros * listaDoble);
+nodo2Libros * agregarPrincipioLibro(nodo2Libros * listaDoble, nodo2Libros * nuevo);
+nodo2Libros * buscarUltimoLibro(nodo2Libros* listaDoble);
+nodo2Libros * agregarAlFinalLibro(nodo2Libros * listaDoble, nodo2Libros* nuevo);
+nodo2Libros * borrarPrimerNodoListaLibros(nodo2Libros * lista);
+nodo2Libros * buscaLibrosPorCategoria (nodo2Libros * lista, char categoria[]);
+///Busqueda de Id para seguir incrementando
+int buscarUltimoId (nodo2Libros* listaDoble);
+///Funciones para mostrar
 void muestraUnLibro(stLibro a);
+void muestraNodoDobleLibro(nodo2Libros * nodo);
+void muestraListaLibros(nodo2Libros * lista);
+///Funciones para crear contenido random
 int randomRango(int min, int max);
 void setTituloRandom(char titulo[]);
 void setEditorialRandom(char editorial[]);

@@ -162,38 +162,38 @@ int verificarPassword(char claveIngresado[], nodoListaUsuarios * userAux)
     }
     return flag;
 }
-int verificacionPasswordCondiciones(nodoListaUsuarios * user)//funcion para cuando se registran personas
-{
-    int tieneMayuscula = 0;
-    int tieneMinuscula = 0;
-    int flag = 0;
-    char password[50];
-    strcpy(password,user->usuario.password);
-    if(user)
-    {
-
-        while (*password)  // Mientras no lleguemos al final de la cadena
-        {
-
-            if (isupper((unsigned char)*password))  // Verifica si el carácter actual es mayúscula
-            {
-                tieneMayuscula = 1;
-            }
-            else if (islower((unsigned char)*password))  // Verifica si el carácter actual es minúscula
-            {
-                tieneMinuscula = 1;
-            }
-
-            // Si ya se encontró al menos una mayúscula y una minúscula
-            if (tieneMayuscula && tieneMinuscula)
-            {
-                flag = 1;
-                break;  // Salimos del bucle porque ya encontramos lo que necesitamos
-            }
-
-            password++;  // Avanzamos al siguiente carácter
-        }
-    }
-    return flag;
-}
-
+//int verificacionPasswordCondiciones(nodoListaUsuarios * user)//funcion para cuando se registran personas
+//{
+//    int tieneMayuscula = 0;
+//    int tieneMinuscula = 0;
+//    int flag = 0;
+//    char password[50];
+//    strcpy(password,user->usuario.password);
+//    if(user)
+//    {
+//
+//        while (*password)  // Mientras no lleguemos al final de la cadena
+//        {
+//
+//            if (isupper((unsigned char)*password))  // Verifica si el carácter actual es mayúscula
+//            {
+//                tieneMayuscula = 1;
+//            }
+//            else if (islower((unsigned char)*password))  // Verifica si el carácter actual es minúscula
+//            {
+//                tieneMinuscula = 1;
+//            }
+//
+//            // Si ya se encontró al menos una mayúscula y una minúscula
+//            if (tieneMayuscula && tieneMinuscula)
+//            {
+//                flag = 1;
+//                break;  // Salimos del bucle porque ya encontramos lo que necesitamos
+//            }
+//
+//            password++;  // Avanzamos al siguiente carácter
+//        }
+//    }
+//    return flag;
+//}
+//

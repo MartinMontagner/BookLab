@@ -15,13 +15,14 @@
 	"user.h"
 	<ctype.h>
 
-1726268750 source:c:\users\carla\desktop\booklab\main.c
+1726302198 source:c:\users\carla\desktop\booklab\main.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
 	<strings.h>
 	<time.h>
 	"user.h"
+	"libros.h"
 
 1726269882 c:\users\carla\desktop\booklab\user.h
 	<stdio.h>
@@ -29,4 +30,28 @@
 	<conio.h>
 	<strings.h>
 	<time.h>
+
+1726290065 source:c:\users\carla\desktop\booklab\controlador.c
+	"controlador.h"
+
+1726268750 c:\users\carla\desktop\booklab\controlador.h
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<strings.h>
+	<time.h>
+	"user.h"
+
+1726289847 source:c:\users\carla\desktop\booklab\user.c
+	"user.h"
+	<ctype.h>
+
+1726301938 c:\users\carla\desktop\booklab\libros.h
+
+1726302309 source:c:\users\carla\desktop\booklab\libros.c
+	"libros.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
 
