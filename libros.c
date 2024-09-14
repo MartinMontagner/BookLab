@@ -172,9 +172,7 @@ nodo2Libros * buscaLibrosPorCategoria (nodo2Libros * lista, char categoria[])
     nodo2Libros * listaCategoria=NULL;
 
     nodo2Libros * actual= lista;
-    if(actual)
-    {
-        while (actual->ste!=NULL)
+        while (actual)
         {
             if(strcmpi(actual->dato.categoria,categoria)==0)
             {
@@ -182,7 +180,6 @@ nodo2Libros * buscaLibrosPorCategoria (nodo2Libros * lista, char categoria[])
             }
             actual=actual->ste;
         }
-    }
 
     if(!listaCategoria)
     {

@@ -23,15 +23,15 @@ int main()
     lista = archivoToLista2(AR_ARCHIVO,lista);
     printf("\nLista Doble de Libros \n");
     muestraListaLibros(lista);
-    printf("\nIngrese la categoria que desea buscar: \n");
+    /*printf("\nIngrese la categoria que desea buscar: \n");
     gets(categoria);
     listaCategoria=buscaLibrosPorCategoria(lista,categoria);
-    muestraListaLibros(listaCategoria);
-    /*libro1=cargaUnLibro(lista);
+    muestraListaLibros(listaCategoria);*/
+    libro1=cargaUnLibro(lista);
     nuevo=crearNodoDoble(libro1);
     insertarNodoPorId(lista,nuevo);
     printf("\nLista con nuevo libro");
-    muestraListaLibros(lista);*/
+    muestraListaLibros(lista);
     printf("Hello world!\n");
     system("pause");
     return 0;
