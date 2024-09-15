@@ -19,19 +19,31 @@ int main()
     nodo2Libros* lista=inicListaDoble();
     nodo2Libros* nuevo= inicListaDoble();
     nodo2Libros * listaCategoria=inicListaDoble();
+    nodo2Libros * listaAutor= inicListaDoble();
+    nodo2Libros * listaTitulo= inicListaDoble();
     char categoria[50];
+    char autor[50];
+    char titulo[50];
     lista = archivoToLista2(AR_ARCHIVO,lista);
     printf("\nLista Doble de Libros \n");
     muestraListaLibros(lista);
-    /*printf("\nIngrese la categoria que desea buscar: \n");
+    printf("\nIngrese la categoria que desea buscar: \n");
     gets(categoria);
     listaCategoria=buscaLibrosPorCategoria(lista,categoria);
-    muestraListaLibros(listaCategoria);*/
+    muestraListaLibros(listaCategoria);
     libro1=cargaUnLibro(lista);
     nuevo=crearNodoDoble(libro1);
     insertarNodoPorId(lista,nuevo);
-    printf("\nLista con nuevo libro");
-    muestraListaLibros(lista);
+    printf("\nIngrese el autor que desea buscar: \n");
+    gets(autor);
+    listaAutor=buscaLibrosPorAutor(lista,autor);
+    muestraListaLibros(listaAutor);
+    printf("\nIngrese el titulo que desea buscar: \n");
+    gets(titulo);
+    listaTitulo=buscaLibrosPorTitulo(lista,titulo);
+    muestraListaLibros(listaTitulo);
+    /*printf("\nLista con nuevo libro");
+    muestraListaLibros(lista);*/
     printf("Hello world!\n");
     system("pause");
     return 0;
@@ -74,7 +86,7 @@ nodo2Libros *  archivoToLista2(char nombreArchivo[], nodo2Libros * listaDoble)
     {
         while(fread(&aux, sizeof(stLibro), 1, buffer) > 0)
         {
-            listaDoble = insertarNodoPorId(listaDoble,crearNodoDoble(aux));//agregarEnOrden ?
+            listaDoble = insertarNodoPorId(listaDoble,crearNodoDoble(aux));
         }
         fclose(buffer);
     }
