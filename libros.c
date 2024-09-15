@@ -107,6 +107,13 @@ stLibro cargaRandomLibro()
     libro.valoracion=0;
     return libro;
 }
+void * cargarLibroEnLista(nodo2Libros*lista){
+    stLibro libro1;
+    nodo2Libros* nuevo=NULL;
+    libro1=cargaUnLibro(lista);
+    nuevo=crearNodoDoble(libro1);
+    insertarNodoPorId(lista,nuevo);
+}
 ///Busqueda de Id para seguir incrementando
 int buscarUltimoId (nodo2Libros* listaDoble)
 {
@@ -196,6 +203,7 @@ nodo2Libros* buscarUltimoLibro(nodo2Libros* listaDoble)
     }
     return seg;
 }
+
 //preguntar si esta ok
 nodo2Libros * buscaLibrosPorCategoria (nodo2Libros * lista, char categoria[])
 {
@@ -333,4 +341,28 @@ void muestraListaLibros(nodo2Libros * lista)
         muestraNodoDobleLibro(lista);
         lista = lista->ste;
     }
+}
+void verLibrosPorAutor (nodo2Libros* lista){
+    char autor[50];
+    nodo2Libros*listaAutor=NULL;
+    printf("\nIngrese el autor que desea buscar: \n");
+    gets(autor);
+    listaAutor=buscaLibrosPorAutor(lista,autor);
+    muestraListaLibros(listaAutor);
+}
+void verLibrosPorCategoria (nodo2Libros* lista){
+    char categoria[50];
+    nodo2Libros*listaCategoria=NULL;
+    printf("\nIngrese la categoria que desea buscar: \n");
+    gets(categoria);
+    listaCategoria=buscaLibrosPorCategoria(lista,categoria);
+    muestraListaLibros(listaCategoria);
+}
+void verLibrosPorTitulo (nodo2Libros* lista){
+    char titulo[50];
+    nodo2Libros* listaTitulo=NULL;
+    printf("\nIngrese el titulo que desea buscar: \n");
+    gets(titulo);
+    listaTitulo=buscaLibrosPorTitulo(lista,titulo);
+    muestraListaLibros(listaTitulo);
 }

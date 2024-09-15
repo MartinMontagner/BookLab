@@ -19,6 +19,7 @@
 ///Carga de libros
 stLibro cargaRandomLibro();
 stLibro cargaUnLibro(nodo2Libros * listaDoble);
+void * cargarLibroEnLista(nodo2Libros*lista);
 ///Funciones de listas que devuelven listas
 nodo2Libros * inicListaDoble();
 nodo2Libros * insertarNodoPorId (nodo2Libros * lista, nodo2Libros * nuevoNodo);
@@ -39,6 +40,9 @@ int buscarUltimoId (nodo2Libros* listaDoble);
 void muestraUnLibro(stLibro a);
 void muestraNodoDobleLibro(nodo2Libros * nodo);
 void muestraListaLibros(nodo2Libros * lista);
+void verLibrosPorTitulo (nodo2Libros* lista);
+void verLibrosPorCategoria (nodo2Libros* lista);
+void verLibrosPorAutor (nodo2Libros* lista);
 ///Funciones para crear contenido random
 int randomRango(int min, int max);
 void setTituloRandom(char titulo[]);
