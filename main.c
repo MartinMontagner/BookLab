@@ -20,12 +20,13 @@ int main()
     lista = archivoToLista2(AR_ARCHIVO,lista);
     printf("\nLista Doble de Libros \n");
     muestraListaLibros(lista);
-    cargarLibroEnLista(lista);
-    verLibrosPorAutor(lista);
+    lista=cargarLibroEnLista(lista);
+    muestraListaLibros(lista);
     verLibrosPorCategoria(lista);
     verLibrosPorTitulo(lista);
+    verLibrosPorAutor(lista);
 //    printf("\nLista con nuevo libro");
-//    muestraListaLibros(lista);
+
     printf("Hello world!\n");
     system("pause");
     return 0;
