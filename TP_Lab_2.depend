@@ -55,3 +55,39 @@
 	<string.h>
 	<conio.h>
 
+1726503668 source:c:\users\40306\desktop\booklab\libros.c
+	"libros.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+
+1726503668 c:\users\40306\desktop\booklab\libros.h
+
+1726503668 source:c:\users\40306\desktop\booklab\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<strings.h>
+	<time.h>
+	"user.h"
+	"libros.h"
+
+1726503668 c:\users\40306\desktop\booklab\user.h
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<strings.h>
+	<time.h>
+
+1726504691 source:c:\users\40306\desktop\booklab\controlador.c
+	"controlador.h"
+
+1726503668 c:\users\40306\desktop\booklab\controlador.h
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<strings.h>
+	<time.h>
+	"user.h"
+

@@ -162,38 +162,114 @@ int verificarPassword(char claveIngresado[], nodoListaUsuarios * userAux)
     }
     return flag;
 }
-//int verificacionPasswordCondiciones(nodoListaUsuarios * user)//funcion para cuando se registran personas
-//{
-//    int tieneMayuscula = 0;
-//    int tieneMinuscula = 0;
-//    int flag = 0;
-//    char password[50];
-//    strcpy(password,user->usuario.password);
-//    if(user)
-//    {
-//
-//        while (*password)  // Mientras no lleguemos al final de la cadena
-//        {
-//
-//            if (isupper((unsigned char)*password))  // Verifica si el carácter actual es mayúscula
-//            {
-//                tieneMayuscula = 1;
-//            }
-//            else if (islower((unsigned char)*password))  // Verifica si el carácter actual es minúscula
-//            {
-//                tieneMinuscula = 1;
-//            }
-//
-//            // Si ya se encontró al menos una mayúscula y una minúscula
-//            if (tieneMayuscula && tieneMinuscula)
-//            {
-//                flag = 1;
-//                break;  // Salimos del bucle porque ya encontramos lo que necesitamos
-//            }
-//
-//            password++;  // Avanzamos al siguiente carácter
-//        }
-//    }
-//    return flag;
-//}
-//
+int verificacionPasswordCondiciones(nodoListaUsuarios * user)  // Función para cuando se registran personas
+{
+    int tieneMayuscula = 0;
+    int tieneMinuscula = 0;
+    int flag = 0;
+
+    // Verificamos que el usuario no sea NULL y que la contraseña no sea NULL
+    if(user && user->usuario.password)
+    {
+        char *password = user->usuario.password;  // Apuntamos directamente a la contraseña del usuario
+
+        while (*password)  // Mientras no lleguemos al final de la cadena
+        {
+            if (isupper((unsigned char)*password))  // Verifica si el carácter actual es mayúscula
+            {
+                tieneMayuscula = 1;
+            }
+            else if (islower((unsigned char)*password))  // Verifica si el carácter actual es minúscula
+            {
+                tieneMinuscula = 1;
+            }
+
+            // Si ya se encontró al menos una mayúscula y una minúscula
+            if (tieneMayuscula && tieneMinuscula)
+            {
+                flag = 1;
+                break;  // Salimos del bucle porque ya encontramos lo que necesitamos
+            }
+
+            password++;  // Avanzamos al siguiente carácter
+        }
+    }
+
+    return flag;
+}
+
+nodoListaUsuarios * crearUser(nodoListaUsuarios * lista)
+{
+    nodoListaUsuarios * aux;
+    aux=inicLista();
+    stUsuario userAux=cargaDatosUser(lista);
+    aux=crearNodo(userAux);
+    return aux;
+}
+stUsuario cargaDatosUser(nodoListaUsuarios * lista)
+{
+    stUsuario user;
+
+    printf("Ingrese su email: \n");
+    fflush(stdin);
+    gets(user.email);
+
+    printf("Ingrese su password: \n");
+    fflush(stdin);
+    gets(user.password);
+
+    printf("Ingrese su nombre: \n");
+    fflush(stdin);
+    gets(user.username);
+
+    printf("Ingrese su DNI: \n");
+    fflush(stdin);
+    gets(user.dni);
+
+    printf("Ingrese su fecha de nacimiento: \n");
+    fflush(stdin);
+    gets(user.fechaNacimiento);
+
+    printf("Ingrese su genero: \n");
+    fflush(stdin);
+    gets(user.genero);
+
+    user.domicilio=cargaDomicilio(user);
+
+    user.librosFavoritos=0;
+    user.eliminado=0;
+    user.esAdmin=0;
+    user.idUsuario=buscarUltimo(lista)->usuario.idUsuario+1;
+
+    return user;
+
+}
+stDomicilio cargaDomicilio(stUsuario user)
+{
+    printf("Ingrese calle de su domicilio: \n");
+    fflush(stdin);
+    gets(user.domicilio.calle);
+
+    printf("Ingrese altura de su domicilio: \n");
+    fflush(stdin);
+    gets(user.domicilio.altura);
+
+    printf("Ingrese ciudad donde vive: \n");
+    fflush(stdin);
+    gets(user.domicilio.ciudad);
+
+    printf("Ingrese localidad: \n");
+    fflush(stdin);
+    gets(user.domicilio.localidad);
+
+
+    printf("Ingrese pais de residencia: \n");
+    fflush(stdin);
+    gets(user.domicilio.pais);
+
+    printf("Ingrese codigo postal: \n");
+    fflush(stdin);
+    gets(user.domicilio.cp);
+
+    return user.domicilio;
+}
