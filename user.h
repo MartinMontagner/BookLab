@@ -56,7 +56,9 @@ int verificar(char userIngresado[],char claveIngresado[],nodoListaUsuarios * lis
 nodoListaUsuarios * buscarUsuario(char userIngresado[], nodoListaUsuarios * lista);
 int verificarPassword(char claveIngresado[], nodoListaUsuarios * userAux);
 int verificacionPasswordCondiciones(nodoListaUsuarios * user);
-
+nodoListaUsuarios * crearUser(nodoListaUsuarios * lista);
+stUsuario cargaDatosUser(nodoListaUsuarios * lista);
+stDomicilio cargaDomicilio(stUsuario user);
 
 
 #endif // USER_H_INCLUDED

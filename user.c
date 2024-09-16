@@ -236,10 +236,15 @@ stUsuario cargaDatosUser(nodoListaUsuarios * lista)
 
     user.domicilio=cargaDomicilio(user);
 
-    user.librosFavoritos=0;
+    user.librosFavoritos[0]=0;
     user.eliminado=0;
     user.esAdmin=0;
-    user.idUsuario=buscarUltimo(lista)->usuario.idUsuario+1;
+    nodoListaUsuarios * ultimo = buscarUltimo(lista);
+    if (ultimo != NULL) {
+        user.idUsuario = ultimo->usuario.idUsuario + 1;
+    } else {
+        user.idUsuario = 1;  // Primer usuario en la lista
+    }
 
     return user;
 

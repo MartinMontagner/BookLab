@@ -43,13 +43,13 @@ void login (nodoListaUsuarios * lista)
         nodoListaUsuarios * aux=buscarUsuario(email,lista);// modificar linea y crear funcion necesaria para la busqueda
         if(aux->usuario.esAdmin==1)
         {
-            adminMenu();// crear un menu para el administrador
+            //adminMenu();// crear un menu para el administrador
         }
         else
         {
             if(aux->usuario.eliminado==0)//crear y modificar funcion
             {
-                clienteMenu();// crear un menu para el cliente
+                //clienteMenu();// crear un menu para el cliente
             }
             else
             {
