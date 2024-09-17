@@ -19,11 +19,13 @@ int main()
     stUsuario user;
     stDomicilio domicilio;
     nodoListaUsuarios* listauser=inicLista();
-//    nodo2Libros* lista=inicListaDoble();
-//    lista = archivoToLista2(AR_ARCHIVO,lista);
-    user=cargaDatosUser(listauser);
-    printf("\nACA NO ES\n");
-    muestraLista(listauser);
+    nodo2Libros* lista=inicListaDoble();
+    lista = archivoToLista2(AR_ARCHIVO,lista);
+    lista=cargarLibroEnLista(lista);
+    muestraListaLibros(lista);
+//    listauser=crearUser(listauser);
+//    printf("\nACA NO ES\n");
+//    muestraLista(listauser);
 
     printf("Hello world!\n");
     system("pause");

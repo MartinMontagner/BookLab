@@ -59,15 +59,11 @@ void setCategoria(char categoria[])
     strcpy(categoria, arregloCategoria[indiceAleatorio]);
 }
 ///Carga de libros
-stLibro cargaUnLibro(nodo2Libros * listaDoble)
+stLibro cargaUnLibro()
 {
 
     stLibro aux;
-    int ultimo=buscarUltimoId(listaDoble);
-    int id=ultimo;
-    id++;
-    aux.idLibro=id;
-    /*idLibro*/
+
     printf("Ingrese el titulo del libro: \n");
     fflush(stdin);
     gets(aux.titulo);
@@ -114,7 +110,10 @@ nodo2Libros * cargarLibroEnLista(nodo2Libros * lista)
     char opcion='s';
     while(opcion=='s')
     {
-        libro1=cargaUnLibro(lista);
+        libro1=cargaUnLibro();
+        int ultimo=buscarUltimoId(lista);
+        ultimo++;
+        libro1.idLibro=ultimo;
         nuevo=crearNodoDoble(libro1);
         lista=insertarNodoPorId(lista,nuevo);
         printf("\nDesea seguir agregando?s/n\n");

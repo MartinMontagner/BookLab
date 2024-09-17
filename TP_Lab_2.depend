@@ -15,7 +15,7 @@
 	"user.h"
 	<ctype.h>
 
-1726612830 source:c:\users\carla\desktop\booklab\main.c
+1726615887 source:c:\users\carla\desktop\booklab\main.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
@@ -42,13 +42,13 @@
 	<time.h>
 	"user.h"
 
-1726612500 source:c:\users\carla\desktop\booklab\user.c
+1726613246 source:c:\users\carla\desktop\booklab\user.c
 	"user.h"
 	<ctype.h>
 
-1726608953 c:\users\carla\desktop\booklab\libros.h
+1726615887 c:\users\carla\desktop\booklab\libros.h
 
-1726608817 source:c:\users\carla\desktop\booklab\libros.c
+1726616147 source:c:\users\carla\desktop\booklab\libros.c
 	"libros.h"
 	<stdio.h>
 	<stdlib.h>

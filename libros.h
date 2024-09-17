@@ -18,7 +18,7 @@
 }nodo2Libros;
 ///Carga de libros
 stLibro cargaRandomLibro();
-stLibro cargaUnLibro(nodo2Libros * listaDoble);
+stLibro cargaUnLibro();
 nodo2Libros *  cargarLibroEnLista(nodo2Libros*lista);
 ///Funciones de listas que devuelven listas
 nodo2Libros * inicListaDoble();
