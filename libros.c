@@ -123,7 +123,27 @@ nodo2Libros * cargarLibroEnLista(nodo2Libros * lista)
     }
     return lista;
 }
-
+//void agregarLibrosAlArchivo(nodo2Libros* lista,char nombreArchivo []) {
+//    FILE *archivo = fopen(nombreArchivo, "ab");
+//
+//    if (archivo == NULL) {
+//        printf("Error al abrir el archivo.\n");
+//    }
+//
+//    nodo2Libros* actual = lista;
+//
+//
+//    while (actual != NULL) {
+//w
+//        if (actual->dato.eliminado == 0 ) {
+//            fwrite(&actual, sizeof(stLibro), 1, archivo);
+//        }
+//        actual = actual->siguiente;
+//    }
+//
+//    fclose(archivo);
+//    printf("Libros agregados al archivo %s.\n", nombreArchivo);
+//}
 ///Busqueda de Id para seguir incrementando
 int buscarUltimoId (nodo2Libros* listaDoble)
 {
@@ -173,36 +193,7 @@ nodo2Libros * agregarAlFinalLibro(nodo2Libros * listaDoble, nodo2Libros* nuevo)
 
     return listaDoble;
 }
-nodo2Libros * agregarAlFinalLibroCopia(nodo2Libros * listaDoble, nodo2Libros* nuevo)
-{
-    nodo2Libros* nuevoNodo= crearNodoDoble(nuevo->dato);
-    nuevoNodo->ante=listaDoble;
-    nuevoNodo->ste=NULL;
 
-    if(!listaDoble)
-    {
-        listaDoble = nuevoNodo;
-    }
-    else
-    {
-        nodo2Libros* ultimo = buscarUltimoLibro(listaDoble);
-        ultimo->ste = nuevoNodo;
-        nuevoNodo->ante = ultimo;
-    }
-
-    return listaDoble;
-}
-nodo2Libros *agregarPrincipioLibroCopia(nodo2Libros *lista, nodo2Libros *nodoOriginal)
-{
-    nodo2Libros* nuevoNodo= crearNodoDoble(nodoOriginal->dato);
-    nuevoNodo->ste=lista;
-    if (lista != NULL)
-    {
-        lista->ante = nuevoNodo;
-    }
-
-    return nuevoNodo;
-}
 //Funciones de busqueda
 nodo2Libros* buscarUltimoLibro(nodo2Libros* listaDoble)
 {
@@ -225,7 +216,7 @@ nodo2Libros * buscaLibrosPorCategoria (nodo2Libros * lista, char categoria[])
         {
             if(strcmpi(actual->dato.categoria,categoria)==0)
             {
-                listaCategoria=agregarAlFinalLibroCopia(listaCategoria,actual);
+                listaCategoria=agregarAlFinalLibro(listaCategoria,crearNodoDoble(actual->dato));
             }
             actual=actual->ste;
         }
@@ -246,7 +237,7 @@ nodo2Libros * buscaLibrosPorAutor (nodo2Libros * lista, char autor[])
         {
             if(strcmpi(actual->dato.autor,autor)==0)
             {
-                listaAutor=agregarAlFinalLibroCopia(listaAutor,actual);
+                listaAutor=agregarAlFinalLibro(listaAutor,crearNodoDoble(actual->dato));
             }
             actual=actual->ste;
         }
@@ -267,7 +258,7 @@ nodo2Libros * buscaLibrosPorTitulo (nodo2Libros * lista, char titulo[])
         {
             if(strcmpi(actual->dato.titulo,titulo)==0)
             {
-                listaTitulo=agregarAlFinalLibroCopia(listaTitulo,actual);
+                listaTitulo=agregarAlFinalLibro(listaTitulo,crearNodoDoble(actual->dato));
             }
             actual=actual->ste;
         }

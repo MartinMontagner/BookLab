@@ -25,9 +25,7 @@ nodo2Libros * inicListaDoble();
 nodo2Libros * insertarNodoPorId (nodo2Libros * lista, nodo2Libros * nuevoNodo);
 nodo2Libros * crearNodoDoble(stLibro libro);
 nodo2Libros * agregarPrincipioLibro(nodo2Libros * listaDoble, nodo2Libros * nuevo);
-nodo2Libros * agregarPrincipioLibroCopia(nodo2Libros *lista, nodo2Libros *nodoOriginal);
 nodo2Libros * agregarAlFinalLibro(nodo2Libros * listaDoble, nodo2Libros* nuevo);
-nodo2Libros * agregarAlFinalLibroCopia(nodo2Libros * listaDoble, nodo2Libros* nuevo);
 nodo2Libros * borrarPrimerNodoListaLibros(nodo2Libros * lista);
 //Funciones de busqueda
 nodo2Libros * buscarUltimoLibro(nodo2Libros* listaDoble);

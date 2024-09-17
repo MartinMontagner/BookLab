@@ -8,7 +8,7 @@
 #include "libros.h"
 #define AR_ARCHIVO "libros.dat"
 
-void cargarLibrosArchivo(char nombreArchivo[]);
+void cargarLibrosArchivoRandom(char nombreArchivo[]);
 nodoListaUsuarios * archivoToLista(char nombreArchivo[], nodoListaUsuarios * lista);
 nodo2Libros * archivoToLista2(char nombreArchivo[], nodo2Libros * listaDoble);
 
@@ -16,22 +16,20 @@ int main()
 {
     srand(time(NULL));
     stLibro libro1;
-    nodo2Libros* lista=inicListaDoble();
-    lista = archivoToLista2(AR_ARCHIVO,lista);
-    printf("\nLista Doble de Libros \n");
-    muestraListaLibros(lista);
-    lista=cargarLibroEnLista(lista);
-    muestraListaLibros(lista);
-    verLibrosPorCategoria(lista);
-    verLibrosPorTitulo(lista);
-    verLibrosPorAutor(lista);
-//    printf("\nLista con nuevo libro");
+    stUsuario user;
+    stDomicilio domicilio;
+    nodoListaUsuarios* listauser=inicLista();
+//    nodo2Libros* lista=inicListaDoble();
+//    lista = archivoToLista2(AR_ARCHIVO,lista);
+    user=cargaDatosUser(listauser);
+    printf("\nACA NO ES\n");
+    muestraLista(listauser);
 
     printf("Hello world!\n");
     system("pause");
     return 0;
 }
-void cargarLibrosArchivo(char nombreArchivo[])
+void cargarLibrosArchivoRandom(char nombreArchivo[])
 {
 
     FILE * buffer = fopen(nombreArchivo,"ab");

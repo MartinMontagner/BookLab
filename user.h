@@ -58,7 +58,7 @@ int verificarPassword(char claveIngresado[], nodoListaUsuarios * userAux);
 int verificacionPasswordCondiciones(nodoListaUsuarios * user);
 nodoListaUsuarios * crearUser(nodoListaUsuarios * lista);
 stUsuario cargaDatosUser(nodoListaUsuarios * lista);
-stDomicilio cargaDomicilio(stUsuario user);
+stDomicilio cargaDomicilio();
 
 
 #endif // USER_H_INCLUDED

@@ -23,7 +23,7 @@ void muestraUnUsuario(stUsuario u)
 
     printf("\n-----------------------\n");
     printf("Nombre: ..............%s\n",u.username);
-    printf("Direccion: ..............%s %s %s\n",u.domicilio.calle, "  ", u.domicilio.altura);
+    printf("Direccion: ..............%s %s %d\n",u.domicilio.calle, "  ", u.domicilio.altura);
     printf("DNI: ..............%s\n",u.dni);
     printf("Email: ................%s\n",u.email);
     printf("Id: ................%i\n",u.idUsuario);
@@ -232,49 +232,55 @@ stUsuario cargaDatosUser(nodoListaUsuarios * lista)
 
     printf("Ingrese su genero: \n");
     fflush(stdin);
-    gets(user.genero);
-
-    user.domicilio=cargaDomicilio(user);
-
+    //    gets(user.genero);
+    scanf("%c",&user.genero);
+    user.domicilio=cargaDomicilio();
+    printf("\nDESPUES DE CARGA DOMICILIO\n");
     user.librosFavoritos[0]=0;
     user.eliminado=0;
     user.esAdmin=0;
-    nodoListaUsuarios * ultimo = buscarUltimo(lista);
+    printf("\nDESPUES DE ADMIN\n");
+    nodoListaUsuarios * ultimo = NULL;//buscarUltimo(lista);
     if (ultimo != NULL) {
         user.idUsuario = ultimo->usuario.idUsuario + 1;
     } else {
+        printf("\n ID usuario 1");
         user.idUsuario = 1;  // Primer usuario en la lista
     }
 
     return user;
 
 }
-stDomicilio cargaDomicilio(stUsuario user)
+stDomicilio cargaDomicilio()
 {
+
+    stDomicilio domicilio;
     printf("Ingrese calle de su domicilio: \n");
     fflush(stdin);
-    gets(user.domicilio.calle);
+    gets(domicilio.calle);
 
     printf("Ingrese altura de su domicilio: \n");
     fflush(stdin);
-    gets(user.domicilio.altura);
+//    gets(user.domicilio.altura);
+    scanf("%d",&domicilio.altura);
 
     printf("Ingrese ciudad donde vive: \n");
     fflush(stdin);
-    gets(user.domicilio.ciudad);
+    gets(domicilio.ciudad);
 
     printf("Ingrese localidad: \n");
     fflush(stdin);
-    gets(user.domicilio.localidad);
+    gets(domicilio.localidad);
 
 
     printf("Ingrese pais de residencia: \n");
     fflush(stdin);
-    gets(user.domicilio.pais);
+    gets(domicilio.pais);
 
     printf("Ingrese codigo postal: \n");
     fflush(stdin);
-    gets(user.domicilio.cp);
+//    gets(user.domicilio.cp);
+    scanf("%d",&domicilio.cp);
 
-    return user.domicilio;
+    return domicilio;
 }
