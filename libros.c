@@ -106,7 +106,6 @@ stLibro cargaRandomLibro()
 nodo2Libros * cargarLibroEnLista(nodo2Libros * lista)
 {
     stLibro libro1;
-    nodo2Libros* nuevo=NULL;
     char opcion='s';
     while(opcion=='s')
     {
@@ -120,27 +119,26 @@ nodo2Libros * cargarLibroEnLista(nodo2Libros * lista)
     return lista;
 }
 
-//void agregarLibrosAlArchivo(nodo2Libros* lista,char nombreArchivo []) {
-//    FILE *archivo = fopen(nombreArchivo, "wb");
-//
-//    if (!archivo) {
-//        printf("Error al abrir el archivo.\n");
-//    }
-//
-//    nodo2Libros* actual = lista;
-//
-//
-//    while (actual) {
-//
-//        {
-//            fwrite(&actual, sizeof(stLibro), 1, archivo);
-//        }
-//        actual = actual->siguiente;
-//    }
-//
-//    fclose(archivo);
-//    printf("Libros agregados al archivo %s.\n", nombreArchivo);
-//}
+void agregarLibrosAlArchivo(nodo2Libros* lista,char nombreArchivo []) {
+    FILE *archivo = fopen(nombreArchivo, "wb");
+
+    if (!archivo) {
+        printf("Error al abrir el archivo.\n");
+    }
+
+    nodo2Libros* actual = lista;
+
+
+    while (actual) {
+
+        {
+            fwrite(&actual->dato, sizeof(stLibro), 1, archivo);
+        }
+        actual = actual->ste;
+    }
+
+    fclose(archivo);
+}
 ///Busqueda de Id para seguir incrementando
 int buscarUltimoId (nodo2Libros* listaDoble)
 {

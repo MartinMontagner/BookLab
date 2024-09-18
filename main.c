@@ -6,7 +6,7 @@
 
 #include "user.h"
 #include "libros.h"
-#define AR_ARCHIVO "libros.dat"
+#define ARCHIVO_LIBROS "libros.dat"
 
 void cargarLibrosArchivoRandom(char nombreArchivo[]);
 nodoListaUsuarios * archivoToLista(char nombreArchivo[], nodoListaUsuarios * lista);
@@ -20,14 +20,15 @@ int main()
     stDomicilio domicilio;
     nodoListaUsuarios* listauser=inicLista();
     nodo2Libros* lista=inicListaDoble();
-    lista = archivoToLista2(AR_ARCHIVO,lista);
-    lista=cargarLibroEnLista(lista);
+    lista = archivoToLista2(ARCHIVO_LIBROS,lista);
+//    lista=cargarLibroEnLista(lista);
     muestraListaLibros(lista);
-    darDeBajaLogica(lista);
+//    darDeBajaLogica(lista);
 //    printf("\nLIBROS SIN EL ELIMINADO\n");
 //    muestraListaLibros(lista);
-    printf("\nLista de libros version ADMIN\n");
-    muestraListaLibrosAdmin(lista);
+//    printf("\nLista de libros version ADMIN\n");
+//    muestraListaLibrosAdmin(lista);
+//    agregarLibrosAlArchivo(lista,ARCHIVO_LIBROS);
 //    listauser=crearUser(listauser);
 //    printf("\nACA NO ES\n");
 //    muestraLista(listauser);

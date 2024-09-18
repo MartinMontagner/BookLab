@@ -49,5 +49,6 @@ int randomRango(int min, int max);
 void setTituloRandom(char titulo[]);
 void setEditorialRandom(char editorial[]);
 void setAutorRandom(char autor[]);
-
+///Funcion de guardar en archivo
+void agregarLibrosAlArchivo(nodo2Libros* lista,char nombreArchivo []);
 #endif // LIBROS_H_INCLUDED
