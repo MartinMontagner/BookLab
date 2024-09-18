@@ -111,30 +111,28 @@ nodo2Libros * cargarLibroEnLista(nodo2Libros * lista)
     while(opcion=='s')
     {
         libro1=cargaUnLibro();
-        int ultimo=buscarUltimoId(lista);
-        ultimo++;
-        libro1.idLibro=ultimo;
-        nuevo=crearNodoDoble(libro1);
-        lista=insertarNodoPorId(lista,nuevo);
+        libro1.idLibro=buscarUltimoId(lista)+1;
+        lista=insertarNodoPorId(lista,crearNodoDoble(libro1));
         printf("\nDesea seguir agregando?s/n\n");
         opcion = getchar();
         while (getchar() != '\n');
     }
     return lista;
 }
+
 //void agregarLibrosAlArchivo(nodo2Libros* lista,char nombreArchivo []) {
-//    FILE *archivo = fopen(nombreArchivo, "ab");
+//    FILE *archivo = fopen(nombreArchivo, "wb");
 //
-//    if (archivo == NULL) {
+//    if (!archivo) {
 //        printf("Error al abrir el archivo.\n");
 //    }
 //
 //    nodo2Libros* actual = lista;
 //
 //
-//    while (actual != NULL) {
-//w
-//        if (actual->dato.eliminado == 0 ) {
+//    while (actual) {
+//
+//        {
 //            fwrite(&actual, sizeof(stLibro), 1, archivo);
 //        }
 //        actual = actual->siguiente;
@@ -147,8 +145,7 @@ nodo2Libros * cargarLibroEnLista(nodo2Libros * lista)
 int buscarUltimoId (nodo2Libros* listaDoble)
 {
     nodo2Libros * ultimo= buscarUltimoLibro(listaDoble);
-    int id=0;
-    id=ultimo->dato.idLibro;
+    int id=ultimo->dato.idLibro;
     return id;
 }
 ///Funciones de listas que devuelven listas
@@ -204,7 +201,7 @@ nodo2Libros* buscarUltimoLibro(nodo2Libros* listaDoble)
     return seg;
 }
 
-//preguntar si esta ok
+
 nodo2Libros * buscaLibrosPorCategoria (nodo2Libros * lista, char categoria[])
 {
     nodo2Libros * listaCategoria= NULL;
@@ -300,33 +297,18 @@ nodo2Libros *insertarNodoPorId (nodo2Libros * lista, nodo2Libros * nuevoNodo)
     }
     return lista;
 }
-nodo2Libros * borrarPrimerNodoListaLibros(nodo2Libros * lista)
-{
-    nodo2Libros * aBorrar = NULL;
 
-    if(lista)
-    {
-        aBorrar = lista;
-        lista = lista->ste;
-        if(lista)
-        {
-            lista->ante = NULL;
-        }
-        free(aBorrar);
-    }
-    return lista;
-}
 ///Funciones para mostrar
 void muestraUnLibro(stLibro a)
 {
 
-    printf("\n-----------------------\n");
-    printf("Nombre: ..............%s\n",a.titulo);
-    printf("Editorial: ..............%s\n",a.editorial);
-    printf("Autor: ..............%s\n",a.autor);
-    printf("Categoria: ................%s\n",a.categoria);
-    printf("ID: ................%d\n",a.idLibro);
-    printf("\n-----------------------\n");
+    printf("\n------------------------------\n");
+    printf("Nombre:...................%s\n",a.titulo);
+    printf("Editorial:................%s\n",a.editorial);
+    printf("Autor:....................%s\n",a.autor);
+    printf("Categoria:................%s\n",a.categoria);
+    printf("ID:.......................%d\n",a.idLibro);
+
 }
 
 void muestraNodoDobleLibro(nodo2Libros * nodo)
@@ -338,8 +320,20 @@ void muestraListaLibros(nodo2Libros * lista)
 
     while(lista)
     {
-        muestraNodoDobleLibro(lista);
+        if(lista->dato.eliminado==0)
+        {
+            muestraNodoDobleLibro(lista);
+        }
         lista = lista->ste;
+    }
+}
+void muestraListaLibrosAdmin (nodo2Libros * lista)
+{
+    while(lista)
+    {
+        muestraNodoDobleLibro(lista);
+        printf("Eliminado:................%d\n",lista->dato.eliminado);
+        lista=lista->ste;
     }
 }
 void verLibrosPorAutor (nodo2Libros* lista)
@@ -368,4 +362,26 @@ void verLibrosPorTitulo (nodo2Libros* lista)
     gets(titulo);
     listaTitulo=buscaLibrosPorTitulo(lista,titulo);
     muestraListaLibros(listaTitulo);
+}
+void darDeBajaLogica (nodo2Libros* lista)
+{
+//    nodo2Libros * actual=lista;
+    int id=0;
+    printf("Ingrese id del libro a ocultar: \n");
+    fflush(stdin);
+    scanf("%d",&id);
+    int flag=0;
+    while(lista!=NULL & flag==0)
+    {
+        if(lista->dato.idLibro==id)
+        {
+            lista->dato.eliminado=1;
+            flag=1;
+        }
+        lista=lista->ste;
+    }
+    if(flag==0)
+    {
+        printf("\nNo se encontro el libro\n");
+    }
 }

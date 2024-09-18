@@ -23,6 +23,11 @@ int main()
     lista = archivoToLista2(AR_ARCHIVO,lista);
     lista=cargarLibroEnLista(lista);
     muestraListaLibros(lista);
+    darDeBajaLogica(lista);
+//    printf("\nLIBROS SIN EL ELIMINADO\n");
+//    muestraListaLibros(lista);
+    printf("\nLista de libros version ADMIN\n");
+    muestraListaLibrosAdmin(lista);
 //    listauser=crearUser(listauser);
 //    printf("\nACA NO ES\n");
 //    muestraLista(listauser);

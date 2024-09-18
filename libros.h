@@ -34,10 +34,13 @@ nodo2Libros * buscaLibrosPorAutor (nodo2Libros * lista, char autor[]);
 nodo2Libros * buscaLibrosPorTitulo (nodo2Libros * lista, char titulo[]);
 ///Busqueda de Id para seguir incrementando
 int buscarUltimoId (nodo2Libros* listaDoble);
+///Dar de baja (eliminado=1)
+void darDeBajaLogica (nodo2Libros* lista);
 ///Funciones para mostrar
 void muestraUnLibro(stLibro a);
 void muestraNodoDobleLibro(nodo2Libros * nodo);
 void muestraListaLibros(nodo2Libros * lista);
+void muestraListaLibrosAdmin (nodo2Libros * lista);
 void verLibrosPorTitulo (nodo2Libros* lista);
 void verLibrosPorCategoria (nodo2Libros* lista);
 void verLibrosPorAutor (nodo2Libros* lista);
