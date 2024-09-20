@@ -14,24 +14,24 @@ nodo2Libros * archivoToLista2(char nombreArchivo[], nodo2Libros * listaDoble);
 
 int main()
 {
-    srand(time(NULL));
-    stLibro libro1;
-    stUsuario user;
-    stDomicilio domicilio;
+//    srand(time(NULL));
+//    stLibro libro1;
+//    stUsuario user;
+//    stDomicilio domicilio;
     nodoListaUsuarios* listauser=inicLista();
-    nodo2Libros* lista=inicListaDoble();
-    lista = archivoToLista2(ARCHIVO_LIBROS,lista);
-//    lista=cargarLibroEnLista(lista);
-    muestraListaLibros(lista);
-//    darDeBajaLogica(lista);
-//    printf("\nLIBROS SIN EL ELIMINADO\n");
+//    nodo2Libros* lista=inicListaDoble();
+//    lista = archivoToLista2(ARCHIVO_LIBROS,lista);
+//    lista=cargarLibroEnLista(lista);//
+   // muestraListaLibros(lista);
+   // darDeBajaLogica(lista);
+    //printf("\nLIBROS SIN EL ELIMINADO\n");
 //    muestraListaLibros(lista);
 //    printf("\nLista de libros version ADMIN\n");
 //    muestraListaLibrosAdmin(lista);
 //    agregarLibrosAlArchivo(lista,ARCHIVO_LIBROS);
-//    listauser=crearUser(listauser);
-//    printf("\nACA NO ES\n");
-//    muestraLista(listauser);
+    listauser=crearNodoUser();
+    printf("\nACA NO ES\n");
+    muestraLista(listauser);
 
     printf("Hello world!\n");
     system("pause");

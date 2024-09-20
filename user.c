@@ -162,16 +162,11 @@ int verificarPassword(char claveIngresado[], nodoListaUsuarios * userAux)
     }
     return flag;
 }
-int verificacionPasswordCondiciones(nodoListaUsuarios * user)  // Función para cuando se registran personas
+int verificacionPasswordCondiciones(char password[])  // Función para cuando se registran personas
 {
     int tieneMayuscula = 0;
     int tieneMinuscula = 0;
     int flag = 0;
-
-    // Verificamos que el usuario no sea NULL y que la contraseña no sea NULL
-    if(user && user->usuario.password)
-    {
-        char *password = user->usuario.password;  // Apuntamos directamente a la contraseña del usuario
 
         while (*password)  // Mientras no lleguemos al final de la cadena
         {
@@ -193,31 +188,32 @@ int verificacionPasswordCondiciones(nodoListaUsuarios * user)  // Función para c
 
             password++;  // Avanzamos al siguiente carácter
         }
-    }
+
 
     return flag;
 }
 
-nodoListaUsuarios * crearUser(nodoListaUsuarios * lista)
+nodoListaUsuarios * crearNodoUser()
 {
     nodoListaUsuarios * aux;
     aux=inicLista();
-    stUsuario userAux=cargaDatosUser(lista);
+    stUsuario userAux=cargaDatosUser();
+    userAux=sumarId(userAux);
     aux=crearNodo(userAux);
     return aux;
 }
-stUsuario cargaDatosUser(nodoListaUsuarios * lista)
+stUsuario cargaDatosUser()
 {
     stUsuario user;
 
     printf("Ingrese su email: \n");
     fflush(stdin);
     gets(user.email);
-
+    do{
     printf("Ingrese su password: \n");
     fflush(stdin);
     gets(user.password);
-
+    }while(verificacionPasswordCondiciones(user.password)==0 );
     printf("Ingrese su nombre: \n");
     fflush(stdin);
     gets(user.username);
@@ -240,13 +236,13 @@ stUsuario cargaDatosUser(nodoListaUsuarios * lista)
     user.eliminado=0;
     user.esAdmin=0;
     printf("\nDESPUES DE ADMIN\n");
-    nodoListaUsuarios * ultimo = NULL;//buscarUltimo(lista);
-    if (ultimo != NULL) {
-        user.idUsuario = ultimo->usuario.idUsuario + 1;
-    } else {
-        printf("\n ID usuario 1");
-        user.idUsuario = 1;  // Primer usuario en la lista
-    }
+    //nodoListaUsuarios * ultimo = NULL;//buscarUltimo(lista);
+//    if (ultimo != NULL) {
+//        user.idUsuario = ultimo->usuario.idUsuario + 1;
+//    } else {
+//        printf("\n ID usuario 1");
+//        user.idUsuario = 1;  // Primer usuario en la lista
+//    }
 
     return user;
 
@@ -283,4 +279,8 @@ stDomicilio cargaDomicilio()
     scanf("%d",&domicilio.cp);
 
     return domicilio;
+}
+stUsuario sumarId(stUsuario user)
+{
+
 }

@@ -55,9 +55,9 @@ nodoListaUsuarios * agregarEnOrdenId(nodoListaUsuarios * lista, nodoListaUsuario
 int verificar(char userIngresado[],char claveIngresado[],nodoListaUsuarios * lista);
 nodoListaUsuarios * buscarUsuario(char userIngresado[], nodoListaUsuarios * lista);
 int verificarPassword(char claveIngresado[], nodoListaUsuarios * userAux);
-int verificacionPasswordCondiciones(nodoListaUsuarios * user);
-nodoListaUsuarios * crearUser(nodoListaUsuarios * lista);
-stUsuario cargaDatosUser(nodoListaUsuarios * lista);
+int verificacionPasswordCondiciones(char password[]);
+nodoListaUsuarios * crearNodoUser();
+stUsuario cargaDatosUser();
 stDomicilio cargaDomicilio();
 
 

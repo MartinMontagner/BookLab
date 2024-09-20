@@ -63,7 +63,7 @@ void login (nodoListaUsuarios * lista)
 void registrarse(nodoListaUsuarios * lista)
 {
     nodoListaUsuarios * user;
-    user=crearUser(lista);
+    user=crearNodoUser();
     if(!lista)
     {
         user=lista;
