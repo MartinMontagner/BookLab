@@ -71,7 +71,7 @@ nodoListaUsuarios* agregarAlFinal(nodoListaUsuarios* lista, nodoListaUsuarios* n
 nodoListaUsuarios * agregarEnOrdenId(nodoListaUsuarios * lista, nodoListaUsuarios * nuevo)
 {
 
-    if(!lista)
+    if(lista==NULL)
     {
         lista = nuevo;
     }
@@ -79,18 +79,21 @@ nodoListaUsuarios * agregarEnOrdenId(nodoListaUsuarios * lista, nodoListaUsuario
     {
         nodoListaUsuarios * aux = lista; // ante
         if((aux->usuario.idUsuario) >  (nuevo->usuario.idUsuario))
-                lista = agregarPrincipio(aux,nuevo);
-                else
         {
+            lista = agregarPrincipio(aux,nuevo);
+        }
+        else
+        {
+            nodoListaUsuarios * ante=NULL;
             nodoListaUsuarios * seg = lista;
-            while(seg && (aux->usuario.idUsuario) < (nuevo->usuario.idUsuario))
-                {
-                    aux = seg;
-                    seg = seg->sig;
-                }
-                aux->sig = nuevo;
-                nuevo->sig = seg;
+            while(seg && (seg->usuario.idUsuario) < (nuevo->usuario.idUsuario))
+            {
+                 ante = seg;
+                seg = seg->sig;
             }
+            ante->sig = nuevo;
+            nuevo->sig = seg;
+        }
     }
 
     return lista;
@@ -124,9 +127,7 @@ int verificar(char userIngresado[],char claveIngresado[],nodoListaUsuarios * lis
 
 nodoListaUsuarios * buscarUsuario(char userIngresado[], nodoListaUsuarios * lista)
 {
-    nodoListaUsuarios * ante=NULL;
     nodoListaUsuarios * aux=NULL;
-    nodoListaUsuarios * seg=lista;
     int flag=0;
     if(lista && strcmp(lista->usuario.email,userIngresado)==0)
     {
@@ -134,8 +135,7 @@ nodoListaUsuarios * buscarUsuario(char userIngresado[], nodoListaUsuarios * list
     }
     else if(lista)
     {
-        ante=lista;
-        seg=lista->sig;
+        nodoListaUsuarios * seg=lista;
         while(seg && flag==0)
         {
             if(strcmp(seg->usuario.email,userIngresado)==0)
@@ -144,7 +144,6 @@ nodoListaUsuarios * buscarUsuario(char userIngresado[], nodoListaUsuarios * list
             }
             else
             {
-                ante=seg;
                 seg=seg->sig;
             }
         }
@@ -168,37 +167,37 @@ int verificacionPasswordCondiciones(char password[])  // Función para cuando se 
     int tieneMinuscula = 0;
     int flag = 0;
 
-        while (*password)  // Mientras no lleguemos al final de la cadena
+    while (*password)  // Mientras no lleguemos al final de la cadena
+    {
+        if (isupper((unsigned char)*password))  // Verifica si el carácter actual es mayúscula
         {
-            if (isupper((unsigned char)*password))  // Verifica si el carácter actual es mayúscula
-            {
-                tieneMayuscula = 1;
-            }
-            else if (islower((unsigned char)*password))  // Verifica si el carácter actual es minúscula
-            {
-                tieneMinuscula = 1;
-            }
-
-            // Si ya se encontró al menos una mayúscula y una minúscula
-            if (tieneMayuscula && tieneMinuscula)
-            {
-                flag = 1;
-                break;  // Salimos del bucle porque ya encontramos lo que necesitamos
-            }
-
-            password++;  // Avanzamos al siguiente carácter
+            tieneMayuscula = 1;
         }
+        else if (islower((unsigned char)*password))  // Verifica si el carácter actual es minúscula
+        {
+            tieneMinuscula = 1;
+        }
+
+        // Si ya se encontró al menos una mayúscula y una minúscula
+        if (tieneMayuscula && tieneMinuscula)
+        {
+            flag = 1;
+            break;  // Salimos del bucle porque ya encontramos lo que necesitamos
+        }
+
+        password++;  // Avanzamos al siguiente carácter
+    }
 
 
     return flag;
 }
 
-nodoListaUsuarios * crearNodoUser()
+nodoListaUsuarios * crearNodoUser(nodoListaUsuarios * lista)
 {
     nodoListaUsuarios * aux;
     aux=inicLista();
     stUsuario userAux=cargaDatosUser();
-    userAux=sumarId(userAux);
+    //userAux=sumarId(userAux,lista);
     aux=crearNodo(userAux);
     return aux;
 }
@@ -209,11 +208,13 @@ stUsuario cargaDatosUser()
     printf("Ingrese su email: \n");
     fflush(stdin);
     gets(user.email);
-    do{
-    printf("Ingrese su password: \n");
-    fflush(stdin);
-    gets(user.password);
-    }while(verificacionPasswordCondiciones(user.password)==0 );
+    do
+    {
+        printf("Ingrese su password: \n");
+        fflush(stdin);
+        gets(user.password);
+    }
+    while(verificacionPasswordCondiciones(user.password)==0 );
     printf("Ingrese su nombre: \n");
     fflush(stdin);
     gets(user.username);
@@ -228,7 +229,6 @@ stUsuario cargaDatosUser()
 
     printf("Ingrese su genero: \n");
     fflush(stdin);
-    //    gets(user.genero);
     scanf("%c",&user.genero);
     user.domicilio=cargaDomicilio();
     printf("\nDESPUES DE CARGA DOMICILIO\n");
@@ -236,13 +236,6 @@ stUsuario cargaDatosUser()
     user.eliminado=0;
     user.esAdmin=0;
     printf("\nDESPUES DE ADMIN\n");
-    //nodoListaUsuarios * ultimo = NULL;//buscarUltimo(lista);
-//    if (ultimo != NULL) {
-//        user.idUsuario = ultimo->usuario.idUsuario + 1;
-//    } else {
-//        printf("\n ID usuario 1");
-//        user.idUsuario = 1;  // Primer usuario en la lista
-//    }
 
     return user;
 
@@ -257,7 +250,6 @@ stDomicilio cargaDomicilio()
 
     printf("Ingrese altura de su domicilio: \n");
     fflush(stdin);
-//    gets(user.domicilio.altura);
     scanf("%d",&domicilio.altura);
 
     printf("Ingrese ciudad donde vive: \n");
@@ -275,12 +267,25 @@ stDomicilio cargaDomicilio()
 
     printf("Ingrese codigo postal: \n");
     fflush(stdin);
-//    gets(user.domicilio.cp);
     scanf("%d",&domicilio.cp);
 
     return domicilio;
 }
-stUsuario sumarId(stUsuario user)
+stUsuario sumarId(stUsuario user, nodoListaUsuarios * lista)
 {
-
+    nodoListaUsuarios * ultimo = NULL;
+    ultimo=buscarUltimo(lista);
+    if(ultimo!=NULL)
+    {
+        user.idUsuario=ultimo->usuario.idUsuario+1;
+    }
+    else
+    {
+        user.idUsuario=1;
+    }
+    return user;
 }
+
+
+
+

@@ -1,17 +1,25 @@
 # depslib dependency file v1.0
-1726177768 source:c:\users\martin\desktop\booklab\controlador.c
+1726929168 source:c:\users\martin\desktop\booklab\controlador.c
+	"controlador.h"
 
-1726178784 source:c:\users\martin\desktop\booklab\main.c
+1726931664 source:c:\users\martin\desktop\booklab\main.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
 	<strings.h>
 	<time.h>
 	"user.h"
+	"libros.h"
+	"controlador.h"
 
-1726177848 c:\users\martin\desktop\booklab\user.h
+1726931664 c:\users\martin\desktop\booklab\user.h
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<strings.h>
+	<time.h>
 
-1726178395 source:c:\users\martin\desktop\booklab\user.c
+1726930579 source:c:\users\martin\desktop\booklab\user.c
 	"user.h"
 	<ctype.h>
 
@@ -94,4 +102,26 @@
 1726676530 source:c:\users\40306\desktop\booklab\user.c
 	"user.h"
 	<ctype.h>
+
+1726931664 c:\users\martin\desktop\booklab\controlador.h
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<strings.h>
+	<time.h>
+	"user.h"
+
+1726928493 source:c:\users\martin\desktop\booklab\libros.c
+	"libros.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+
+1726931664 c:\users\martin\desktop\booklab\libros.h
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<strings.h>
+	<time.h>
 

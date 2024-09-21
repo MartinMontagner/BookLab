@@ -1,11 +1,11 @@
 #ifndef USER_H_INCLUDED
 #define USER_H_INCLUDED
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
 #include <strings.h>
 #include <time.h>
+
 
 typedef struct{
     char calle[50];
@@ -56,9 +56,10 @@ int verificar(char userIngresado[],char claveIngresado[],nodoListaUsuarios * lis
 nodoListaUsuarios * buscarUsuario(char userIngresado[], nodoListaUsuarios * lista);
 int verificarPassword(char claveIngresado[], nodoListaUsuarios * userAux);
 int verificacionPasswordCondiciones(char password[]);
-nodoListaUsuarios * crearNodoUser();
+nodoListaUsuarios * crearNodoUser(nodoListaUsuarios * lista);
 stUsuario cargaDatosUser();
 stDomicilio cargaDomicilio();
+stUsuario sumarId(stUsuario user, nodoListaUsuarios * lista);
 
 
 #endif // USER_H_INCLUDED

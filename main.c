@@ -6,7 +6,9 @@
 
 #include "user.h"
 #include "libros.h"
+#include "controlador.h"
 #define ARCHIVO_LIBROS "libros.dat"
+#define ARCHIVO_USER "users.dat"
 
 void cargarLibrosArchivoRandom(char nombreArchivo[]);
 nodoListaUsuarios * archivoToLista(char nombreArchivo[], nodoListaUsuarios * lista);
@@ -29,7 +31,9 @@ int main()
 //    printf("\nLista de libros version ADMIN\n");
 //    muestraListaLibrosAdmin(lista);
 //    agregarLibrosAlArchivo(lista,ARCHIVO_LIBROS);
-    listauser=crearNodoUser();
+
+    listauser=crearNodoUser(listauser);
+    listaToArchivo(ARCHIVO_USER,listauser);
     printf("\nACA NO ES\n");
     muestraLista(listauser);
 
@@ -86,9 +90,9 @@ nodo2Libros *  archivoToLista2(char nombreArchivo[], nodo2Libros * listaDoble)
 
 
 
-/*nodolistausuarios *  archivotolista(char nombrearchivo[], nodolistausuarios * lista){
+nodolistausuarios *  archivotolista(char nombrearchivo[], nodolistausuarios * lista){
 
-    file * buffer = fopen(nombrearchivo, "rb");
+    FILE * buffer = fopen(nombrearchivo, "rb");
     stusuario aux;
 
 
@@ -101,4 +105,18 @@ nodo2Libros *  archivoToLista2(char nombreArchivo[], nodo2Libros * listaDoble)
 
     return lista;
 
-}*/
+}
+void listaToArchivo(char nombreArchivo[], nodoListaUsuarios * lista)
+{
+    FILE * buffer = fopen(nombreArchivo,"wb");
+
+    if(buffer)
+    {
+        while(lista)
+        {
+            fwrite(&(lista)->usuario,sizeof(stUsuario),1,buffer);
+            lista=lista->sig;
+        }
+        fclose(buffer);
+    }
+}
