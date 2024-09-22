@@ -11,8 +11,9 @@
 #define ARCHIVO_USER "users.dat"
 
 void cargarLibrosArchivoRandom(char nombreArchivo[]);
-nodoListaUsuarios * archivoToLista(char nombreArchivo[], nodoListaUsuarios * lista);
+nodoListaUsuarios *  archivoToLista(char nombrearchivo[], nodoListaUsuarios * lista);
 nodo2Libros * archivoToLista2(char nombreArchivo[], nodo2Libros * listaDoble);
+void listaToArchivo(char nombreArchivo[], nodoListaUsuarios * lista);
 
 int main()
 {
@@ -20,7 +21,7 @@ int main()
 //    stLibro libro1;
 //    stUsuario user;
 //    stDomicilio domicilio;
-    nodoListaUsuarios* listauser=inicLista();
+      nodoListaUsuarios* listauser=inicLista();
 //    nodo2Libros* lista=inicListaDoble();
 //    lista = archivoToLista2(ARCHIVO_LIBROS,lista);
 //    lista=cargarLibroEnLista(lista);//
@@ -31,12 +32,15 @@ int main()
 //    printf("\nLista de libros version ADMIN\n");
 //    muestraListaLibrosAdmin(lista);
 //    agregarLibrosAlArchivo(lista,ARCHIVO_LIBROS);
+//    listauser=archivoToLista(ARCHIVO_USER,listauser);
+    //listauser=crearNodoUser(listauser);
+  //  listaToArchivo(ARCHIVO_USER,listauser);
 
-    listauser=crearNodoUser(listauser);
-    listaToArchivo(ARCHIVO_USER,listauser);
-    printf("\nACA NO ES\n");
+//    muestraLista(listauser);
+    registrarse(&listauser);
+    registrarse(&listauser);
+    login(&listauser);
     muestraLista(listauser);
-
     printf("Hello world!\n");
     system("pause");
     return 0;
@@ -90,33 +94,33 @@ nodo2Libros *  archivoToLista2(char nombreArchivo[], nodo2Libros * listaDoble)
 
 
 
-nodolistausuarios *  archivotolista(char nombrearchivo[], nodolistausuarios * lista){
-
-    FILE * buffer = fopen(nombrearchivo, "rb");
-    stusuario aux;
-
-
-    if(buffer){
-        while(fread(&aux, sizeof(stusuario), 1, buffer) > 0){
-            lista = agregarenordenid(lista,crearnodousuario(aux));
-        }
-        fclose(buffer);
-    }
-
-    return lista;
-
-}
-void listaToArchivo(char nombreArchivo[], nodoListaUsuarios * lista)
-{
-    FILE * buffer = fopen(nombreArchivo,"wb");
-
-    if(buffer)
-    {
-        while(lista)
-        {
-            fwrite(&(lista)->usuario,sizeof(stUsuario),1,buffer);
-            lista=lista->sig;
-        }
-        fclose(buffer);
-    }
-}
+//nodoListaUsuarios *  archivoToLista(char nombrearchivo[], nodoListaUsuarios * lista){
+//
+//    FILE * buffer = fopen(nombrearchivo, "rb");
+//    stUsuario aux;
+//
+//
+//    if(buffer){
+//        while(fread(&aux, sizeof(stUsuario), 1, buffer) > 0){
+//            lista = agregarEnOrdenId(lista,crearNodo(aux));
+//        }
+//        fclose(buffer);
+//    }
+//
+//    return lista;
+//
+//}
+//void listaToArchivo(char nombreArchivo[], nodoListaUsuarios * lista)
+//{
+//    FILE * buffer = fopen(nombreArchivo,"wb");
+//
+//    if(buffer)
+//    {
+//        while(lista)
+//        {
+//            fwrite(&(lista)->usuario,sizeof(stUsuario),1,buffer);
+//            lista=lista->sig;
+//        }
+//        fclose(buffer);
+//    }
+//}

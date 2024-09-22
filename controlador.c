@@ -59,6 +59,7 @@ void login (nodoListaUsuarios * lista)
 
         }
     }
+
 }
 void registrarse(nodoListaUsuarios * lista)
 {

@@ -1,10 +1,12 @@
 #ifndef LIBROS_H_INCLUDED
 #define LIBROS_H_INCLUDED
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
 #include <strings.h>
 #include <time.h>
+
  typedef struct{
  int idLibro; /// único, autoincremental
  char titulo[100];

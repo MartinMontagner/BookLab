@@ -63,16 +63,21 @@
 	<string.h>
 	<conio.h>
 
-1726676075 source:c:\users\40306\desktop\booklab\libros.c
+1726948987 source:c:\users\40306\desktop\booklab\libros.c
 	"libros.h"
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<conio.h>
 
-1726676075 c:\users\40306\desktop\booklab\libros.h
+1726950861 c:\users\40306\desktop\booklab\libros.h
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<strings.h>
+	<time.h>
 
-1726676075 source:c:\users\40306\desktop\booklab\main.c
+1726953386 source:c:\users\40306\desktop\booklab\main.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
@@ -80,18 +85,19 @@
 	<time.h>
 	"user.h"
 	"libros.h"
+	"controlador.h"
 
-1726676438 c:\users\40306\desktop\booklab\user.h
+1726950797 c:\users\40306\desktop\booklab\user.h
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
 	<strings.h>
 	<time.h>
 
-1726676583 source:c:\users\40306\desktop\booklab\controlador.c
+1726953354 source:c:\users\40306\desktop\booklab\controlador.c
 	"controlador.h"
 
-1726676075 c:\users\40306\desktop\booklab\controlador.h
+1726950499 c:\users\40306\desktop\booklab\controlador.h
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
@@ -99,7 +105,7 @@
 	<time.h>
 	"user.h"
 
-1726676530 source:c:\users\40306\desktop\booklab\user.c
+1726953618 source:c:\users\40306\desktop\booklab\user.c
 	"user.h"
 	<ctype.h>
 

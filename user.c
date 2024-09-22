@@ -46,7 +46,7 @@ void muestraLista(nodoListaUsuarios * lista)
 }
 nodoListaUsuarios* buscarUltimo(nodoListaUsuarios* lista)
 {
-    nodoListaUsuarios * seg = lista;
+    nodoListaUsuarios* seg = lista;
     while(seg->sig != NULL)
     {
         seg = seg->sig;
@@ -197,14 +197,14 @@ nodoListaUsuarios * crearNodoUser(nodoListaUsuarios * lista)
     nodoListaUsuarios * aux;
     aux=inicLista();
     stUsuario userAux=cargaDatosUser();
-    //userAux=sumarId(userAux,lista);
+    userAux=sumarId(userAux,lista);
     aux=crearNodo(userAux);
     return aux;
 }
 stUsuario cargaDatosUser()
 {
     stUsuario user;
-
+//funcion para verificar escritura email
     printf("Ingrese su email: \n");
     fflush(stdin);
     gets(user.email);
@@ -231,11 +231,11 @@ stUsuario cargaDatosUser()
     fflush(stdin);
     scanf("%c",&user.genero);
     user.domicilio=cargaDomicilio();
-    printf("\nDESPUES DE CARGA DOMICILIO\n");
+
     user.librosFavoritos[0]=0;
     user.eliminado=0;
     user.esAdmin=0;
-    printf("\nDESPUES DE ADMIN\n");
+
 
     return user;
 
@@ -273,10 +273,13 @@ stDomicilio cargaDomicilio()
 }
 stUsuario sumarId(stUsuario user, nodoListaUsuarios * lista)
 {
-    nodoListaUsuarios * ultimo = NULL;
-    ultimo=buscarUltimo(lista);
-    if(ultimo!=NULL)
+    nodoListaUsuarios * ultimo = lista;
+    if(lista)
     {
+        while(ultimo->sig!=NULL)
+        {
+            ultimo=ultimo->sig;
+        }
         user.idUsuario=ultimo->usuario.idUsuario+1;
     }
     else

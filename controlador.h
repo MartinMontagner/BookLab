@@ -8,6 +8,7 @@
 #include <time.h>
 #include "user.h"
 
+
 void login (nodoListaUsuarios * lista);
 void registrarse(nodoListaUsuarios * lista);
 
