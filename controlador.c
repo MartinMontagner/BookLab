@@ -4,13 +4,18 @@ void login (nodoListaUsuarios * lista)
     char email[100];
     char password[20];
     int ret,control=0;
-
+    bool esValido=false;
     do
     {
         puts("\n\t\t------------------------------Ingrese sus datos para iniciar----------------------------------\n");
-        printf("Email: \n");
-        fflush(stdin);
-        gets(email);
+        do
+        {
+            printf("Email: \n");
+            fflush(stdin);
+            gets(email);
+            esValido=validarEmail(email);
+        }while(esValido==false);
+
         printf("Password: \n");
         fflush(stdin);
         int i=-1;
@@ -49,6 +54,7 @@ void login (nodoListaUsuarios * lista)
         {
             if(aux->usuario.eliminado==0)//crear y modificar funcion
             {
+                printf("Entro al menu user");
                 //clienteMenu();// crear un menu para el cliente
             }
             else
@@ -61,16 +67,19 @@ void login (nodoListaUsuarios * lista)
     }
 
 }
-void registrarse(nodoListaUsuarios * lista)
+nodoListaUsuarios * registrarse(nodoListaUsuarios * lista)
 {
     nodoListaUsuarios * user=NULL;
     user=crearNodoUser(lista);
-    if(!lista)
+    if(lista==NULL)
     {
+        printf("Entra al if donde lista es igual a null");
         user=lista;
-    }else
+    }
+    else
     {
         lista=agregarEnOrdenId(lista,user);
     }
+    return lista;
 }
 

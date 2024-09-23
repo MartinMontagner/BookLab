@@ -1,8 +1,5 @@
 #include "libros.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <conio.h>
+
 
 
 ///Funciones para crear contenido random

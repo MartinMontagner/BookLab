@@ -7,9 +7,10 @@
 #include <strings.h>
 #include <time.h>
 #include "user.h"
+#include <stdbool.h>
 
 
 void login (nodoListaUsuarios * lista);
-void registrarse(nodoListaUsuarios * lista);
+nodoListaUsuarios * registrarse(nodoListaUsuarios * lista);
 
 #endif // CONTROLADOR_H_INCLUDED

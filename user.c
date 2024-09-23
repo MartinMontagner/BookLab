@@ -88,7 +88,7 @@ nodoListaUsuarios * agregarEnOrdenId(nodoListaUsuarios * lista, nodoListaUsuario
             nodoListaUsuarios * seg = lista;
             while(seg && (seg->usuario.idUsuario) < (nuevo->usuario.idUsuario))
             {
-                 ante = seg;
+                ante = seg;
                 seg = seg->sig;
             }
             ante->sig = nuevo;
@@ -204,18 +204,39 @@ nodoListaUsuarios * crearNodoUser(nodoListaUsuarios * lista)
 stUsuario cargaDatosUser()
 {
     stUsuario user;
+    bool esValido=false;
 //funcion para verificar escritura email
-    printf("Ingrese su email: \n");
-    fflush(stdin);
-    gets(user.email);
+    do
+    {
+        printf("Ingrese su email: \n");
+        fflush(stdin);
+        gets(user.email);
+        esValido=validarEmail(user.email);
+    }while(esValido==false);
     do
     {
         printf("Ingrese su password: \n");
         fflush(stdin);
-        gets(user.password);
+        int i=-1;
+        do
+        {
+            i++;
+            fflush(stdin);
+            user.password[i]=getch();
+            if(user.password[i]==13)
+            {
+                user.password[i]='\0';
+            }
+            else
+            {
+                printf("*");
+            }
+
+        }
+        while(user.password[i]!='\0');
     }
     while(verificacionPasswordCondiciones(user.password)==0 );
-    printf("Ingrese su nombre: \n");
+    printf("\n Ingrese su nombre: \n");
     fflush(stdin);
     gets(user.username);
 
@@ -288,7 +309,39 @@ stUsuario sumarId(stUsuario user, nodoListaUsuarios * lista)
     }
     return user;
 }
+bool validarEmail(char email[])
+{
+    int arrobaPos=-1, puntoPos=-1, longitud=strlen(email), i=0;
+    bool esValido=true;
 
+    /// Recorrer el string para buscar '@' y '.'
+    for(i=0; i<longitud; i++)
+    {
+        if(email[i]=='@')
+        {
+            if(arrobaPos==-1)
+            {
+                arrobaPos=i;  /// Guardar la posición del primer '@'
+            }
+            else
+            {
+                esValido=false;  /// Si hay más de un '@', es inválido
+            }
+        }
+
+        if(email[i]=='.')
+        {
+            puntoPos=i;  /// Guardar la posición del último '.'
+        }
+    }
+
+    /// Verificar que no haya múltiples '@' y las posiciones de '@' y '.'
+    if(arrobaPos==-1 || puntoPos==-1 || puntoPos<=arrobaPos + 1 || puntoPos>=longitud - 1)
+    {
+        esValido=false;
+    }
+    return esValido;
+}
 
 
 

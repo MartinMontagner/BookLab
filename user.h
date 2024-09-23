@@ -1,11 +1,12 @@
 #ifndef USER_H_INCLUDED
 #define USER_H_INCLUDED
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
 #include <strings.h>
 #include <time.h>
-
+#include <stdbool.h>
 
 typedef struct{
     char calle[50];
@@ -60,6 +61,6 @@ nodoListaUsuarios * crearNodoUser(nodoListaUsuarios * lista);
 stUsuario cargaDatosUser();
 stDomicilio cargaDomicilio();
 stUsuario sumarId(stUsuario user, nodoListaUsuarios * lista);
-
+bool validarEmail(char email[]);
 
 #endif // USER_H_INCLUDED
