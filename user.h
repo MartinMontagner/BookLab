@@ -46,21 +46,39 @@ typedef struct{
 //verificacion que la password este bien contemplando las reglas
 nodoListaUsuarios * inicLista();
 nodoListaUsuarios * crearNodo(stUsuario usuario);
+nodoListaUsuarios * crearNodoUser(nodoListaUsuarios * lista);
+///Funciones para agregar
 nodoListaUsuarios * agregarPrincipio(nodoListaUsuarios * lista, nodoListaUsuarios * nuevoNodo);
+nodoListaUsuarios* agregarAlFinal(nodoListaUsuarios* lista, nodoListaUsuarios* nuevo);
+nodoListaUsuarios * agregarEnOrdenId(nodoListaUsuarios * lista, nodoListaUsuarios * nuevo);
+nodoListaUsuarios * buscarUsuario(char userIngresado[], nodoListaUsuarios * lista);
+nodoListaUsuarios* buscarUltimo(nodoListaUsuarios* lista);
+///Funciones para mostrar
 void muestraUnUsuario(stUsuario u);
 void muestraNodoUser(nodoListaUsuarios * nodo);
 void muestraLista(nodoListaUsuarios * lista);
-nodoListaUsuarios* buscarUltimo(nodoListaUsuarios* lista);
-nodoListaUsuarios* agregarAlFinal(nodoListaUsuarios* lista, nodoListaUsuarios* nuevo);
-nodoListaUsuarios * agregarEnOrdenId(nodoListaUsuarios * lista, nodoListaUsuarios * nuevo);
+///Funciones para verificar
 int verificar(char userIngresado[],char claveIngresado[],nodoListaUsuarios * lista);
-nodoListaUsuarios * buscarUsuario(char userIngresado[], nodoListaUsuarios * lista);
 int verificarPassword(char claveIngresado[], nodoListaUsuarios * userAux);
 int verificacionPasswordCondiciones(char password[]);
-nodoListaUsuarios * crearNodoUser(nodoListaUsuarios * lista);
+bool validarEmail(char email[]);
+///Funciones de carga
 stUsuario cargaDatosUser();
 stDomicilio cargaDomicilio();
 stUsuario sumarId(stUsuario user, nodoListaUsuarios * lista);
-bool validarEmail(char email[]);
-
+///Funciones de contenido Random (no las probe todavia)
+int randomRangoUsuarios(int min, int max);
+void setMailRandom(char email[]);
+void setPasswordRandom(char password[]);
+void setUsernameRandom(char username[]);
+void setGeneroRandom(char genero[]);
+void setFechaNacimientoRandom(char fechaNacimiento[]);
+void setFechaNacimientoRandom(char fechaNacimiento[]);
+void setDniRandom(char dni[],int usados[], int *restantes);
+void setCalleRandom(char calle[]);
+void setAlturaRandom(int altura);
+void setCpRandom(int cp);
+void setCiudadRandom(char ciudad[]);
+void setLocalidadRandom(char localidad[]);
+void setPaisRandom(char pais[]);
 #endif // USER_H_INCLUDED

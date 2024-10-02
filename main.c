@@ -9,7 +9,7 @@
 #include "libros.h"
 #include "controlador.h"
 #define ARCHIVO_LIBROS "libros.dat"
-#define ARCHIVO_USER "users.dat"
+#define ARCHIVO_USER "usuarios.dat"
 
 void cargarLibrosArchivoRandom(char nombreArchivo[]);
 nodo2Libros * archivoToLista2(char nombreArchivo[], nodo2Libros * listaDoble);
@@ -116,11 +116,13 @@ void listaToArchivo(char nombreArchivo[], nodoListaUsuarios * lista)
 
     if(buffer)
     {
-        while(lista)
+        nodoListaUsuarios* actual = lista;
+        while(actual)
         {
-            fwrite(&(lista)->usuario,sizeof(stUsuario),1,buffer);
-            lista=lista->sig;
+            fwrite(&actual->usuario,sizeof(stUsuario),1,buffer);
+            actual=actual->sig;
         }
+
         fclose(buffer);
     }
 }

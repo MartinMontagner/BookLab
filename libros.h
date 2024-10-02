@@ -26,14 +26,14 @@
 stLibro cargaRandomLibro();
 stLibro cargaUnLibro();
 nodo2Libros *  cargarLibroEnLista(nodo2Libros*lista);
-///Funciones de listas que devuelven listas
+///Funciones de listas dobles
 nodo2Libros * inicListaDoble();
-nodo2Libros * insertarNodoPorId (nodo2Libros * lista, nodo2Libros * nuevoNodo);
 nodo2Libros * crearNodoDoble(stLibro libro);
+///Funciones de agregar
+nodo2Libros * insertarNodoPorId (nodo2Libros * lista, nodo2Libros * nuevoNodo);
 nodo2Libros * agregarPrincipioLibro(nodo2Libros * listaDoble, nodo2Libros * nuevo);
 nodo2Libros * agregarAlFinalLibro(nodo2Libros * listaDoble, nodo2Libros* nuevo);
-nodo2Libros * borrarPrimerNodoListaLibros(nodo2Libros * lista);
-//Funciones de busqueda
+///Funciones de busqueda
 nodo2Libros * buscarUltimoLibro(nodo2Libros* listaDoble);
 nodo2Libros * buscaLibrosPorCategoria (nodo2Libros * lista, char categoria[]);
 nodo2Libros * buscaLibrosPorAutor (nodo2Libros * lista, char autor[]);

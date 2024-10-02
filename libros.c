@@ -116,21 +116,22 @@ nodo2Libros * cargarLibroEnLista(nodo2Libros * lista)
     return lista;
 }
 
-void agregarLibrosAlArchivo(nodo2Libros* lista,char nombreArchivo []) {
+void agregarLibrosAlArchivo(nodo2Libros* lista,char nombreArchivo [])
+{
     FILE *archivo = fopen(nombreArchivo, "wb");
 
-    if (!archivo) {
+    if (!archivo)
+    {
         printf("Error al abrir el archivo.\n");
     }
 
     nodo2Libros* actual = lista;
 
 
-    while (actual) {
+    while (actual)
+    {
 
-        {
-            fwrite(&actual->dato, sizeof(stLibro), 1, archivo);
-        }
+        fwrite(&actual->dato, sizeof(stLibro), 1, archivo);
         actual = actual->ste;
     }
 
@@ -143,7 +144,7 @@ int buscarUltimoId (nodo2Libros* listaDoble)
     int id=ultimo->dato.idLibro;
     return id;
 }
-///Funciones de listas que devuelven listas
+///Funciones de listas
 nodo2Libros * inicListaDoble()
 {
     return NULL;
@@ -158,7 +159,7 @@ nodo2Libros * crearNodoDoble(stLibro libro)
 
     return nuevo;
 }
-
+///Funciones para agregar
 nodo2Libros * agregarPrincipioLibro(nodo2Libros * listaDoble, nodo2Libros * nuevo)
 {
     nuevo->ste = listaDoble;
@@ -185,7 +186,39 @@ nodo2Libros * agregarAlFinalLibro(nodo2Libros * listaDoble, nodo2Libros* nuevo)
     return listaDoble;
 }
 
-//Funciones de busqueda
+nodo2Libros *insertarNodoPorId (nodo2Libros * lista, nodo2Libros * nuevoNodo)
+{
+    if(lista==NULL)
+    {
+        lista=nuevoNodo;
+    }
+    else if (nuevoNodo->dato.idLibro < lista->dato.idLibro)
+    {
+        lista=agregarPrincipioLibro(lista,nuevoNodo);
+    }
+    else
+    {
+        nodo2Libros * anterior=lista;
+        nodo2Libros * seg=lista->ste;
+
+        while (seg!=NULL && seg->dato.idLibro < nuevoNodo->dato.idLibro)
+        {
+            anterior=seg;
+            seg=seg->ste;
+        }
+        anterior->ste=nuevoNodo;
+        nuevoNodo->ante=anterior;
+        nuevoNodo->ste=seg;
+
+        if(seg!=NULL)
+        {
+            seg->ante=nuevoNodo;
+        }
+    }
+    return lista;
+}
+
+///Funciones de busqueda
 nodo2Libros* buscarUltimoLibro(nodo2Libros* listaDoble)
 {
     nodo2Libros * seg = listaDoble;
@@ -261,37 +294,7 @@ nodo2Libros * buscaLibrosPorTitulo (nodo2Libros * lista, char titulo[])
     return listaTitulo;
 }
 
-nodo2Libros *insertarNodoPorId (nodo2Libros * lista, nodo2Libros * nuevoNodo)
-{
-    if(lista==NULL)
-    {
-        lista=nuevoNodo;
-    }
-    else if (nuevoNodo->dato.idLibro < lista->dato.idLibro)
-    {
-        lista=agregarPrincipioLibro(lista,nuevoNodo);
-    }
-    else
-    {
-        nodo2Libros * anterior=lista;
-        nodo2Libros * seg=lista->ste;
 
-        while (seg!=NULL && seg->dato.idLibro < nuevoNodo->dato.idLibro)
-        {
-            anterior=seg;
-            seg=seg->ste;
-        }
-        anterior->ste=nuevoNodo;
-        nuevoNodo->ante=anterior;
-        nuevoNodo->ste=seg;
-
-        if(seg!=NULL)
-        {
-            seg->ante=nuevoNodo;
-        }
-    }
-    return lista;
-}
 
 ///Funciones para mostrar
 void muestraUnLibro(stLibro a)
@@ -358,6 +361,8 @@ void verLibrosPorTitulo (nodo2Libros* lista)
     listaTitulo=buscaLibrosPorTitulo(lista,titulo);
     muestraListaLibros(listaTitulo);
 }
+
+///Funcion dar de baja libro
 void darDeBajaLogica (nodo2Libros* lista)
 {
 //    nodo2Libros * actual=lista;
