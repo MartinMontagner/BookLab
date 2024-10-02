@@ -51,6 +51,7 @@ nodoListaUsuarios * crearNodoUser(nodoListaUsuarios * lista);
 nodoListaUsuarios * agregarPrincipio(nodoListaUsuarios * lista, nodoListaUsuarios * nuevoNodo);
 nodoListaUsuarios* agregarAlFinal(nodoListaUsuarios* lista, nodoListaUsuarios* nuevo);
 nodoListaUsuarios * agregarEnOrdenId(nodoListaUsuarios * lista, nodoListaUsuarios * nuevo);
+///Funciones de busqueda
 nodoListaUsuarios * buscarUsuario(char userIngresado[], nodoListaUsuarios * lista);
 nodoListaUsuarios* buscarUltimo(nodoListaUsuarios* lista);
 ///Funciones para mostrar
