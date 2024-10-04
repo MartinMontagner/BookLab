@@ -7,11 +7,6 @@
 			<Cursor1 position="418" topLine="17" />
 		</Cursor>
 	</File>
-	<File name="libros.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2164" topLine="6" />
-		</Cursor>
-	</File>
 	<File name="libros.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="4744" topLine="48" />
@@ -19,21 +14,26 @@
 	</File>
 	<File name="controlador.c" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="479" topLine="3" />
+			<Cursor1 position="479" topLine="66" />
 		</Cursor>
 	</File>
 	<File name="main.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2265" topLine="40" />
+			<Cursor1 position="1807" topLine="21" />
 		</Cursor>
 		<Folding>
-			<Collapse line="137" />
-			<Collapse line="164" />
+			<Collapse line="139" />
+			<Collapse line="166" />
 		</Folding>
 	</File>
 	<File name="controlador.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="207" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="libros.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2164" topLine="6" />
 		</Cursor>
 	</File>
 	<File name="user.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">

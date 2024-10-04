@@ -18,7 +18,7 @@ nodoListaUsuarios * crearNodoUser(nodoListaUsuarios * lista)
     nodoListaUsuarios * aux;
     aux=inicLista();
     stUsuario userAux=cargaDatosUser();
-    userAux=sumarId(userAux,lista);
+    userAux.idUsuario=sumarId(userAux,lista);
     aux=crearNodo(userAux);
     return aux;
 }
@@ -83,14 +83,15 @@ nodoListaUsuarios * buscarUsuario(char userIngresado[], nodoListaUsuarios * list
     {
         aux=lista;
     }
-    else if(lista)
+    else
     {
-        nodoListaUsuarios * seg=lista;
-        while(seg && flag==0)
+        nodoListaUsuarios * seg=lista->sig;
+        while(seg!=NULL && flag==0)
         {
             if(strcmp(seg->usuario.email,userIngresado)==0)
             {
                 aux=seg;
+                flag=1;
             }
             else
             {
@@ -157,12 +158,12 @@ int verificar(char userIngresado[],char claveIngresado[],nodoListaUsuarios * lis
         }
         else
         {
-            printf("Clave incorrecta!\n");
+            printf("\nClave incorrecta!\n");
         }
     }
     else
     {
-        printf("Usuario inexistente\n");
+        printf("\nUsuario inexistente\n");
 
     }
     return flag;
@@ -203,6 +204,10 @@ int verificacionPasswordCondiciones(char password[])  // Función para cuando se 
         }
 
         password++;  // Avanzamos al siguiente carácter
+    }
+    if(flag==0)
+    {
+        printf("\nNo cumple con las condiciones, por favor agregar una mayuscula y una minuscula.\n");
     }
 
 
@@ -261,6 +266,7 @@ stUsuario cargaDatosUser()
     while(esValido==false);
     do
     {
+        printf("\nLa password tiene que tener una mayuscula y una minuscula por lo menos\n");
         printf("Ingrese su password: \n");
         fflush(stdin);
         int i=-1;
@@ -338,7 +344,7 @@ stDomicilio cargaDomicilio()
 
     return domicilio;
 }
-stUsuario sumarId(stUsuario user, nodoListaUsuarios * lista)
+int sumarId(stUsuario user, nodoListaUsuarios * lista)
 {
     nodoListaUsuarios * ultimo = lista;
     if(lista)
@@ -353,7 +359,7 @@ stUsuario sumarId(stUsuario user, nodoListaUsuarios * lista)
     {
         user.idUsuario=1;
     }
-    return user;
+    return user.idUsuario;
 }
 
 

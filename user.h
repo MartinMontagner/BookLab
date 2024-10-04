@@ -34,7 +34,7 @@ typedef struct{
     int eliminado; /// 0 si está activo - 1 si está eliminado
 }stUsuario;
 
-typedef struct{
+typedef struct {
     stUsuario usuario;
     struct nodoListaUsuarios * sig;
 }nodoListaUsuarios;
@@ -66,7 +66,7 @@ bool validarEmail(char email[]);
 ///Funciones de carga
 stUsuario cargaDatosUser();
 stDomicilio cargaDomicilio();
-stUsuario sumarId(stUsuario user, nodoListaUsuarios * lista);
+int sumarId(stUsuario user, nodoListaUsuarios * lista);
 ///Funciones de contenido Random (no las probe todavia)
 int randomRangoUsuarios(int min, int max);
 void setMailRandom(char email[]);

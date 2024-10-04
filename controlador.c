@@ -15,7 +15,6 @@ void login (nodoListaUsuarios * lista)
             gets(email);
             esValido=validarEmail(email);
         }while(esValido==false);
-
         printf("Password: \n");
         fflush(stdin);
         int i=-1;
@@ -45,25 +44,26 @@ void login (nodoListaUsuarios * lista)
     while (ret!=1 && control!=27);
     if(ret==1)
     {
-        nodoListaUsuarios * aux=buscarUsuario(email,lista);// modificar linea y crear funcion necesaria para la busqueda
-        if(aux->usuario.esAdmin==1)
-        {
-            //adminMenu();// crear un menu para el administrador
-        }
-        else
-        {
-            if(aux->usuario.eliminado==0)//crear y modificar funcion
-            {
-                printf("Entro al menu user");
-                //clienteMenu();// crear un menu para el cliente
-            }
-            else
-            {
-                printf("\n\n\tCuenta inactiva, para activarla comuniquese con el servicio al cliente.\n");
-                system("pause");
-            }
-
-        }
+//        nodoListaUsuarios * aux=buscarUsuario(email,lista);// modificar linea y crear funcion necesaria para la busqueda
+//        if(aux->usuario.esAdmin==1)
+//        {
+//            //adminMenu();// crear un menu para el administrador
+//        }
+//        else
+//        {
+//            if(aux->usuario.eliminado==0)//crear y modificar funcion
+//            {
+//                printf("Entro al menu user");
+//                //clienteMenu();// crear un menu para el cliente
+//            }
+//            else
+//            {
+//                printf("\n\n\tCuenta inactiva, para activarla comuniquese con el servicio al cliente.\n");
+//                system("pause");
+//            }
+//
+//        }
+        muestraLista(lista);
     }
 
 }
@@ -73,8 +73,7 @@ nodoListaUsuarios * registrarse(nodoListaUsuarios * lista)
     user=crearNodoUser(lista);
     if(lista==NULL)
     {
-        printf("Entra al if donde lista es igual a null");
-        user=lista;
+        lista=agregarPrincipio(lista,user);
     }
     else
     {

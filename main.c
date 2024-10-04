@@ -4,6 +4,7 @@
 #include <strings.h>
 #include <time.h>
 #include <stdbool.h>
+#include <windows.h>
 
 #include "user.h"
 #include "libros.h"
@@ -32,18 +33,20 @@ int main()
 //    muestraListaLibrosAdmin(lista);
 //    agregarLibrosAlArchivo(lista,ARCHIVO_LIBROS);
 
-    nodoListaUsuarios* listauser=inicLista();
-    listauser=archivoToLista(ARCHIVO_USER,listauser);
+        nodoListaUsuarios* listauser=inicLista();
+        listauser=archivoToLista(ARCHIVO_USER,listauser);
 
-    listauser=registrarse(listauser);
-    printf("despues del registro");
-    //registrarse(listauser);
-    login(listauser);
+//    listauser=registrarse(listauser);
+//    printf("despues del registro");
+//    //registrarse(listauser);
+//    login(listauser);
+//
+//    muestraLista(listauser);
+//    listaToArchivo(ARCHIVO_USER,listauser);
+//
+//    printf("Hello world!\n");
+    int opcion;
 
-    muestraLista(listauser);
-    listaToArchivo(ARCHIVO_USER,listauser);
-
-    printf("Hello world!\n");
     system("pause");
     do
     {
@@ -57,13 +60,15 @@ int main()
         case 1:
             printf("\n--- Ingresando al sistema... ---\n");
             /// Logica de ingreso al sistema (login)
-            mostrarSubmenuIngreso();
+//            mostrarSubmenuIngreso();
+            login(listauser);
             break;
 
         case 2:
             printf("\n--- Registrarse en el sistema ---\n");
             /// Logica de registro de usuario
-            mostrarSubmenuRegistro();
+            listauser= registrarse(listauser);
+
             break;
 
         case 0:

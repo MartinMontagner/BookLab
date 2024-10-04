@@ -25,18 +25,19 @@
 	"user.h"
 	<ctype.h>
 
-1727842594 source:c:\users\carla\desktop\booklab\main.c
+1728083419 source:c:\users\carla\desktop\booklab\main.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
 	<strings.h>
 	<time.h>
 	<stdbool.h>
+	<windows.h>
 	"user.h"
 	"libros.h"
 	"controlador.h"
 
-1727842594 c:\users\carla\desktop\booklab\user.h
+1728085179 c:\users\carla\desktop\booklab\user.h
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
@@ -44,7 +45,7 @@
 	<time.h>
 	<stdbool.h>
 
-1727154587 source:c:\users\carla\desktop\booklab\controlador.c
+1728083774 source:c:\users\carla\desktop\booklab\controlador.c
 	"controlador.h"
 
 1727154587 c:\users\carla\desktop\booklab\controlador.h
@@ -56,7 +57,7 @@
 	"user.h"
 	<stdbool.h>
 
-1727154587 source:c:\users\carla\desktop\booklab\user.c
+1728084214 source:c:\users\carla\desktop\booklab\user.c
 	"user.h"
 	<ctype.h>
 
