@@ -158,6 +158,21 @@ void mostrarMenuUser()///menu inicial
     escribirConRetraso("\n   2. Modificar datos", 5);
     escribirConRetraso("\n   3. Darme de baja", 5);
     escribirConRetraso("\n   4. Ver libros favoritos", 5);
+    escribirConRetraso("\n   5. Consultar libros", 5);
+    escribirConRetraso("\n   0. Salir", 5);
+    escribirConRetraso("\n====================================\n", 5);
+    setColor(7);
+}
+void mostrarMenuLibros()///menu inicial
+{
+    setColor(1);
+    escribirConRetraso("\n====================================", 5);
+    escribirConRetraso("\n    Sistema de Gestion de Libros", 5);
+    escribirConRetraso("\n====================================", 5);
+    escribirConRetraso("\n   1. Ver todos los libros", 5);
+    escribirConRetraso("\n   2. Buscar por categoria", 5);
+    escribirConRetraso("\n   3. Buscar por autor", 5);
+    escribirConRetraso("\n   4. Buscar por titulo", 5);
     escribirConRetraso("\n   0. Salir", 5);
     escribirConRetraso("\n====================================\n", 5);
     setColor(7);
@@ -191,6 +206,10 @@ void menuUser(nodoListaUsuarios * user)
         case 4:
             /// funcion ver libros favoritos
 
+        case 5:
+           mostrarMenuLibros();
+           break;
+
 
         case 0:
             system("cls");
@@ -200,6 +219,58 @@ void menuUser(nodoListaUsuarios * user)
         default:
             printf("\nOpcion no valida. Por favor, intenta nuevamente.\n");
             break;
+        }
+    }
+    while(opcion != 0);
+}
+void menuLibros(nodo2Libros * libros)
+{
+    int opcion;
+    do
+    {
+        system("pause");
+        system("cls");
+        mostrarMenuLibros();
+        printf("\nSeleccione una opcion: ");
+        fflush(stdin);
+        scanf("%d",&opcion);
+
+        switch(opcion)
+        {
+        case 1:
+            system("cls");
+            muestraListaLibros(libros);
+            break;
+
+        case 2:
+            ///buscar por categoria
+            buscaLibrosPorCategoria(libros);
+            break;
+
+        case 3:
+            /// buscar por autor
+            buscaLibrosPorAutor(libros);
+
+        case 4:
+            /// buscar por titulo
+            buscaLibrosPorTitulo(libros);
+
+        case 0:
+            system("cls");
+            printf("\n--- Saliendo del sistema ---\n");
+            break;
+
+        default:
+            printf("\nOpcion no valida. Por favor, intenta nuevamente.\n");
+            break;
+        }
+        printf("Presione cualquier tecla para volver al menú principal o '0' para salir: ");
+        char choice;
+        getchar();  // Limpiar el buffer de entrada
+        choice = getchar();  // Captura la opción del usuario
+
+        if (choice == '0') {
+            opcion = 0;
         }
     }
     while(opcion != 0);

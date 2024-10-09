@@ -2,43 +2,61 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="user.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="libros.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="671" topLine="13" />
+			<Cursor1 position="11809" topLine="131" />
 		</Cursor>
-	</File>
-	<File name="libros.h" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2164" topLine="24" />
-		</Cursor>
-	</File>
-	<File name="controlador.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="561" topLine="0" />
-		</Cursor>
+		<Folding>
+			<Collapse line="6" />
+			<Collapse line="10" />
+			<Collapse line="23" />
+			<Collapse line="37" />
+			<Collapse line="49" />
+			<Collapse line="59" />
+			<Collapse line="88" />
+			<Collapse line="147" />
+			<Collapse line="317" />
+			<Collapse line="384" />
+		</Folding>
 	</File>
 	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1258" topLine="8" />
+			<Cursor1 position="2667" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="libros.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="user.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4744" topLine="48" />
+			<Cursor1 position="904" topLine="42" />
 		</Cursor>
 	</File>
 	<File name="controlador.c" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5028" topLine="159" />
+			<Cursor1 position="7137" topLine="130" />
+		</Cursor>
+		<Folding>
+			<Collapse line="2" />
+			<Collapse line="68" />
+			<Collapse line="123" />
+			<Collapse line="139" />
+		</Folding>
+	</File>
+	<File name="libros.h" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1960" topLine="36" />
 		</Cursor>
 	</File>
 	<File name="user.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="8257" topLine="296" />
+			<Cursor1 position="8257" topLine="6" />
 		</Cursor>
 		<Folding>
 			<Collapse line="188" />
 			<Collapse line="347" />
 		</Folding>
+	</File>
+	<File name="controlador.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="229" topLine="3" />
+		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

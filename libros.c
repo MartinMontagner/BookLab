@@ -115,28 +115,54 @@ nodo2Libros * cargarLibroEnLista(nodo2Libros * lista)
     }
     return lista;
 }
-
-void agregarLibrosAlArchivo(nodo2Libros* lista,char nombreArchivo [])
+void cargarLibrosArchivoRandom(char nombreArchivo[])
 {
-    FILE *archivo = fopen(nombreArchivo, "wb");
 
-    if (!archivo)
+    FILE * buffer = fopen(nombreArchivo,"ab");
+    stLibro aux;
+    char opcion = 0;
+    int i = 0;
+
+
+    if(buffer)
     {
-        printf("Error al abrir el archivo.\n");
+        do
+        {
+            printf("Libro %d\n", i);
+            aux = cargaRandomLibro();
+            fwrite(&aux,sizeof(stLibro),1,buffer);
+            i++;
+
+            printf("Desea seguir cargando? Presione 'n' para salir \n");
+            fflush(stdin);
+            scanf("%c",&opcion);
+        }
+        while(opcion != 'n');
+        fclose(buffer);
+
     }
-
-    nodo2Libros* actual = lista;
-
-
-    while (actual)
-    {
-
-        fwrite(&actual->dato, sizeof(stLibro), 1, archivo);
-        actual = actual->ste;
-    }
-
-    fclose(archivo);
 }
+
+
+nodo2Libros *  archivoToLista2(char nombreArchivo[], nodo2Libros * listaDoble)
+{
+
+    FILE * buffer = fopen(nombreArchivo, "rb");
+    stLibro aux;
+
+
+    if(buffer)
+    {
+        while(fread(&aux, sizeof(stLibro), 1, buffer) > 0)
+        {
+            listaDoble = insertarNodoPorId(listaDoble,crearNodoDoble(aux));
+        }
+        fclose(buffer);
+    }
+
+    return listaDoble;
+}
+
 ///Busqueda de Id para seguir incrementando
 int buscarUltimoId (nodo2Libros* listaDoble)
 {
@@ -160,6 +186,28 @@ nodo2Libros * crearNodoDoble(stLibro libro)
     return nuevo;
 }
 ///Funciones para agregar
+void agregarLibrosAlArchivo(nodo2Libros* lista,char nombreArchivo [])
+{
+    FILE *archivo = fopen(nombreArchivo, "wb");
+
+    if (!archivo)
+    {
+        printf("Error al abrir el archivo.\n");
+    }
+
+    nodo2Libros* actual = lista;
+
+
+    while (actual)
+    {
+
+        fwrite(&actual->dato, sizeof(stLibro), 1, archivo);
+        actual = actual->ste;
+    }
+
+    fclose(archivo);
+}
+
 nodo2Libros * agregarPrincipioLibro(nodo2Libros * listaDoble, nodo2Libros * nuevo)
 {
     nuevo->ste = listaDoble;
@@ -229,69 +277,26 @@ nodo2Libros* buscarUltimoLibro(nodo2Libros* listaDoble)
     return seg;
 }
 
-
-nodo2Libros * buscaLibrosPorCategoria (nodo2Libros * lista, char categoria[])
+void buscaLibrosPorAutor (nodo2Libros* lista)
 {
-    nodo2Libros * listaCategoria= NULL;
-    nodo2Libros * actual= lista;
-    if(lista)
-    {
-        while (actual)
-        {
-            if(strcmpi(actual->dato.categoria,categoria)==0)
-            {
-                listaCategoria=agregarAlFinalLibro(listaCategoria,crearNodoDoble(actual->dato));
-            }
-            actual=actual->ste;
-        }
-    }
-    if(!listaCategoria)
-    {
-        printf("\nNo existen libros de esa categoria\n");
-    }
-    return listaCategoria;
+    char autor[50];
+    printf("\nIngrese el autor que desea buscar: \n");
+    gets(autor);
+    verLibrosPorAutor(lista,autor);
 }
-nodo2Libros * buscaLibrosPorAutor (nodo2Libros * lista, char autor[])
+void buscaLibrosPorCategoria (nodo2Libros* lista)
 {
-    nodo2Libros * listaAutor= NULL;
-    nodo2Libros * actual= lista;
-    if(lista)
-    {
-        while (actual)
-        {
-            if(strcmpi(actual->dato.autor,autor)==0)
-            {
-                listaAutor=agregarAlFinalLibro(listaAutor,crearNodoDoble(actual->dato));
-            }
-            actual=actual->ste;
-        }
-    }
-    if(!listaAutor)
-    {
-        printf("\nNo encontramos libros de ese autor\n");
-    }
-    return listaAutor;
+    char categoria[50];
+    printf("\nIngrese la categoria que desea buscar: \n");
+    gets(categoria);
+    verLibrosPorCategoria(lista,categoria);
 }
-nodo2Libros * buscaLibrosPorTitulo (nodo2Libros * lista, char titulo[])
+void buscaLibrosPorTitulo (nodo2Libros* lista)
 {
-    nodo2Libros * listaTitulo= NULL;
-    nodo2Libros * actual= lista;
-    if(lista)
-    {
-        while (actual)
-        {
-            if(strcmpi(actual->dato.titulo,titulo)==0)
-            {
-                listaTitulo=agregarAlFinalLibro(listaTitulo,crearNodoDoble(actual->dato));
-            }
-            actual=actual->ste;
-        }
-    }
-    if(!listaTitulo)
-    {
-        printf("\nNo encontramos libros con ese titulo\n");
-    }
-    return listaTitulo;
+    char titulo[50];
+    printf("\nIngrese el titulo que desea buscar: \n");
+    gets(titulo);
+    verLibrosPorTitulo(lista,titulo);
 }
 
 
@@ -334,32 +339,68 @@ void muestraListaLibrosAdmin (nodo2Libros * lista)
         lista=lista->ste;
     }
 }
-void verLibrosPorAutor (nodo2Libros* lista)
+void verLibrosPorCategoria (nodo2Libros * lista, char categoria[])
 {
-    char autor[50];
-    nodo2Libros*listaAutor=NULL;
-    printf("\nIngrese el autor que desea buscar: \n");
-    gets(autor);
-    listaAutor=buscaLibrosPorAutor(lista,autor);
-    muestraListaLibros(listaAutor);
+    nodo2Libros * actual= lista;
+    int flag=0;
+    if(lista)
+    {
+        while (actual)
+        {
+            if(strcmpi(actual->dato.categoria,categoria)==0)
+            {
+                muestraNodoDobleLibro(actual);
+                flag=1;
+            }
+            actual=actual->ste;
+        }
+    }
+    if(flag==0)
+    {
+        printf("\nNo existen libros de esa categoria\n");
+    }
 }
-void verLibrosPorCategoria (nodo2Libros* lista)
+void verLibrosPorAutor (nodo2Libros * lista, char autor[])
 {
-    char categoria[50];
-    nodo2Libros*listaCategoria=NULL;
-    printf("\nIngrese la categoria que desea buscar: \n");
-    gets(categoria);
-    listaCategoria=buscaLibrosPorCategoria(lista,categoria);
-    muestraListaLibros(listaCategoria);
+    nodo2Libros * actual= lista;
+    int flag=0;
+    if(lista)
+    {
+        while (actual)
+        {
+            if(strcmpi(actual->dato.autor,autor)==0)
+            {
+                muestraNodoDobleLibro(actual);
+                flag=1;
+            }
+            actual=actual->ste;
+        }
+    }
+    if(flag==0)
+    {
+        printf("\nNo encontramos libros de ese autor\n");
+    }
 }
-void verLibrosPorTitulo (nodo2Libros* lista)
+void verLibrosPorTitulo (nodo2Libros * lista, char titulo[])
 {
-    char titulo[50];
-    nodo2Libros* listaTitulo=NULL;
-    printf("\nIngrese el titulo que desea buscar: \n");
-    gets(titulo);
-    listaTitulo=buscaLibrosPorTitulo(lista,titulo);
-    muestraListaLibros(listaTitulo);
+    nodo2Libros * actual= lista;
+    int flag=0;
+    if(lista)
+    {
+        while (actual)
+        {
+            if(strcmpi(actual->dato.titulo,titulo)==0)
+            {
+                muestraNodoDobleLibro(actual);
+                flag=1;
+            }
+            actual=actual->ste;
+        }
+    }
+    if(flag==0)
+    {
+        printf("\nNo encontramos libros con ese titulo\n");
+    }
 }
 
 ///Funcion dar de baja libro
@@ -371,7 +412,7 @@ void darDeBajaLogica (nodo2Libros* lista)
     fflush(stdin);
     scanf("%d",&id);
     int flag=0;
-    while(lista!=NULL & flag==0)
+    while(lista!=NULL && flag==0)
     {
         if(lista->dato.idLibro==id)
         {
