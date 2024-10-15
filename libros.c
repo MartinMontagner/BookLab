@@ -281,6 +281,7 @@ void buscaLibrosPorAutor (nodo2Libros* lista)
 {
     char autor[50];
     printf("\nIngrese el autor que desea buscar: \n");
+    fflush(stdin);
     gets(autor);
     verLibrosPorAutor(lista,autor);
 }
@@ -288,6 +289,7 @@ void buscaLibrosPorCategoria (nodo2Libros* lista)
 {
     char categoria[50];
     printf("\nIngrese la categoria que desea buscar: \n");
+    fflush(stdin);
     gets(categoria);
     verLibrosPorCategoria(lista,categoria);
 }
@@ -295,6 +297,7 @@ void buscaLibrosPorTitulo (nodo2Libros* lista)
 {
     char titulo[50];
     printf("\nIngrese el titulo que desea buscar: \n");
+    fflush(stdin);
     gets(titulo);
     verLibrosPorTitulo(lista,titulo);
 }

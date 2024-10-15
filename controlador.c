@@ -183,27 +183,18 @@ void menuLibros()
         case 3:
             /// buscar por autor
             buscaLibrosPorAutor(libros);
+            break;
 
         case 4:
             /// buscar por titulo
             buscaLibrosPorTitulo(libros);
-
+            break;
         case 0:
             system("cls");
-            printf("\n--- Saliendo del sistema ---\n");
-            break;
 
         default:
             printf("\nOpcion no valida. Por favor, intenta nuevamente.\n");
             break;
-        }
-        printf("Presione cualquier tecla para volver al menú principal o '0' para salir: ");
-        char choice;
-        getchar();  // Limpiar el buffer de entrada
-        choice = getchar();  // Captura la opción del usuario
-
-        if (choice == '0') {
-            opcion = 0;
         }
     }
     while(opcion != 0);
