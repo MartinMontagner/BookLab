@@ -22,14 +22,17 @@ nodoListaUsuarios * crearNodoUser(nodoListaUsuarios * lista)
     aux=crearNodo(userAux);
     return aux;
 }
-nodoListaUsuarios *  archivoToLista(char nombrearchivo[], nodoListaUsuarios * lista){
+nodoListaUsuarios *  archivoToLista(char nombrearchivo[], nodoListaUsuarios * lista)
+{
 
     FILE * buffer = fopen(nombrearchivo, "rb");
     stUsuario aux;
 
 
-    if(buffer){
-        while(fread(&aux, sizeof(stUsuario), 1, buffer) > 0){
+    if(buffer)
+    {
+        while(fread(&aux, sizeof(stUsuario), 1, buffer) > 0)
+        {
             lista = agregarEnOrdenId(lista,crearNodo(aux));
         }
         fclose(buffer);
@@ -411,8 +414,49 @@ int sumarId(stUsuario user, nodoListaUsuarios * lista)
     return user.idUsuario;
 }
 ///Menu
+nodoListaUsuarios * modificarDatos(nodoListaUsuarios * user)
+{
+    int opcion;
+    do
+    {
+        printf("\nQue dato desea cambiar\n");
+        fflush(stdin);
+        scanf("%d",&opcion);
+        opcionesModificarDatos();
+        switch(opcion)
+        {
+        case 1:
+            user->usuario.domicilio=cargaDomicilio();
+        case 2:
+            user->usuario.username=cambioUserName();
+        case 3:
+            user->usuario.password=cambioPassword();
+        case 4:
+            user->usuario.genero=cambioGenero();
+        case 5:
+            user->usuario.fechaNacimiento=cambiarFechaNacimiento();
+        case 6:
+            user->usuario.dni=cambiarDNI();
+        case 0:
+            system("cls");
+            printf("\n--- Volviendo al menu ---\n");
+            break;
+        }
 
-
+    }
+    while(opcion!=0)
+        return user;
+}
+void opcionesModificarDatos()
+{
+    printf("\n   1. Domicilio\n");
+    printf("\n   2. Nombre\n");
+    printf("\n   3. Password\n");
+    printf("\n   4. Genero\n");
+    printf("\n   5. Fecha de nacimiento\n");
+    printf("\n   6. DNI\n");
+    printf("\n   0. Salir\n");
+}
 
 ///Funciones para crear contenido random
 int randomRangoUsuarios(int min, int max)
@@ -467,7 +511,8 @@ void setFechaNacimientoRandom(char fechaNacimiento[])
                                          "10/04/1978", "5/11/2000", "30/06/1992", "18/09/1988",
                                          "25/12/1995", "9/02/1983", "12/10/1975", "3/07/2001", "27/5/1997",
                                          "14/08/1993", "21/06/1980", "6/11/1998", "19/04/1986", "28/02/1994",
-                                         "8/01/1991", "11/12/1982", "4/07/1989"};
+                                         "8/01/1991", "11/12/1982", "4/07/1989"
+                                        };
     int cantFechaNacimiento=(sizeof(arregloFechaNacimiento) / sizeof(arregloFechaNacimiento[0]));
     int indiceAleatorio = randomRangoUsuarios(0, cantFechaNacimiento - 1);
     strcpy(fechaNacimiento, arregloFechaNacimiento[indiceAleatorio]);

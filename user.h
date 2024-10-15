@@ -41,11 +41,7 @@ typedef struct nodoListaUsuarios {
     struct nodoListaUsuarios * sig;
 }nodoListaUsuarios;
 
-//funcion de login
-//verificacion mail
-//verificacion user
-//verificacion password
-//verificacion que la password este bien contemplando las reglas
+
 nodoListaUsuarios * inicLista();
 nodoListaUsuarios * crearNodo(stUsuario usuario);
 nodoListaUsuarios * crearNodoUser(nodoListaUsuarios * lista);

@@ -114,11 +114,16 @@ void menuUser(nodoListaUsuarios * user)
             break;
 
         case 2:
+
             ///funcion que modifique datos
+            user=modificarDatos(user);
+
             break;
 
         case 3:
             /// funcion que modifique estado del user a dado de baja
+            user->usuario.eliminado=-1;
+            break;
 
         case 4:
             /// funcion ver libros favoritos
