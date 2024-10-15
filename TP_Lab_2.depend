@@ -1,27 +1,27 @@
 # depslib dependency file v1.0
-1727131036 source:c:\users\martin\desktop\booklab\controlador.c
+1728948985 source:c:\users\martin\desktop\booklab\controlador.c
 	"controlador.h"
 
-1727128776 source:c:\users\martin\desktop\booklab\main.c
+1728951496 source:c:\users\martin\desktop\booklab\main.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
 	<strings.h>
 	<time.h>
 	<stdbool.h>
-	"user.h"
+	<windows.h>
+	"controlador.h"
+
+1728953463 c:\users\martin\desktop\booklab\user.h
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<strings.h>
+	<time.h>
+	<stdbool.h>
 	"libros.h"
-	"controlador.h"
 
-1727128776 c:\users\martin\desktop\booklab\user.h
-	<stdio.h>
-	<stdlib.h>
-	<conio.h>
-	<strings.h>
-	<time.h>
-	<stdbool.h>
-
-1727131036 source:c:\users\martin\desktop\booklab\user.c
+1728948068 source:c:\users\martin\desktop\booklab\user.c
 	"user.h"
 	<ctype.h>
 
@@ -118,19 +118,21 @@
 	"user.h"
 	<ctype.h>
 
-1727128776 c:\users\martin\desktop\booklab\controlador.h
+1728948985 c:\users\martin\desktop\booklab\controlador.h
+	<stdbool.h>
+	<windows.h>
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
 	<strings.h>
 	<time.h>
 	"user.h"
-	<stdbool.h>
-
-1727044506 source:c:\users\martin\desktop\booklab\libros.c
 	"libros.h"
 
-1727044036 c:\users\martin\desktop\booklab\libros.h
+1728952419 source:c:\users\martin\desktop\booklab\libros.c
+	"libros.h"
+
+1728952419 c:\users\martin\desktop\booklab\libros.h
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>

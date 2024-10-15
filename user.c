@@ -22,6 +22,38 @@ nodoListaUsuarios * crearNodoUser(nodoListaUsuarios * lista)
     aux=crearNodo(userAux);
     return aux;
 }
+nodoListaUsuarios *  archivoToLista(char nombrearchivo[], nodoListaUsuarios * lista){
+
+    FILE * buffer = fopen(nombrearchivo, "rb");
+    stUsuario aux;
+
+
+    if(buffer){
+        while(fread(&aux, sizeof(stUsuario), 1, buffer) > 0){
+            lista = agregarEnOrdenId(lista,crearNodo(aux));
+        }
+        fclose(buffer);
+    }
+
+    return lista;
+
+}
+void listaToArchivo(char nombreArchivo[], nodoListaUsuarios * lista)
+{
+    FILE * buffer = fopen(nombreArchivo,"wb");
+
+    if(buffer)
+    {
+        nodoListaUsuarios* actual = lista;
+        while(actual)
+        {
+            fwrite(&actual->usuario,sizeof(stUsuario),1,buffer);
+            actual=actual->sig;
+        }
+
+        fclose(buffer);
+    }
+}
 ///Funciones para agregar
 nodoListaUsuarios * agregarPrincipio(nodoListaUsuarios * lista, nodoListaUsuarios * nuevoNodo)
 {
@@ -251,6 +283,23 @@ bool validarEmail(char email[])
 
 
 ///Funciones de Carga
+stUsuario crearUserAdmin()
+{
+    stUsuario admin;
+    admin.esAdmin=1;
+    strcpy(admin.username,"Admin");
+    admin.eliminado=0;
+    admin.idUsuario=0;
+    strcpy(admin.email,"admin@admin.com.ar");
+    strcpy(admin.password,"Admin1");
+    return admin;
+}
+nodoListaUsuarios * cargaUserAdmin(stUsuario admin, nodoListaUsuarios * listaUser)
+{
+    listaUser=agregarPrincipio(listaUser,crearNodo(admin));
+    listaToArchivo("usuarios.dat",listaUser);
+    return listaUser;
+}
 stUsuario cargaDatosUser()
 {
     stUsuario user;
@@ -360,6 +409,68 @@ int sumarId(stUsuario user, nodoListaUsuarios * lista)
         user.idUsuario=1;
     }
     return user.idUsuario;
+}
+///Menu
+void mostrarMenuUser()///menu inicial
+{
+    setColor(1);
+    escribirConRetraso("\n====================================", 5);
+    escribirConRetraso("\n    Sistema de Gestion de Libros", 5);
+    escribirConRetraso("\n====================================", 5);
+    escribirConRetraso("\n   1. Datos personales", 5);
+    escribirConRetraso("\n   2. Modificar datos", 5);
+    escribirConRetraso("\n   3. Darme de baja", 5);
+    escribirConRetraso("\n   4. Ver libros favoritos", 5);
+    escribirConRetraso("\n   5. Consultar libros", 5);
+    escribirConRetraso("\n   0. Salir", 5);
+    escribirConRetraso("\n====================================\n", 5);
+    setColor(7);
+}
+void menuUser(nodoListaUsuarios * user)
+{
+    int opcion;
+    do
+    {
+        system("pause");
+        system("cls");
+        mostrarMenuUser();
+        printf("\nSeleccione una opcion: ");
+        fflush(stdin);
+        scanf("%d",&opcion);
+
+        switch(opcion)
+        {
+        case 1:
+            system("cls");
+            muestraNodoUser(user);
+            break;
+
+        case 2:
+            ///funcion que modifique datos
+            break;
+
+        case 3:
+            /// funcion que modifique estado del user a dado de baja
+
+        case 4:
+            /// funcion ver libros favoritos
+
+        case 5:
+           menuLibros();
+           break;
+
+
+        case 0:
+            system("cls");
+            printf("\n--- Saliendo del sistema ---\n");
+            break;
+
+        default:
+            printf("\nOpcion no valida. Por favor, intenta nuevamente.\n");
+            break;
+        }
+    }
+    while(opcion != 0);
 }
 
 

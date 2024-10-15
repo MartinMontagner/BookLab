@@ -12,27 +12,18 @@
 #define ARCHIVO_USER "usuarios.dat"
 
 
+void menuPrincipal(char archivoUser[], nodoListaUsuarios * listaUser);
+void setColor(int color);
+void escribirConRetraso(const char *texto, int delay);
+void mostrarMenuInicial();
 
-nodoListaUsuarios *  archivoToLista(char nombrearchivo[], nodoListaUsuarios * lista);
-void listaToArchivo(char nombreArchivo[], nodoListaUsuarios * lista);
 
 int main()
 {
     srand(time(NULL));
-//    stLibro libro1;
-//
-//    nodo2Libros* lista=inicListaDoble();
-//    lista = archivoToLista2(ARCHIVO_LIBROS,lista);
-//    lista=cargarLibroEnLista(lista);//
-    // muestraListaLibros(lista);
-    // darDeBajaLogica(lista);
-    //printf("\nLIBROS SIN EL ELIMINADO\n");
-//    muestraListaLibros(lista);
-//    printf("\nLista de libros version ADMIN\n");
-//    muestraListaLibrosAdmin(lista);
-//    agregarLibrosAlArchivo(lista,ARCHIVO_LIBROS);
-//
+    stUsuario admin=crearUserAdmin();
     nodoListaUsuarios* listauser=inicLista();
+    listauser = cargaUserAdmin(admin,listauser);
     listauser=archivoToLista(ARCHIVO_USER,listauser);
 
 
@@ -44,63 +35,75 @@ int main()
 
 
 
-//void mostrarSubmenuIngreso()
-//{
-//    setColor(10);
-//    printf("\n====================================\n");
-//    printf("         Submenu de Ingreso\n");
-//    printf("====================================\n");
-//    printf("1. Iniciar sesion\n");
-//    printf("2. Recuperar contrasena\n");
-//    printf("3. Volver al menu principal\n");
-//    printf("====================================\n");
-//    setColor(7);
-//}
-//
-//void mostrarSubmenuRegistro()
-//{
-//    setColor(12);
-//    printf("\n====================================\n");
-//    printf("        Submenu de Registro\n");
-//    printf("====================================\n");
-//    printf("1. Completar registro\n");
-//    printf("2. Ver terminos y condiciones\n");
-//    printf("3. Volver al menu principal\n");
-//    printf("====================================\n");
-//    setColor(7);
-//}
-
-
-
-nodoListaUsuarios *  archivoToLista(char nombrearchivo[], nodoListaUsuarios * lista){
-
-    FILE * buffer = fopen(nombrearchivo, "rb");
-    stUsuario aux;
-
-
-    if(buffer){
-        while(fread(&aux, sizeof(stUsuario), 1, buffer) > 0){
-            lista = agregarEnOrdenId(lista,crearNodo(aux));
-        }
-        fclose(buffer);
-    }
-
-    return lista;
-
-}
-void listaToArchivo(char nombreArchivo[], nodoListaUsuarios * lista)
+void menuPrincipal(char archivoUser[], nodoListaUsuarios * listaUser)
 {
-    FILE * buffer = fopen(nombreArchivo,"wb");
+    int opcion;
 
-    if(buffer)
+
+    do
     {
-        nodoListaUsuarios* actual = lista;
-        while(actual)
-        {
-            fwrite(&actual->usuario,sizeof(stUsuario),1,buffer);
-            actual=actual->sig;
-        }
+        system("pause");
+        system("cls");
+        mostrarMenuInicial();
+        printf("\nSeleccione una opcion: ");
+        fflush(stdin);
+        scanf("%d",&opcion);
 
-        fclose(buffer);
+        switch(opcion)
+        {
+        case 1:
+            system("cls");
+            login(listaUser);
+            break;
+
+        case 2:
+            printf("\n--- Registrarse en el sistema ---\n");
+            /// Logica de registro de usuario
+            listaUser= registrarse(listaUser);
+            listaToArchivo(archivoUser,listaUser);
+            break;
+
+        case 0:
+            system("cls");
+            printf("\n--- Saliendo del sistema ---\n");
+            break;
+
+        default:
+            printf("\nOpcion no valida. Por favor, intenta nuevamente.\n");
+            break;
+        }
+    }
+    while(opcion != 0);
+}
+
+void setColor(int color)
+{
+    HANDLE hConsole=GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, color);
+}
+
+void escribirConRetraso(const char *texto, int delay)
+{
+    while (*texto)
+    {
+        putchar(*texto++);
+        fflush(stdout);
+        usleep(delay * 1000);
     }
 }
+
+void mostrarMenuInicial()///menu inicial
+{
+    setColor(1);
+    escribirConRetraso("\n====================================", 5);
+    escribirConRetraso("\n    Sistema de Gestion de Libros", 5);
+    escribirConRetraso("\n====================================", 5);
+    escribirConRetraso("\n   1. Ingresar", 5);
+    escribirConRetraso("\n   2. Registrarse", 5);
+    escribirConRetraso("\n   0. Salir", 5);
+    escribirConRetraso("\n====================================\n", 5);
+    setColor(7);
+}
+
+
+

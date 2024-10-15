@@ -13,10 +13,5 @@
 
 void login (nodoListaUsuarios * lista);
 nodoListaUsuarios * registrarse(nodoListaUsuarios * lista);
-void menuPrincipal(char archivoUser[], nodoListaUsuarios * listaUser);
-void setColor(int color);
-void escribirConRetraso(const char *texto, int delay);
-void mostrarMenuInicial();
-void mostrarMenuUser();
-void menuUser();
+
 #endif // CONTROLADOR_H_INCLUDED

@@ -7,6 +7,7 @@
 #include <strings.h>
 #include <time.h>
 #include <stdbool.h>
+#include "libros.h"
 
 typedef struct{
     char calle[50];
@@ -47,6 +48,8 @@ typedef struct {
 nodoListaUsuarios * inicLista();
 nodoListaUsuarios * crearNodo(stUsuario usuario);
 nodoListaUsuarios * crearNodoUser(nodoListaUsuarios * lista);
+nodoListaUsuarios *  archivoToLista(char nombrearchivo[], nodoListaUsuarios * lista);
+void listaToArchivo(char nombreArchivo[], nodoListaUsuarios * lista);
 ///Funciones para agregar
 nodoListaUsuarios * agregarPrincipio(nodoListaUsuarios * lista, nodoListaUsuarios * nuevoNodo);
 nodoListaUsuarios* agregarAlFinal(nodoListaUsuarios* lista, nodoListaUsuarios* nuevo);
@@ -64,9 +67,14 @@ int verificarPassword(char claveIngresado[], nodoListaUsuarios * userAux);
 int verificacionPasswordCondiciones(char password[]);
 bool validarEmail(char email[]);
 ///Funciones de carga
+stUsuario crearUserAdmin();
+nodoListaUsuarios * cargaUserAdmin(stUsuario admin, nodoListaUsuarios * listaUser);
 stUsuario cargaDatosUser();
 stDomicilio cargaDomicilio();
 int sumarId(stUsuario user, nodoListaUsuarios * lista);
+///Menu
+void mostrarMenuUser();
+void menuUser();
 ///Funciones de contenido Random (no las probe todavia)
 int randomRangoUsuarios(int min, int max);
 void setMailRandom(char email[]);

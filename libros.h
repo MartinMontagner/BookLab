@@ -52,7 +52,9 @@ void muestraListaLibrosAdmin (nodo2Libros * lista);
 void verLibrosPorCategoria (nodo2Libros * lista, char categoria[]);
 void verLibrosPorAutor (nodo2Libros * lista, char autor[]);
 void verLibrosPorTitulo (nodo2Libros * lista, char titulo[]);
+///Menu
 void mostrarMenuLibros();
+void menuLibros();
 ///Funciones para crear contenido random
 int randomRango(int min, int max);
 void setTituloRandom(char titulo[]);
