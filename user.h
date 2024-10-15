@@ -7,6 +7,7 @@
 #include <strings.h>
 #include <time.h>
 #include <stdbool.h>
+#include <windows.h>
 #include "libros.h"
 
 typedef struct{
@@ -35,7 +36,7 @@ typedef struct{
     int eliminado; /// 0 si está activo - 1 si está eliminado
 }stUsuario;
 
-typedef struct {
+typedef struct nodoListaUsuarios {
     stUsuario usuario;
     struct nodoListaUsuarios * sig;
 }nodoListaUsuarios;
@@ -73,8 +74,8 @@ stUsuario cargaDatosUser();
 stDomicilio cargaDomicilio();
 int sumarId(stUsuario user, nodoListaUsuarios * lista);
 ///Menu
-void mostrarMenuUser();
-void menuUser();
+
+
 ///Funciones de contenido Random (no las probe todavia)
 int randomRangoUsuarios(int min, int max);
 void setMailRandom(char email[]);

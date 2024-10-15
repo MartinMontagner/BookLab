@@ -13,17 +13,15 @@
 
 
 void menuPrincipal(char archivoUser[], nodoListaUsuarios * listaUser);
-void setColor(int color);
-void escribirConRetraso(const char *texto, int delay);
 void mostrarMenuInicial();
 
 
 int main()
 {
     srand(time(NULL));
-    stUsuario admin=crearUserAdmin();
+    //stUsuario admin=crearUserAdmin();
     nodoListaUsuarios* listauser=inicLista();
-    listauser = cargaUserAdmin(admin,listauser);
+    //listauser = cargaUserAdmin(admin,listauser);
     listauser=archivoToLista(ARCHIVO_USER,listauser);
 
 
@@ -76,21 +74,7 @@ void menuPrincipal(char archivoUser[], nodoListaUsuarios * listaUser)
     while(opcion != 0);
 }
 
-void setColor(int color)
-{
-    HANDLE hConsole=GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hConsole, color);
-}
 
-void escribirConRetraso(const char *texto, int delay)
-{
-    while (*texto)
-    {
-        putchar(*texto++);
-        fflush(stdout);
-        usleep(delay * 1000);
-    }
-}
 
 void mostrarMenuInicial()///menu inicial
 {

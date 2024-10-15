@@ -6,6 +6,8 @@
 #include <conio.h>
 #include <strings.h>
 #include <time.h>
+#include <stdbool.h>
+#include <windows.h>
 
  typedef struct {
  int idLibro; /// único, autoincremental
@@ -17,7 +19,7 @@
  int eliminado; /// 0 si está activo- 1 si está eliminado
  }stLibro;
 
-typedef struct{
+typedef struct nodo2Libros{
     stLibro dato;
     struct nodo2Libros * ste;
     struct nodo2Libros * ante;
@@ -53,8 +55,7 @@ void verLibrosPorCategoria (nodo2Libros * lista, char categoria[]);
 void verLibrosPorAutor (nodo2Libros * lista, char autor[]);
 void verLibrosPorTitulo (nodo2Libros * lista, char titulo[]);
 ///Menu
-void mostrarMenuLibros();
-void menuLibros();
+
 ///Funciones para crear contenido random
 int randomRango(int min, int max);
 void setTituloRandom(char titulo[]);

@@ -411,67 +411,7 @@ int sumarId(stUsuario user, nodoListaUsuarios * lista)
     return user.idUsuario;
 }
 ///Menu
-void mostrarMenuUser()///menu inicial
-{
-    setColor(1);
-    escribirConRetraso("\n====================================", 5);
-    escribirConRetraso("\n    Sistema de Gestion de Libros", 5);
-    escribirConRetraso("\n====================================", 5);
-    escribirConRetraso("\n   1. Datos personales", 5);
-    escribirConRetraso("\n   2. Modificar datos", 5);
-    escribirConRetraso("\n   3. Darme de baja", 5);
-    escribirConRetraso("\n   4. Ver libros favoritos", 5);
-    escribirConRetraso("\n   5. Consultar libros", 5);
-    escribirConRetraso("\n   0. Salir", 5);
-    escribirConRetraso("\n====================================\n", 5);
-    setColor(7);
-}
-void menuUser(nodoListaUsuarios * user)
-{
-    int opcion;
-    do
-    {
-        system("pause");
-        system("cls");
-        mostrarMenuUser();
-        printf("\nSeleccione una opcion: ");
-        fflush(stdin);
-        scanf("%d",&opcion);
 
-        switch(opcion)
-        {
-        case 1:
-            system("cls");
-            muestraNodoUser(user);
-            break;
-
-        case 2:
-            ///funcion que modifique datos
-            break;
-
-        case 3:
-            /// funcion que modifique estado del user a dado de baja
-
-        case 4:
-            /// funcion ver libros favoritos
-
-        case 5:
-           menuLibros();
-           break;
-
-
-        case 0:
-            system("cls");
-            printf("\n--- Saliendo del sistema ---\n");
-            break;
-
-        default:
-            printf("\nOpcion no valida. Por favor, intenta nuevamente.\n");
-            break;
-        }
-    }
-    while(opcion != 0);
-}
 
 
 ///Funciones para crear contenido random
@@ -523,12 +463,11 @@ void setGeneroRandom(char genero[])
 }
 void setFechaNacimientoRandom(char fechaNacimiento[])
 {
-    char arregloFechaNacimiento[][20] = {"7 de agosto 1996", "15 de enero 1985", "23 de marzo 1990",
-                                         "10 de abril 1978", "5 de noviembre 2000", "30 de junio 1992", "18 de septiembre 1988",
-                                         "25 de diciembre 1995", "9 de febrero 1983", "12 de octubre 1975", "3 de julio 2001", "27 de mayo 1997",
-                                         "14 de agosto 1993", "21 de junio 1980", "6 de noviembre 1998", "19 de abril 1986", "28 de febrero 1994",
-                                         "8 de marzo 1991", "11 de diciembre 1982", "4 de julio 1989"
-                                        };
+    char arregloFechaNacimiento[][20] = {"7/08/1996", "15/01/1985", "23/03/1990",
+                                         "10/04/1978", "5/11/2000", "30/06/1992", "18/09/1988",
+                                         "25/12/1995", "9/02/1983", "12/10/1975", "3/07/2001", "27/5/1997",
+                                         "14/08/1993", "21/06/1980", "6/11/1998", "19/04/1986", "28/02/1994",
+                                         "8/01/1991", "11/12/1982", "4/07/1989"};
     int cantFechaNacimiento=(sizeof(arregloFechaNacimiento) / sizeof(arregloFechaNacimiento[0]));
     int indiceAleatorio = randomRangoUsuarios(0, cantFechaNacimiento - 1);
     strcpy(fechaNacimiento, arregloFechaNacimiento[indiceAleatorio]);
@@ -580,7 +519,7 @@ void setAlturaRandom(int altura)
 }
 void setCpRandom(int cp)
 {
-    int arregloCp[10] = {1000, 7600, 11001, 1001, 15700, 1010, 8002, 2000, 22000, 5000,
+    int arregloCp[20] = {1000, 7600, 11001, 1001, 15700, 1010, 8002, 2000, 22000, 5000,
                          11500, 12345, 77500, 57000, 76001, 1200, 17002, 4000, 8090, 1014
                         };
     int cantCp=(sizeof(arregloCp) / sizeof(arregloCp[0]));
