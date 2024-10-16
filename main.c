@@ -16,9 +16,9 @@ void mostrarMenuInicial();
 int main()
 {
     srand(time(NULL));
-    //stUsuario admin=crearUserAdmin();
+
     nodoListaUsuarios* listauser=inicLista();
-    //listauser = cargaUserAdmin(admin,listauser);
+
     listauser=archivoToLista(ARCHIVO_USER,listauser);
 
     menuPrincipal(ARCHIVO_USER,listauser);

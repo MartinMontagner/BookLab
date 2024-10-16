@@ -321,23 +321,7 @@ stUsuario cargaDatosUser()
         printf("\nLa password tiene que tener una mayuscula y una minuscula por lo menos\n");
         printf("Ingrese su password: \n");
         fflush(stdin);
-        int i=-1;
-        do
-        {
-            i++;
-            fflush(stdin);
-            user.password[i]=getch();
-            if(user.password[i]==13)
-            {
-                user.password[i]='\0';
-            }
-            else
-            {
-                printf("*");
-            }
-
-        }
-        while(user.password[i]!='\0');
+        strcmp(user.password,codificacionPassword());
     }
     while(verificacionPasswordCondiciones(user.password)==0 );
     printf("\n Ingrese su nombre: \n");
@@ -421,31 +405,36 @@ nodoListaUsuarios * modificarDatos(nodoListaUsuarios * user)
     {
         printf("\nQue dato desea cambiar\n");
         fflush(stdin);
-        scanf("%d",&opcion);
         opcionesModificarDatos();
+        scanf("%d",&opcion);
         switch(opcion)
         {
         case 1:
             user->usuario.domicilio=cargaDomicilio();
+            break;
         case 2:
-            user->usuario.username=cambioUserName();
+            strcmp(user->usuario.username,cambioUserName());
+            break;
         case 3:
-            user->usuario.password=cambioPassword();
+            strcmp(user->usuario.password,cambioPassword());
+            break;
         case 4:
-            user->usuario.genero=cambioGenero();
+            user->usuario.genero=cambioGenero(user->usuario.genero);
+            break;
         case 5:
-            user->usuario.fechaNacimiento=cambiarFechaNacimiento();
+            strcmp(user->usuario.fechaNacimiento,cambiarFechaNacimiento());
+            break;
         case 6:
-            user->usuario.dni=cambiarDNI();
+            strcmp(user->usuario.dni,cambiarDNI());
+            break;
         case 0:
             system("cls");
             printf("\n--- Volviendo al menu ---\n");
             break;
         }
-
     }
-    while(opcion!=0)
-        return user;
+    while(opcion!=0);
+    return user;
 }
 void opcionesModificarDatos()
 {
@@ -457,7 +446,69 @@ void opcionesModificarDatos()
     printf("\n   6. DNI\n");
     printf("\n   0. Salir\n");
 }
+char * cambioUserName()
+{
+    char userName[20];
 
+    printf("\nIngrese su nombre: \n");
+    fflush(stdin);
+    scanf("%s",&userName);
+    return userName;
+}
+char * cambioPassword()
+{
+    char password[20];
+    printf("\nIngrese nueva password: \n");
+    strcmp(password,codificacionPassword());
+    return password;
+
+}
+char * codificacionPassword()
+{
+    char password[20];
+    int i=-1;
+        do
+        {
+            i++;
+            fflush(stdin);
+            password[i]=getch();
+            if(password[i]==13)
+            {
+                password[i]='\0';
+            }
+            else
+            {
+                printf("*");
+            }
+
+        }
+        while(password[i]!='\0');
+        return password;
+}
+char cambioGenero(char genero)
+{
+    if(genero=="m"|| genero =="M")
+    {
+        strcmp(genero,"F");
+    }else{strcmp(genero,"M");}
+    return genero;
+}
+char * cambiarFechaNacimiento()
+{
+    char fechaNacimiento[20];
+    printf("\nIngrese su fecha de nacimiento: \n");
+    fflush(stdin);
+    scanf("%s",&fechaNacimiento);
+    return fechaNacimiento;
+}
+char * cambiarDNI()
+{
+    char dni[20];
+    printf("\nIngrese su DNI: \n");
+    fflush(stdin);
+    scanf("%s",&dni);
+    return dni;
+}
 ///Funciones para crear contenido random
 int randomRangoUsuarios(int min, int max)
 {

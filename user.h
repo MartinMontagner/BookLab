@@ -70,6 +70,14 @@ stUsuario cargaDatosUser();
 stDomicilio cargaDomicilio();
 int sumarId(stUsuario user, nodoListaUsuarios * lista);
 ///Menu
+nodoListaUsuarios * modificarDatos(nodoListaUsuarios * user);
+void opcionesModificarDatos();
+char * cambioUserName();
+char * cambioPassword();
+char * codificacionPassword();
+char cambioGenero(char genero);
+char * cambiarFechaNacimiento();
+char * cambiarDNI();
 
 
 ///Funciones de contenido Random (no las probe todavia)
