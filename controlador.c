@@ -115,15 +115,11 @@ void menuUser(nodoListaUsuarios * user)
             break;
 
         case 2:
-
-            ///funcion que modifique datos
             user=modificarDatos(user);
-
             break;
 
         case 3:
-            /// funcion que modifique estado del user a dado de baja
-            user->usuario.eliminado=-1;
+            user=darDeBajaUser(user);
             break;
 
         case 4:
@@ -136,7 +132,7 @@ void menuUser(nodoListaUsuarios * user)
 
         case 0:
             system("cls");
-            printf("\n--- Saliendo del sistema ---\n");
+            printf("\n--- Volviendo al menu ---\n");
             break;
 
         default:

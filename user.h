@@ -74,11 +74,11 @@ nodoListaUsuarios * modificarDatos(nodoListaUsuarios * user);
 void opcionesModificarDatos();
 char * cambioUserName();
 char * cambioPassword();
-char * codificacionPassword();
+
 char cambioGenero(char genero);
 char * cambiarFechaNacimiento();
 char * cambiarDNI();
-
+nodoListaUsuarios * darDeBajaUser(nodoListaUsuarios * user);
 
 ///Funciones de contenido Random (no las probe todavia)
 int randomRangoUsuarios(int min, int max);

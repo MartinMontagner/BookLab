@@ -497,29 +497,7 @@ char * cambioPassword()
     return password;
 
 }
-char * codificacionPassword()
-{
-    char password[20];
-    int i=-1;
-        do
-        {
-            i++;
-            fflush(stdin);
-            password[i]=getch();
-            if(password[i]==13)
-            {
-                password[i]='\0';
-            }
-            else
-            {
-                printf("*");
-            }
 
-        }
-        while(password[i]!='\0');
-        printf("%s",&password);
-        return password;
-}
 char cambioGenero(char genero)
 {
     if(genero=="m"|| genero =="M")
@@ -543,6 +521,27 @@ char * cambiarDNI()
     fflush(stdin);
     scanf("%s",&dni);
     return dni;
+}
+nodoListaUsuarios * darDeBajaUser(nodoListaUsuarios * user)
+{
+    int opcion=-1;
+    printf("\nSi ingresa 1 se dara de baja\n");
+    printf("\nSi ingresa 0 vuelve al menu\n");
+    fflush(stdin);
+    do
+    {
+        scanf("%d",&opcion);
+        switch(opcion)
+        {
+        case 1:
+            user->usuario.eliminado=-1;
+        case 0:
+            system("cls");
+            printf("\n--- Volviendo al menu ---\n");
+            break;
+        }
+    }while(opcion!=0);
+    return user;
 }
 ///Funciones para crear contenido random
 int randomRangoUsuarios(int min, int max)
