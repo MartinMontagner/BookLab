@@ -87,7 +87,7 @@
 	<stdbool.h>
 	<windows.h>
 
-1729046064 source:c:\users\40306\desktop\booklab\main.c
+1729047800 source:c:\users\40306\desktop\booklab\main.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
@@ -107,7 +107,7 @@
 	<windows.h>
 	"libros.h"
 
-1729046064 source:c:\users\40306\desktop\booklab\controlador.c
+1729096483 source:c:\users\40306\desktop\booklab\controlador.c
 	"controlador.h"
 
 1729046064 c:\users\40306\desktop\booklab\controlador.h
@@ -121,7 +121,7 @@
 	"user.h"
 	"libros.h"
 
-1729047531 source:c:\users\40306\desktop\booklab\user.c
+1729096885 source:c:\users\40306\desktop\booklab\user.c
 	"user.h"
 	<ctype.h>
 

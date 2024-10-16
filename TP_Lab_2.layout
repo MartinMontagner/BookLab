@@ -2,21 +2,6 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="controlador.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="480" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="user.c" open="1" top="1" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="7455" topLine="303" />
-		</Cursor>
-		<Folding>
-			<Collapse line="439" />
-			<Collapse line="449" />
-			<Collapse line="466" />
-		</Folding>
-	</File>
 	<File name="libros.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="12440" topLine="300" />
@@ -32,9 +17,9 @@
 			<Collapse line="147" />
 		</Folding>
 	</File>
-	<File name="user.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="user.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2722" topLine="47" />
+			<Cursor1 position="11687" topLine="461" />
 		</Cursor>
 	</File>
 	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -42,14 +27,24 @@
 			<Cursor1 position="459" topLine="1" />
 		</Cursor>
 	</File>
-	<File name="controlador.c" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="controlador.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1507" topLine="45" />
+			<Cursor1 position="480" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="libros.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="2027" topLine="31" />
+		</Cursor>
+	</File>
+	<File name="user.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2722" topLine="62" />
+		</Cursor>
+	</File>
+	<File name="controlador.c" open="1" top="1" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="892" topLine="2" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

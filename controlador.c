@@ -17,7 +17,24 @@ void login (nodoListaUsuarios * lista)
         }while(esValido==false);
         printf("Password: \n");
         fflush(stdin);
-        strcmp(password,codificacionPassword());
+        int i=-1;
+        do
+        {
+            i++;
+            fflush(stdin);
+            password[i]=getch();
+            if(password[i]==13)
+            {
+                password[i]='\0';
+            }
+            else
+            {
+                printf("*");
+            }
+
+        }
+        while(password[i]!='\0');
+
         ret=verificar(email,password,lista);//crear funcion verificar
         if(ret==0)
         {

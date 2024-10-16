@@ -321,7 +321,24 @@ stUsuario cargaDatosUser()
         printf("\nLa password tiene que tener una mayuscula y una minuscula por lo menos\n");
         printf("Ingrese su password: \n");
         fflush(stdin);
-        strcmp(user.password,codificacionPassword());
+        int i=-1;
+        do
+        {
+            i++;
+            fflush(stdin);
+            user.password[i]=getch();
+            if(user.password[i]==13)
+            {
+                user.password[i]='\0';
+            }
+            else
+            {
+                printf("*");
+            }
+
+        }
+        while(user.password[i]!='\0');
+
     }
     while(verificacionPasswordCondiciones(user.password)==0 );
     printf("\n Ingrese su nombre: \n");
@@ -413,19 +430,19 @@ nodoListaUsuarios * modificarDatos(nodoListaUsuarios * user)
             user->usuario.domicilio=cargaDomicilio();
             break;
         case 2:
-            strcmp(user->usuario.username,cambioUserName());
+            strcpy(user->usuario.username,cambioUserName());
             break;
         case 3:
-            strcmp(user->usuario.password,cambioPassword());
+            strcpy(user->usuario.password,cambioPassword());
             break;
         case 4:
             user->usuario.genero=cambioGenero(user->usuario.genero);
             break;
         case 5:
-            strcmp(user->usuario.fechaNacimiento,cambiarFechaNacimiento());
+            strcpy(user->usuario.fechaNacimiento,cambiarFechaNacimiento());
             break;
         case 6:
-            strcmp(user->usuario.dni,cambiarDNI());
+            strcpy(user->usuario.dni,cambiarDNI());
             break;
         case 0:
             system("cls");
@@ -459,7 +476,24 @@ char * cambioPassword()
 {
     char password[20];
     printf("\nIngrese nueva password: \n");
-    strcmp(password,codificacionPassword());
+    int i=-1;
+        do
+        {
+            i++;
+            fflush(stdin);
+            password[i]=getch();
+            if(password[i]==13)
+            {
+                password[i]='\0';
+            }
+            else
+            {
+                printf("*");
+            }
+
+        }
+        while(password[i]!='\0');
+
     return password;
 
 }
@@ -483,6 +517,7 @@ char * codificacionPassword()
 
         }
         while(password[i]!='\0');
+        printf("%s",&password);
         return password;
 }
 char cambioGenero(char genero)
