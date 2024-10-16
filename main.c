@@ -5,16 +5,13 @@
 #include <time.h>
 #include <stdbool.h>
 #include <windows.h>
-//
 //#include "user.h"
 #include "controlador.h"
 #define ARCHIVO_LIBROS "libros.dat"
 #define ARCHIVO_USER "usuarios.dat"
 
-
 void menuPrincipal(char archivoUser[], nodoListaUsuarios * listaUser);
 void mostrarMenuInicial();
-
 
 int main()
 {
@@ -24,19 +21,13 @@ int main()
     //listauser = cargaUserAdmin(admin,listauser);
     listauser=archivoToLista(ARCHIVO_USER,listauser);
 
-
-
     menuPrincipal(ARCHIVO_USER,listauser);
     return 0;
 }
 
-
-
-
-void menuPrincipal(char archivoUser[], nodoListaUsuarios * listaUser)
+void menuPrincipal(char archivoUser[], nodoListaUsuarios *listaUser)
 {
     int opcion;
-
 
     do
     {
@@ -74,8 +65,6 @@ void menuPrincipal(char archivoUser[], nodoListaUsuarios * listaUser)
     while(opcion != 0);
 }
 
-
-
 void mostrarMenuInicial()///menu inicial
 {
     setColor(1);
@@ -88,6 +77,3 @@ void mostrarMenuInicial()///menu inicial
     escribirConRetraso("\n====================================\n", 5);
     setColor(7);
 }
-
-
-
