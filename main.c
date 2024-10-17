@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
-#include <strings.h>
+#include <string.h>
 #include <time.h>
 #include <stdbool.h>
 #include <windows.h>
-//#include "user.h"
+
 #include "controlador.h"
 #define ARCHIVO_LIBROS "libros.dat"
 #define ARCHIVO_USER "usuarios.dat"

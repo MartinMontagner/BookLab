@@ -14,27 +14,10 @@ void login (nodoListaUsuarios * lista)
             fflush(stdin);
             gets(email);
             esValido=validarEmail(email);
-        }while(esValido==false);
-        printf("Password: \n");
-        fflush(stdin);
-        int i=-1;
-        do
-        {
-            i++;
-            fflush(stdin);
-            password[i]=getch();
-            if(password[i]==13)
-            {
-                password[i]='\0';
-            }
-            else
-            {
-                printf("*");
-            }
-
         }
-        while(password[i]!='\0');
-
+        while(esValido==false);
+        printf("Password: \n");
+        leerPassword(password,sizeof(password));
         ret=verificar(email,password,lista);//crear funcion verificar
         if(ret==0)
         {
@@ -48,7 +31,7 @@ void login (nodoListaUsuarios * lista)
         nodoListaUsuarios * aux=buscarUsuario(email,lista);
         if(aux->usuario.esAdmin==1)
         {
-            //adminMenu();// crear un menu para el administrador
+            menuAdmin(lista);// crear un menu para el administrador
         }
         else
         {
@@ -95,12 +78,25 @@ void escribirConRetraso(const char *texto, int delay)
         usleep(delay * 1000);
     }
 }
+void mostrarMenuUser()
+{
+    setColor(1);
+    escribirConRetraso("\n====================================", 5);
+    escribirConRetraso("\n    Sistema de Gestion de Libros", 5);
+    escribirConRetraso("\n====================================", 5);
+    escribirConRetraso("\n   1. Datos personales", 5);
+    escribirConRetraso("\n   2. Modificar datos", 5);
+    escribirConRetraso("\n   3. Darme de baja", 5);
+    escribirConRetraso("\n   4. Consultar libros", 5);
+    escribirConRetraso("\n   0. Salir", 5);
+    escribirConRetraso("\n====================================\n", 5);
+    setColor(7);
+}
 void menuUser(nodoListaUsuarios * user)
 {
     int opcion;
     do
     {
-        system("pause");
         system("cls");
         mostrarMenuUser();
         printf("\nSeleccione una opcion: ");
@@ -123,11 +119,9 @@ void menuUser(nodoListaUsuarios * user)
             break;
 
         case 4:
-            /// funcion ver libros favoritos
+            menuLibros(user);
+            break;
 
-        case 5:
-           menuLibros();
-           break;
 
 
         case 0:
@@ -142,7 +136,7 @@ void menuUser(nodoListaUsuarios * user)
     }
     while(opcion != 0);
 }
-void mostrarMenuLibros()///menu inicial
+void mostrarMenuLibros()
 {
     setColor(1);
     escribirConRetraso("\n====================================", 5);
@@ -152,11 +146,14 @@ void mostrarMenuLibros()///menu inicial
     escribirConRetraso("\n   2. Buscar por categoria", 5);
     escribirConRetraso("\n   3. Buscar por autor", 5);
     escribirConRetraso("\n   4. Buscar por titulo", 5);
+    escribirConRetraso("\n   5. Agregar un libro a favoritos", 5);
+    escribirConRetraso("\n   6. Agregar un libro al sistema", 5);
+    escribirConRetraso("\n   7. Ver libros favoritos", 5);
     escribirConRetraso("\n   0. Salir", 5);
     escribirConRetraso("\n====================================\n", 5);
     setColor(7);
 }
-void menuLibros()
+void menuLibros( nodoListaUsuarios * user)
 {
     nodo2Libros * libros=inicListaDoble();
     libros=archivoToLista2("libros.dat",libros);
@@ -176,7 +173,6 @@ void menuLibros()
             system("cls");
             muestraListaLibros(libros);
             break;
-
         case 2:
             ///buscar por categoria
             buscaLibrosPorCategoria(libros);
@@ -191,6 +187,20 @@ void menuLibros()
             /// buscar por titulo
             buscaLibrosPorTitulo(libros);
             break;
+        case 5:
+            /// agregar un libro a favoritos
+            opcionAgregarLibroAFavoritos(user,libros);
+            break;
+        case 6:
+            /// agregar un libro
+            libros=cargarLibroEnLista(libros);
+            agregarLibrosAlArchivo(libros,"libros.dat");
+            break;
+        case 7:
+            /// ver favoritos
+            opcionQuitarLibroDeFavoritos(user,libros);
+            break;
+
         case 0:
             system("cls");
 
@@ -201,18 +211,59 @@ void menuLibros()
     }
     while(opcion != 0);
 }
-void mostrarMenuUser()///menu inicial
+void mostrarMenuAdmin()
 {
-    setColor(1);
+    setColor(2);
     escribirConRetraso("\n====================================", 5);
     escribirConRetraso("\n    Sistema de Gestion de Libros", 5);
     escribirConRetraso("\n====================================", 5);
-    escribirConRetraso("\n   1. Datos personales", 5);
-    escribirConRetraso("\n   2. Modificar datos", 5);
-    escribirConRetraso("\n   3. Darme de baja", 5);
-    escribirConRetraso("\n   4. Ver libros favoritos", 5);
-    escribirConRetraso("\n   5. Consultar libros", 5);
-    escribirConRetraso("\n   0. Salir", 5);
+    escribirConRetraso("\n   1-Dar de baja un libro", 5);
+    escribirConRetraso("\n   2-Agregar un libro", 5);
+    escribirConRetraso("\n   3-Ver libros", 5);
+    escribirConRetraso("\n   4-Ver usuarios", 5);
+    escribirConRetraso("\n   5-Dar de baja usuario", 5);
+    escribirConRetraso("\n   0-Salir", 5);
     escribirConRetraso("\n====================================\n", 5);
     setColor(7);
+}
+void menuAdmin(nodoListaUsuarios * listaUser)
+{
+    nodo2Libros * libros=inicListaDoble();
+    libros=archivoToLista2("libros.dat",libros);
+    int opcion;
+    do
+    {
+        system("cls");
+        mostrarMenuAdmin();
+        printf("\nSeleccione una opcion: ");
+        scanf("%d",&opcion);
+
+        switch(opcion)
+        {
+        case 1:
+            system("cls");
+            darDeBajaLogica(libros);
+            break;
+        case 2:
+            libros=cargarLibroEnLista(libros);
+            agregarLibrosAlArchivo(libros,"libros.dat");
+            break;
+        case 3:
+            muestraListaLibrosAdmin(libros);
+            break;
+        case 4:
+            muestraLista(listaUser);
+            break;
+        case 5:
+            listaUser=darDeBajaUserAdmin(listaUser);
+            break;
+        case 0:
+            system("cls");
+
+        default:
+            printf("\nOpcion no valida. Por favor, intenta nuevamente.\n");
+            break;
+        }
+    }
+    while(opcion != 0);
 }

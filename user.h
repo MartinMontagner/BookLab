@@ -4,10 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
-#include <strings.h>
+#include <string.h>
 #include <time.h>
 #include <stdbool.h>
 #include <windows.h>
+#include <unistd.h>
 #include "libros.h"
 
 typedef struct{
@@ -54,6 +55,8 @@ nodoListaUsuarios * agregarEnOrdenId(nodoListaUsuarios * lista, nodoListaUsuario
 ///Funciones de busqueda
 nodoListaUsuarios * buscarUsuario(char userIngresado[], nodoListaUsuarios * lista);
 nodoListaUsuarios* buscarUltimo(nodoListaUsuarios* lista);
+nodoListaUsuarios * buscarUsuarioXId(nodoListaUsuarios * lista,int id);
+int buscarUltimoIdUsuario (nodoListaUsuarios * lista);
 ///Funciones para mostrar
 void muestraUnUsuario(stUsuario u);
 void muestraNodoUser(nodoListaUsuarios * nodo);
@@ -68,25 +71,28 @@ stUsuario crearUserAdmin();
 nodoListaUsuarios * cargaUserAdmin(stUsuario admin, nodoListaUsuarios * listaUser);
 stUsuario cargaDatosUser();
 stDomicilio cargaDomicilio();
+stUsuario cargaDatosUserRandom();
+stDomicilio cargaDomicilioRandom();
+void cargarUsuarioArchivoRandom(char nombreArchivo[], nodoListaUsuarios * lista);
 int sumarId(stUsuario user, nodoListaUsuarios * lista);
+
 ///Menu
 nodoListaUsuarios * modificarDatos(nodoListaUsuarios * user);
 void opcionesModificarDatos();
-char * cambioUserName();
-char * cambioPassword();
-
-char cambioGenero(char genero);
-char * cambiarFechaNacimiento();
-char * cambiarDNI();
+stUsuario cambioUserName(stUsuario user);
+stUsuario cambioPassword(stUsuario user);
+void leerPassword(char *password, int maxLength);
+void cambioGenero(char *genero);
+void cambiarFechaNacimiento(char *fechaNacimiento);
+void cambiarDNI(char *dni);
 nodoListaUsuarios * darDeBajaUser(nodoListaUsuarios * user);
-
+nodoListaUsuarios * darDeBajaUserAdmin(nodoListaUsuarios * lista);
 ///Funciones de contenido Random (no las probe todavia)
 int randomRangoUsuarios(int min, int max);
 void setMailRandom(char email[]);
 void setPasswordRandom(char password[]);
 void setUsernameRandom(char username[]);
 void setGeneroRandom(char genero[]);
-void setFechaNacimientoRandom(char fechaNacimiento[]);
 void setFechaNacimientoRandom(char fechaNacimiento[]);
 void setDniRandom(char dni[],int usados[], int *restantes);
 void setCalleRandom(char calle[]);
@@ -95,4 +101,11 @@ void setCpRandom(int cp);
 void setCiudadRandom(char ciudad[]);
 void setLocalidadRandom(char localidad[]);
 void setPaisRandom(char pais[]);
+
+///Funciones de Favoritos
+void agregarLibroAFavoritosUsuario(nodoListaUsuarios* nodoUsuario, nodo2Libros* listaLibros, int idLibro);
+void mostrarLibrosFavoritos(nodoListaUsuarios* nodoUsuario, nodo2Libros* listaLibros);
+void quitarLibroDeFavoritosUsuario(nodoListaUsuarios* nodoUsuario, int idLibro);
+void opcionAgregarLibroAFavoritos(nodoListaUsuarios* usuario, nodo2Libros* libros);
+void opcionQuitarLibroDeFavoritos(nodoListaUsuarios* usuario, nodo2Libros* libros);
 #endif // USER_H_INCLUDED

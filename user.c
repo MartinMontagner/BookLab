@@ -147,7 +147,36 @@ nodoListaUsuarios* buscarUltimo(nodoListaUsuarios* lista)
     }
     return seg;
 }
-
+nodoListaUsuarios * buscarUsuarioXId(nodoListaUsuarios * lista,int id)
+{
+    int flag=0;
+    nodoListaUsuarios * aux=NULL;
+    if(lista && lista->usuario.idUsuario==id)
+    {
+        aux=lista;
+    }
+    else
+    {
+        nodoListaUsuarios * seg = lista->sig;
+        while(seg!=NULL && flag==0)
+        {
+            if(seg->usuario.idUsuario!=id)
+            {
+                seg=seg->sig;
+            }else
+            {
+                aux=seg;
+                flag=1;
+            }
+        }
+    }return aux;
+}
+int buscarUltimoIdUsuario (nodoListaUsuarios * lista)
+{
+    nodoListaUsuarios * ultimo= buscarUltimo(lista);
+    int id=ultimo->usuario.idUsuario;
+    return id;
+}
 ///Funciones para Mostrar
 
 void muestraUnUsuario(stUsuario u)
@@ -220,32 +249,27 @@ int verificacionPasswordCondiciones(char password[])  // Función para cuando se 
     int tieneMinuscula = 0;
     int flag = 0;
 
-    while (*password)  // Mientras no lleguemos al final de la cadena
+    while (*password)
     {
-        if (isupper((unsigned char)*password))  // Verifica si el carácter actual es mayúscula
+        if (isupper((unsigned char)*password))
         {
             tieneMayuscula = 1;
         }
-        else if (islower((unsigned char)*password))  // Verifica si el carácter actual es minúscula
+        else if (islower((unsigned char)*password))
         {
             tieneMinuscula = 1;
         }
-
-        // Si ya se encontró al menos una mayúscula y una minúscula
         if (tieneMayuscula && tieneMinuscula)
         {
             flag = 1;
-            break;  // Salimos del bucle porque ya encontramos lo que necesitamos
+            break;
         }
-
-        password++;  // Avanzamos al siguiente carácter
+        password++;
     }
     if(flag==0)
     {
         printf("\nNo cumple con las condiciones, por favor agregar una mayuscula y una minuscula.\n");
     }
-
-
     return flag;
 }
 
@@ -305,6 +329,7 @@ nodoListaUsuarios * cargaUserAdmin(stUsuario admin, nodoListaUsuarios * listaUse
 }
 stUsuario cargaDatosUser()
 {
+    char password[20];
     stUsuario user;
     bool esValido=false;
 //funcion para verificar escritura email
@@ -320,24 +345,9 @@ stUsuario cargaDatosUser()
     {
         printf("\nLa password tiene que tener una mayuscula y una minuscula por lo menos\n");
         printf("Ingrese su password: \n");
-        fflush(stdin);
-        int i=-1;
-        do
-        {
-            i++;
-            fflush(stdin);
-            user.password[i]=getch();
-            if(user.password[i]==13)
-            {
-                user.password[i]='\0';
-            }
-            else
-            {
-                printf("*");
-            }
+        leerPassword(password,sizeof(password));
+        strcpy(user.password,password);
 
-        }
-        while(user.password[i]!='\0');
 
     }
     while(verificacionPasswordCondiciones(user.password)==0 );
@@ -414,6 +424,68 @@ int sumarId(stUsuario user, nodoListaUsuarios * lista)
     }
     return user.idUsuario;
 }
+///Funciones de carga random
+stUsuario cargaDatosUserRandom()
+{
+    stUsuario user;
+    int usados[20] = {0};
+    int restantes = 20;
+    setMailRandom(user.email);
+    setPasswordRandom(user.password);
+    setUsernameRandom(user.username);;
+    setGeneroRandom(&user.genero);
+    setFechaNacimientoRandom(user.fechaNacimiento);
+    setDniRandom(user.dni,usados,&restantes);
+    user.domicilio=cargaDomicilioRandom();
+    user.librosFavoritos[0]=0;
+    user.eliminado=0;
+    user.esAdmin=0;
+
+
+    return user;
+
+}
+stDomicilio cargaDomicilioRandom()
+{
+
+    stDomicilio domicilio;
+    setCalleRandom(domicilio.calle);
+    setAlturaRandom(&domicilio.altura);
+    setCiudadRandom(domicilio.ciudad);
+    setLocalidadRandom(domicilio.localidad);
+    setPaisRandom(domicilio.pais);
+    setCpRandom(domicilio.cp);
+    return domicilio;
+}
+void cargarUsuarioArchivoRandom(char nombreArchivo[], nodoListaUsuarios * lista)
+{
+
+    FILE * buffer = fopen(nombreArchivo,"ab");
+    stUsuario aux;
+    char opcion = 0;
+    int i = 0;
+
+    int ultimoIdUsuario = buscarUltimoIdUsuario(lista);
+    if(buffer)
+    {
+        do
+        {
+            printf("Usuario %d\n", ultimoIdUsuario + 1);
+            aux = cargaDatosUserRandom();
+            aux.idUsuario= ultimoIdUsuario+1;
+            fwrite(&aux,sizeof(stUsuario),1,buffer);
+            ultimoIdUsuario++;
+            i++;
+
+            printf("Desea seguir cargando? Presione 'n' para salir \n");
+            fflush(stdin);
+            scanf("%c",&opcion);
+        }
+        while(opcion != 'n');
+        fclose(buffer);
+
+    }
+}
 ///Menu
 nodoListaUsuarios * modificarDatos(nodoListaUsuarios * user)
 {
@@ -430,19 +502,19 @@ nodoListaUsuarios * modificarDatos(nodoListaUsuarios * user)
             user->usuario.domicilio=cargaDomicilio();
             break;
         case 2:
-            strcpy(user->usuario.username,cambioUserName());
+            user->usuario=cambioUserName(user->usuario);
             break;
         case 3:
-            strcpy(user->usuario.password,cambioPassword());
+            user->usuario=cambioPassword(user->usuario);
             break;
         case 4:
-            user->usuario.genero=cambioGenero(user->usuario.genero);
+            cambioGenero(user->usuario.genero);
             break;
         case 5:
-            strcpy(user->usuario.fechaNacimiento,cambiarFechaNacimiento());
+            cambiarFechaNacimiento(user->usuario.fechaNacimiento);
             break;
         case 6:
-            strcpy(user->usuario.dni,cambiarDNI());
+            cambiarDNI(user->usuario.dni);
             break;
         case 0:
             system("cls");
@@ -463,78 +535,82 @@ void opcionesModificarDatos()
     printf("\n   6. DNI\n");
     printf("\n   0. Salir\n");
 }
-char * cambioUserName()
+stUsuario cambioUserName(stUsuario user)
 {
     char userName[20];
-
     printf("\nIngrese su nombre: \n");
     fflush(stdin);
-    scanf("%s",&userName);
-    return userName;
+    strcpy(user.username,userName);
+    return user;
 }
-char * cambioPassword()
-{
+
+stUsuario cambioPassword(stUsuario user) {
     char password[20];
     printf("\nIngrese nueva password: \n");
-    int i=-1;
-        do
-        {
+
+    leerPassword(password, sizeof(password));
+
+    strcpy(user.password, password);
+
+    return user;
+}
+void leerPassword(char *password, int maxLength) {
+    int i = 0;
+    char ch;
+
+    while (i < maxLength - 1) {
+        ch = getch();
+        if (ch == 13) {
+            password[i] = '\0';
+            break;
+        } else if (ch == 8) {
+            if (i > 0) {
+                i--;
+                printf("\b \b");
+            }
+        } else {
+            password[i] = ch;
             i++;
-            fflush(stdin);
-            password[i]=getch();
-            if(password[i]==13)
-            {
-                password[i]='\0';
-            }
-            else
-            {
-                printf("*");
-            }
-
+            printf("*");
         }
-        while(password[i]!='\0');
+    }
 
-    return password;
-
+    password[i] = '\0';
 }
 
-char cambioGenero(char genero)
-{
-    if(genero=="m"|| genero =="M")
-    {
-        strcmp(genero,"F");
-    }else{strcmp(genero,"M");}
-    return genero;
+void cambioGenero(char *genero) {
+    if (*genero == 'm' || *genero == 'M') {
+        strcpy(genero, "F");
+    } else {
+        strcpy(genero, "M");
+    }
 }
-char * cambiarFechaNacimiento()
-{
-    char fechaNacimiento[20];
-    printf("\nIngrese su fecha de nacimiento: \n");
-    fflush(stdin);
-    scanf("%s",&fechaNacimiento);
-    return fechaNacimiento;
+
+void cambiarFechaNacimiento(char *fechaNacimiento) {
+    printf("\nIngrese su fecha de nacimiento (dd/mm/yyyy): \n");
+    scanf("%s", fechaNacimiento);  // Lee la fecha de nacimiento directamente
 }
-char * cambiarDNI()
-{
-    char dni[20];
+
+
+void cambiarDNI(char *dni) {
     printf("\nIngrese su DNI: \n");
-    fflush(stdin);
-    scanf("%s",&dni);
-    return dni;
+    scanf("%s", dni);  // Lee el DNI directamente
 }
+
 nodoListaUsuarios * darDeBajaUser(nodoListaUsuarios * user)
 {
-    int opcion=-1;
-    printf("\nSi ingresa 1 se dara de baja\n");
-    printf("\nSi ingresa 0 vuelve al menu\n");
-    fflush(stdin);
+    int opcion;
     do
     {
+        printf("\nSi ingresa 1 se dara de baja\n");
+        printf("\nSi ingresa 0 vuelve al menu\n");
         scanf("%d",&opcion);
         switch(opcion)
         {
         case 1:
             user->usuario.eliminado=-1;
+            break;
+
         case 0:
             system("cls");
             printf("\n--- Volviendo al menu ---\n");
@@ -543,6 +619,18 @@ nodoListaUsuarios * darDeBajaUser(nodoListaUsuarios * user)
     }while(opcion!=0);
     return user;
 }
+nodoListaUsuarios * darDeBajaUserAdmin(nodoListaUsuarios * lista)
+{
+    int opcion;
+    nodoListaUsuarios * aux=inicLista();
+    printf("\nIngrese el ID del usuario que desea dar de baja: \n");
+    fflush(stdin);
+    scanf("%d",&opcion);
+    aux=buscarUsuarioXId(lista,opcion);
+    aux=darDeBajaUser(aux);
+    return lista;
+}
+
 ///Funciones para crear contenido random
 int randomRangoUsuarios(int min, int max)
 {
@@ -583,12 +671,11 @@ void setUsernameRandom(char username[])
     int indiceAleatorio = randomRangoUsuarios(0, cantUsername - 1);
     strcpy(username, arregloUsername[indiceAleatorio]);
 }
-void setGeneroRandom(char genero[])
-{
-    char arregloGenero[][10] = {"F", "M"};
-    int cantGenero=(sizeof(arregloGenero) / sizeof(arregloGenero[0]));
+void setGeneroRandom(char* genero) {
+    char arregloGenero[] = {'F', 'M'};  // Define un array de caracteres
+    int cantGenero = sizeof(arregloGenero) / sizeof(arregloGenero[0]);
     int indiceAleatorio = randomRangoUsuarios(0, cantGenero - 1);
-    strcpy(genero, arregloGenero[indiceAleatorio]);
+    *genero = arregloGenero[indiceAleatorio];  // Asigna el carácter directamente
 }
 void setFechaNacimientoRandom(char fechaNacimiento[])
 {
@@ -604,12 +691,12 @@ void setFechaNacimientoRandom(char fechaNacimiento[])
 }
 void setDniRandom(char dni[],int usados[], int *restantes)
 {
-    char arregloDni[][10] = {"30678923", "28765432", "39874567", "32984756", "41928374",
+    char arregloDni[][20] = {"30678923", "28765432", "39874567", "32984756", "41928374",
                              "56473829", "61283947", "23829156", "45673820", "50192834",
                              "34718294", "29183746", "64829371", "43482915", "58391024",
                              "69382047", "47283910", "52938471", "61829304", "78912345"
                             };
-    int cantDni=(sizeof(arregloDni) / sizeof(arregloDni[0]));
+    int cantDni=sizeof(arregloDni) / sizeof(arregloDni[0]);
     int indiceAleatorio=0;
     do
     {
@@ -636,7 +723,7 @@ void setCalleRandom(char calle[])
     int indiceAleatorio = randomRangoUsuarios(0, cantCalle - 1);
     strcpy(calle, arregloCalle[indiceAleatorio]);
 }
-void setAlturaRandom(int altura)
+void setAlturaRandom(int *altura)
 {
     int arregloAltura[20] = {1236, 4561, 789, 1015, 234,
                              567, 890, 1120, 3456, 678,
@@ -645,7 +732,7 @@ void setAlturaRandom(int altura)
                             };
     int cantAltura=(sizeof(arregloAltura) / sizeof(arregloAltura[0]));
     int indiceAleatorio = randomRangoUsuarios(0, cantAltura - 1);
-    altura= arregloAltura[indiceAleatorio];
+    *altura= arregloAltura[indiceAleatorio];
 }
 void setCpRandom(int cp)
 {
@@ -689,6 +776,199 @@ void setPaisRandom(char pais[])
     int cantPais=(sizeof(arregloPais) / sizeof(arregloPais[0]));
     int indiceAleatorio = randomRangoUsuarios(0, cantPais - 1);
     strcpy(pais, arregloPais[indiceAleatorio]);
+}
+
+
+///Funciones de favoritos
+void agregarLibroAFavoritosUsuario(nodoListaUsuarios* nodoUsuario, nodo2Libros* listaLibros, int idLibro)
+{
+    if (nodoUsuario == NULL)
+    {
+        printf("Usuario no encontrado.\n");
+        return;
+    }
+
+    stUsuario* usuario = &nodoUsuario->usuario;
+
+    for (int i = 0; i < usuario->validosLibrosFavs; i++)
+    {
+        if (usuario->librosFavoritos[i] == idLibro)
+        {
+            printf("El libro con ID %d ya está en la lista de favoritos.\n", idLibro);
+            return;
+        }
+    }
+    nodo2Libros* libro = buscarLibroPorId(listaLibros, idLibro);
+    if (libro != NULL)
+    {
+        if (usuario->validosLibrosFavs < 50)    // Verificar si la lista no está llena
+        {
+            usuario->librosFavoritos[usuario->validosLibrosFavs] = idLibro;
+            usuario->validosLibrosFavs++;
+            printf("El libro '%s' ha sido agregado a la lista de favoritos del usuario %s.\n", libro->dato.titulo, usuario->username);
+        }
+        else
+        {
+            printf("La lista de libros favoritos está llena.\n");
+        }
+    }
+    else
+    {
+        printf("Libro con ID %d no encontrado en la lista de libros.\n", idLibro);
+    }
+}
+
+void mostrarLibrosFavoritos(nodoListaUsuarios* nodoUsuario, nodo2Libros* listaLibros)
+{
+    if (nodoUsuario == NULL)
+    {
+        printf("Usuario no encontrado.\n");
+        return;
+    }
+
+    stUsuario* usuario = &nodoUsuario->usuario;
+
+    if (usuario->validosLibrosFavs == 0)
+    {
+        printf("El usuario %s no tiene libros favoritos.\n", usuario->username);
+    }
+    else
+    {
+        setColor(1);
+        printf("Libros favoritos de %s:\n", usuario->username);
+        setColor(7);
+        for (int i = 0; i < usuario->validosLibrosFavs; i++)
+        {
+            int idFavorito = usuario->librosFavoritos[i];
+            nodo2Libros* libro = buscarLibroPorId(listaLibros, idFavorito);
+            if (libro != NULL && libro->dato.eliminado == 0)
+            {
+                muestraUnLibro(libro->dato);
+            }
+            else
+            {
+                printf("Libro con ID %d no encontrado o está eliminado.\n", idFavorito);
+            }
+        }
+    }
+}
+
+void quitarLibroDeFavoritosUsuario(nodoListaUsuarios* nodoUsuario, int idLibro)
+{
+    if (nodoUsuario == NULL)
+    {
+        printf("Usuario no encontrado.\n");
+        return;
+    }
+
+    stUsuario* usuario = &nodoUsuario->usuario;
+    int encontrado = 0;
+
+    for (int i = 0; i < usuario->validosLibrosFavs; i++)
+    {
+        if (usuario->librosFavoritos[i] == idLibro)
+        {
+            encontrado = 1;
+            for (int j = i; j < usuario->validosLibrosFavs - 1; j++)
+            {
+                usuario->librosFavoritos[j] = usuario->librosFavoritos[j + 1];
+            }
+            usuario->validosLibrosFavs--;
+            printf("El libro con ID %d ha sido eliminado de los favoritos del usuario %s.\n", idLibro+1, usuario->username);
+            break;
+        }
+    }
+
+    if (!encontrado)
+    {
+        printf("El libro con ID %d no está en la lista de favoritos del usuario %s.\n", idLibro, usuario->username);
+    }
+}
+void opcionAgregarLibroAFavoritos(nodoListaUsuarios* usuario, nodo2Libros* libros)
+{
+    if (usuario == NULL)
+    {
+        printf("Usuario no encontrado.\n");
+        return;
+    }
+
+    int opcion;
+    int idLibro;
+    setColor(1);
+    printf("Conoces el ID del libro que quieres agregar a favoritos?\n");
+    printf("1. Si\n");
+    printf("2. No, mostrar lista de libros\n");
+    printf("Elige una opción (1 o 2): ");
+    scanf("%d", &opcion);
+
+    switch (opcion)
+    {
+    case 1:
+        // El usuario conoce el ID del libro
+        printf("Ingresa el ID del libro que deseas agregar a favoritos: ");
+        scanf("%d", &idLibro);
+        idLibro=idLibro-1;
+        agregarLibroAFavoritosUsuario(usuario, libros, idLibro);
+        break;
+
+    case 2:
+        printf("Lista de libros disponibles:\n");
+        muestraListaLibros(libros);
+        printf("\nIngresa el ID del libro que deseas agregar a favoritos: ");
+        scanf("%d", &idLibro);
+        idLibro=idLibro-1;
+        agregarLibroAFavoritosUsuario(usuario, libros, idLibro);
+        break;
+
+    default:
+        printf("Opción no válida.\n");
+        break;
+    }
+    setColor(7);
+}
+void opcionQuitarLibroDeFavoritos(nodoListaUsuarios* usuario, nodo2Libros* libros)
+{
+    if (usuario == NULL)
+    {
+        printf("Usuario no encontrado.\n");
+        return;
+    }
+
+    stUsuario* user = &usuario->usuario;
+
+    if (user->validosLibrosFavs == 0)
+    {
+        printf("La lista de favoritos está vacía.\n");
+        return;
+    }
+
+    int opcion;
+    int idLibro;
+
+    mostrarLibrosFavoritos(usuario, libros);
+    setColor(1);
+    printf("\nDeseas quitar algun libro de favoritos?\n");
+    printf("1. Si\n");
+    printf("2. No\n");
+    printf("Elige una opción (1 o 2): ");
+    scanf("%d", &opcion);
+
+    if (opcion == 1)
+    {
+        printf("\nIngresa el ID del libro que deseas quitar de favoritos: ");
+        scanf("%d", &idLibro);
+        idLibro=idLibro-1;
+        quitarLibroDeFavoritosUsuario(usuario, idLibro);
+    }
+    else if (opcion == 2)
+    {
+        printf("No se quitará ningún libro.\n");
+    }
+    else
+    {
+        printf("Opción no válida.\n");
+    }
+    setColor(7);
 }
 
 
