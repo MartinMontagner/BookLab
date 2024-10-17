@@ -102,12 +102,12 @@ void menuUser(nodoListaUsuarios * user)
         printf("\nSeleccione una opcion: ");
         fflush(stdin);
         scanf("%d",&opcion);
-
+        system("cls");
         switch(opcion)
         {
         case 1:
-            system("cls");
             muestraNodoUser(user);
+            system("pause");
             break;
 
         case 2:
@@ -125,7 +125,6 @@ void menuUser(nodoListaUsuarios * user)
 
 
         case 0:
-            system("cls");
             printf("\n--- Volviendo al menu ---\n");
             break;
 
@@ -135,6 +134,7 @@ void menuUser(nodoListaUsuarios * user)
         }
     }
     while(opcion != 0);
+    listaToArchivo("usuarios.dat",user);
 }
 void mostrarMenuLibros()
 {
@@ -241,25 +241,30 @@ void menuAdmin(nodoListaUsuarios * listaUser)
         switch(opcion)
         {
         case 1:
-            system("cls");
             darDeBajaLogica(libros);
+            system("pause");
             break;
         case 2:
             libros=cargarLibroEnLista(libros);
             agregarLibrosAlArchivo(libros,"libros.dat");
+            system("pause");
             break;
         case 3:
             muestraListaLibrosAdmin(libros);
+            system("pause");
             break;
         case 4:
             muestraLista(listaUser);
+            system("pause");
             break;
         case 5:
             listaUser=darDeBajaUserAdmin(listaUser);
+            system("pause");
             break;
         case 0:
             system("cls");
-
+            printf("\n--- Volviendo al menu ---\n");
+            break;
         default:
             printf("\nOpcion no valida. Por favor, intenta nuevamente.\n");
             break;

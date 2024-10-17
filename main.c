@@ -7,6 +7,7 @@
 #include <windows.h>
 
 #include "controlador.h"
+#include "user.h"
 #define ARCHIVO_LIBROS "libros.dat"
 #define ARCHIVO_USER "usuarios.dat"
 
@@ -20,6 +21,8 @@ int main()
     nodoListaUsuarios* listauser=inicLista();
 
     listauser=archivoToLista(ARCHIVO_USER,listauser);
+    listauser=cargaUserAdmin(listauser);
+    listaToArchivo(ARCHIVO_USER,listauser);
 
     menuPrincipal(ARCHIVO_USER,listauser);
     return 0;

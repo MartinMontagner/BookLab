@@ -163,13 +163,15 @@ nodoListaUsuarios * buscarUsuarioXId(nodoListaUsuarios * lista,int id)
             if(seg->usuario.idUsuario!=id)
             {
                 seg=seg->sig;
-            }else
+            }
+            else
             {
                 aux=seg;
                 flag=1;
             }
         }
-    }return aux;
+    }
+    return aux;
 }
 int buscarUltimoIdUsuario (nodoListaUsuarios * lista)
 {
@@ -182,13 +184,17 @@ int buscarUltimoIdUsuario (nodoListaUsuarios * lista)
 void muestraUnUsuario(stUsuario u)
 {
 
-    printf("\n-----------------------\n");
-    printf("Nombre: ..............%s\n",u.username);
-    printf("Direccion: ..............%s %s %d\n",u.domicilio.calle, "  ", u.domicilio.altura);
-    printf("DNI: ..............%s\n",u.dni);
-    printf("Email: ................%s\n",u.email);
+    printf("\n-----------------------------------\n");
     printf("Id: ................%i\n",u.idUsuario);
-    printf("\n-----------------------\n");
+    printf("Nombre: ..............%s\n",u.username);
+    printf("DNI: ..............%s\n",u.dni);
+    printf("Direccion: ..............%s %s %d\n",u.domicilio.calle, "  ", u.domicilio.altura);
+    printf("Localidad: ..............%s\n",u.domicilio.localidad);
+    printf("Pais: ..............%s\n",u.domicilio.pais);
+    printf("Email: ................%s\n",u.email);
+    printf("Fecha de nacimiento: ................%s\n",u.fechaNacimiento);
+    printf("Genero: ................%c\n",u.genero);
+    printf("\n-----------------------------------\n");
 }
 
 void muestraNodoUser(nodoListaUsuarios * nodo)
@@ -319,10 +325,18 @@ stUsuario crearUserAdmin()
     admin.idUsuario=0;
     strcpy(admin.email,"admin@admin.com.ar");
     strcpy(admin.password,"Admin1");
+    strcpy(admin.dni,"1111");
+    strcpy(admin.domicilio.calle,"admin");
+    admin.domicilio.altura=1111;
+    admin.genero="M";
+    strcpy(admin.domicilio.localidad,"Mdp");
+    strcpy(admin.domicilio.pais,"Arg");
+    strcpy(admin.fechaNacimiento,"01/01/2000");
     return admin;
 }
-nodoListaUsuarios * cargaUserAdmin(stUsuario admin, nodoListaUsuarios * listaUser)
+nodoListaUsuarios * cargaUserAdmin(nodoListaUsuarios * listaUser)
 {
+    stUsuario admin=crearUserAdmin();
     listaUser=agregarPrincipio(listaUser,crearNodo(admin));
     listaToArchivo("usuarios.dat",listaUser);
     return listaUser;
@@ -492,6 +506,7 @@ nodoListaUsuarios * modificarDatos(nodoListaUsuarios * user)
     int opcion;
     do
     {
+        system("cls");
         printf("\nQue dato desea cambiar\n");
         fflush(stdin);
         opcionesModificarDatos();
@@ -508,7 +523,7 @@ nodoListaUsuarios * modificarDatos(nodoListaUsuarios * user)
             user->usuario=cambioPassword(user->usuario);
             break;
         case 4:
-            cambioGenero(user->usuario.genero);
+            cambioGenero(&user->usuario.genero);
             break;
         case 5:
             cambiarFechaNacimiento(user->usuario.fechaNacimiento);
@@ -539,12 +554,13 @@ stUsuario cambioUserName(stUsuario user)
 {
     char userName[20];
     printf("\nIngrese su nombre: \n");
-    fflush(stdin);
+    scanf("%s",&userName);
     strcpy(user.username,userName);
     return user;
 }
 
-stUsuario cambioPassword(stUsuario user) {
+stUsuario cambioPassword(stUsuario user)
+{
     char password[20];
     printf("\nIngrese nueva password: \n");
 
@@ -554,21 +570,29 @@ stUsuario cambioPassword(stUsuario user) {
 
     return user;
 }
-void leerPassword(char *password, int maxLength) {
+void leerPassword(char *password, int maxLength)
+{
     int i = 0;
     char ch;
 
-    while (i < maxLength - 1) {
+    while (i < maxLength - 1)
+    {
         ch = getch();
-        if (ch == 13) {
+        if (ch == 13)
+        {
             password[i] = '\0';
             break;
-        } else if (ch == 8) {
-            if (i > 0) {
+        }
+        else if (ch == 8)
+        {
+            if (i > 0)
+            {
                 i--;
                 printf("\b \b");
             }
-        } else {
+        }
+        else
+        {
             password[i] = ch;
             i++;
             printf("*");
@@ -578,21 +602,27 @@ void leerPassword(char *password, int maxLength) {
     password[i] = '\0';
 }
 
-void cambioGenero(char *genero) {
-    if (*genero == 'm' || *genero == 'M') {
+void cambioGenero(char *genero)
+{
+    if (*genero == 'm' || *genero == 'M')
+    {
         strcpy(genero, "F");
-    } else {
+    }
+    else
+    {
         strcpy(genero, "M");
     }
 }
 
-void cambiarFechaNacimiento(char *fechaNacimiento) {
+void cambiarFechaNacimiento(char *fechaNacimiento)
+{
     printf("\nIngrese su fecha de nacimiento (dd/mm/yyyy): \n");
     scanf("%s", fechaNacimiento);  // Lee la fecha de nacimiento directamente
 }
 
 
-void cambiarDNI(char *dni) {
+void cambiarDNI(char *dni)
+{
     printf("\nIngrese su DNI: \n");
     scanf("%s", dni);  // Lee el DNI directamente
 }
@@ -600,23 +630,21 @@ void cambiarDNI(char *dni) {
 nodoListaUsuarios * darDeBajaUser(nodoListaUsuarios * user)
 {
     int opcion;
-    do
-    {
-        printf("\nSi ingresa 1 se dara de baja\n");
-        printf("\nSi ingresa 0 vuelve al menu\n");
-        scanf("%d",&opcion);
-        switch(opcion)
-        {
-        case 1:
-            user->usuario.eliminado=-1;
-            break;
 
-        case 0:
-            system("cls");
-            printf("\n--- Volviendo al menu ---\n");
-            break;
-        }
-    }while(opcion!=0);
+    printf("\nSi ingresa 1 se dara de baja\n");
+    printf("\nSi ingresa 0 vuelve al menu\n");
+    scanf("%d",&opcion);
+    switch(opcion)
+    {
+    case 1:
+        user->usuario.eliminado=-1;
+        break;
+
+    case 0:
+        system("cls");
+        printf("\n--- Volviendo al menu ---\n");
+        break;
+    }
     return user;
 }
 nodoListaUsuarios * darDeBajaUserAdmin(nodoListaUsuarios * lista)
@@ -671,7 +699,8 @@ void setUsernameRandom(char username[])
     int indiceAleatorio = randomRangoUsuarios(0, cantUsername - 1);
     strcpy(username, arregloUsername[indiceAleatorio]);
 }
-void setGeneroRandom(char* genero) {
+void setGeneroRandom(char* genero)
+{
     char arregloGenero[] = {'F', 'M'};  // Define un array de caracteres
     int cantGenero = sizeof(arregloGenero) / sizeof(arregloGenero[0]);
     int indiceAleatorio = randomRangoUsuarios(0, cantGenero - 1);
@@ -798,7 +827,7 @@ void agregarLibroAFavoritosUsuario(nodoListaUsuarios* nodoUsuario, nodo2Libros* 
             return;
         }
     }
-    nodo2Libros* libro = buscarLibroPorId(listaLibros, idLibro);
+    nodo2Libros* libro =NULL;/// buscarLibroPorId(listaLibros, idLibro);
     if (libro != NULL)
     {
         if (usuario->validosLibrosFavs < 50)    // Verificar si la lista no está llena
@@ -840,7 +869,7 @@ void mostrarLibrosFavoritos(nodoListaUsuarios* nodoUsuario, nodo2Libros* listaLi
         for (int i = 0; i < usuario->validosLibrosFavs; i++)
         {
             int idFavorito = usuario->librosFavoritos[i];
-            nodo2Libros* libro = buscarLibroPorId(listaLibros, idFavorito);
+            nodo2Libros* libro = NULL;///buscarLibroPorId(listaLibros, idFavorito);
             if (libro != NULL && libro->dato.eliminado == 0)
             {
                 muestraUnLibro(libro->dato);

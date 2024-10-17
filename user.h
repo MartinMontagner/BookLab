@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include "libros.h"
 
+
 typedef struct{
     char calle[50];
     int altura;
@@ -23,12 +24,12 @@ typedef struct{
 
 
 typedef struct{
-    int idUsuario;
-    char email[100];
+    int idUsuario;//
+    char email[100];//
     char password[20];
-    char username[20];
+    char username[20];//
     int esAdmin;  /// 1 = si  0 = no
-    char genero;
+    char genero;//
     char fechaNacimiento[20];  /// o se puede hacer con dia, mes, anio.
     int librosFavoritos[50]; /// se van a guardar los id de los libros favs.
     int validosLibrosFavs;
@@ -68,7 +69,7 @@ int verificacionPasswordCondiciones(char password[]);
 bool validarEmail(char email[]);
 ///Funciones de carga
 stUsuario crearUserAdmin();
-nodoListaUsuarios * cargaUserAdmin(stUsuario admin, nodoListaUsuarios * listaUser);
+nodoListaUsuarios * cargaUserAdmin(nodoListaUsuarios * listaUser);
 stUsuario cargaDatosUser();
 stDomicilio cargaDomicilio();
 stUsuario cargaDatosUserRandom();
@@ -96,7 +97,7 @@ void setGeneroRandom(char genero[]);
 void setFechaNacimientoRandom(char fechaNacimiento[]);
 void setDniRandom(char dni[],int usados[], int *restantes);
 void setCalleRandom(char calle[]);
-void setAlturaRandom(int altura);
+void setAlturaRandom(int *altura);
 void setCpRandom(int cp);
 void setCiudadRandom(char ciudad[]);
 void setLocalidadRandom(char localidad[]);
