@@ -81,10 +81,10 @@
 1729222497 source:c:\users\carla\desktop\booklab\libros.c
 	"libros.h"
 
-1729219882 source:c:\users\40306\desktop\booklab\libros.c
+1729268912 source:c:\users\40306\desktop\booklab\libros.c
 	"libros.h"
 
-1729219398 c:\users\40306\desktop\booklab\libros.h
+1729268912 c:\users\40306\desktop\booklab\libros.h
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
@@ -93,7 +93,7 @@
 	<stdbool.h>
 	<windows.h>
 
-1729222088 source:c:\users\40306\desktop\booklab\main.c
+1729268912 source:c:\users\40306\desktop\booklab\main.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
@@ -104,7 +104,7 @@
 	"controlador.h"
 	"user.h"
 
-1729221497 c:\users\40306\desktop\booklab\user.h
+1729268912 c:\users\40306\desktop\booklab\user.h
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
@@ -115,10 +115,10 @@
 	<unistd.h>
 	"libros.h"
 
-1729221497 source:c:\users\40306\desktop\booklab\controlador.c
+1729268960 source:c:\users\40306\desktop\booklab\controlador.c
 	"controlador.h"
 
-1729219398 c:\users\40306\desktop\booklab\controlador.h
+1729268912 c:\users\40306\desktop\booklab\controlador.h
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
@@ -130,7 +130,7 @@
 	"user.h"
 	"libros.h"
 
-1729221567 source:c:\users\40306\desktop\booklab\user.c
+1729268912 source:c:\users\40306\desktop\booklab\user.c
 	"user.h"
 	<ctype.h>
 

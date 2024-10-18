@@ -275,4 +275,5 @@ void menuAdmin(nodoListaUsuarios * listaUser)
         }
     }
     while(opcion != 0);
+    listaToArchivo("usuarios.dat",listaUser);
 }
