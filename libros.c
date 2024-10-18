@@ -301,7 +301,17 @@ void buscaLibrosPorTitulo (nodo2Libros* lista)
     gets(titulo);
     verLibrosPorTitulo(lista,titulo);
 }
-
+nodo2Libros* buscarLibroPorId(nodo2Libros* lista, int id) {
+    nodo2Libros* actual = lista;
+    int flag=0;
+    while (actual != NULL && flag==0) {
+        if (actual->dato.idLibro == id) {
+            flag=1;
+        }
+        actual = actual->ste;
+    }
+    return actual;
+}
 
 
 ///Funciones para mostrar

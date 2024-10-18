@@ -42,6 +42,7 @@ nodo2Libros * buscarUltimoLibro(nodo2Libros* listaDoble);
 void buscaLibrosPorAutor (nodo2Libros* lista);
 void buscaLibrosPorCategoria (nodo2Libros* lista);
 void buscaLibrosPorTitulo (nodo2Libros* lista);
+nodo2Libros* buscarLibroPorId(nodo2Libros* lista, int id);
 ///Busqueda de Id para seguir incrementando
 int buscarUltimoId (nodo2Libros* listaDoble);
 ///Dar de baja (eliminado=1)

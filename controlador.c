@@ -1,4 +1,5 @@
 #include "controlador.h"
+
 void login (nodoListaUsuarios * lista)
 {
     char email[100];
