@@ -211,8 +211,38 @@ void muestraLista(nodoListaUsuarios * lista)
     }
 
 }
+void muestraListaAdmin(nodoListaUsuarios * lista)
+{
+    while(lista)
+    {
+        muestraNodoUserAdmin(lista);
+        lista = lista->sig;
+    }
 
+}
+void muestraNodoUserAdmin(nodoListaUsuarios * nodo)
+{
+    muestraUnUsuarioAdmin(nodo->usuario);
 
+}
+void muestraUnUsuarioAdmin(stUsuario u)
+{
+
+    printf("\n-----------------------------------\n");
+    printf("Id: ................%i\n",u.idUsuario);
+    printf("Nombre: ..............%s\n",u.username);
+    printf("DNI: ..............%s\n",u.dni);
+    printf("Direccion: ..............%s %s %d\n",u.domicilio.calle, "  ", u.domicilio.altura);
+    printf("Localidad: ..............%s\n",u.domicilio.localidad);
+    printf("Pais: ..............%s\n",u.domicilio.pais);
+    printf("Email: ................%s\n",u.email);
+    printf("Password: ................%s\n",u.password);
+    printf("Fecha de nacimiento: ................%s\n",u.fechaNacimiento);
+    printf("Genero: ................%c\n",u.genero);
+    printf("Admin: ................%d\n",u.esAdmin);
+    printf("Eliminado: ................%d\n",u.eliminado);
+    printf("\n-----------------------------------\n");
+}
 ///Funciones de verificacion
 
 int verificar(char userIngresado[],char claveIngresado[],nodoListaUsuarios * lista)
@@ -658,6 +688,16 @@ nodoListaUsuarios * darDeBajaUserAdmin(nodoListaUsuarios * lista)
     aux=darDeBajaUser(aux);
     return lista;
 }
+nodoListaUsuarios * darDeAltaUserAdmin(nodoListaUsuarios * lista)
+{
+    int opcion;
+    nodoListaUsuarios * aux=inicLista();
+    printf("\nIngrese el ID del usuario que desea dar de alta: \n");
+    scanf("%d",&opcion);
+    aux=buscarUsuarioXId(lista,opcion);
+    aux->usuario.eliminado=0;
+    return lista;
+}
 
 ///Funciones para crear contenido random
 int randomRangoUsuarios(int min, int max)
@@ -827,7 +867,7 @@ void agregarLibroAFavoritosUsuario(nodoListaUsuarios* nodoUsuario, nodo2Libros* 
             return;
         }
     }
-    nodo2Libros* libro =NULL;/// buscarLibroPorId(listaLibros, idLibro);
+    nodo2Libros* libro = buscarLibroPorId(listaLibros, idLibro);
     if (libro != NULL)
     {
         if (usuario->validosLibrosFavs < 50)    // Verificar si la lista no está llena
@@ -869,7 +909,7 @@ void mostrarLibrosFavoritos(nodoListaUsuarios* nodoUsuario, nodo2Libros* listaLi
         for (int i = 0; i < usuario->validosLibrosFavs; i++)
         {
             int idFavorito = usuario->librosFavoritos[i];
-            nodo2Libros* libro = NULL;///buscarLibroPorId(listaLibros, idFavorito);
+            nodo2Libros* libro = buscarLibroPorId(listaLibros, idFavorito);
             if (libro != NULL && libro->dato.eliminado == 0)
             {
                 muestraUnLibro(libro->dato);

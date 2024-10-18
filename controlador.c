@@ -123,8 +123,6 @@ void menuUser(nodoListaUsuarios * user)
             menuLibros(user);
             break;
 
-
-
         case 0:
             printf("\n--- Volviendo al menu ---\n");
             break;
@@ -223,6 +221,7 @@ void mostrarMenuAdmin()
     escribirConRetraso("\n   3-Ver libros", 5);
     escribirConRetraso("\n   4-Ver usuarios", 5);
     escribirConRetraso("\n   5-Dar de baja usuario", 5);
+    escribirConRetraso("\n   6-Dar de alta usuario", 5);
     escribirConRetraso("\n   0-Salir", 5);
     escribirConRetraso("\n====================================\n", 5);
     setColor(7);
@@ -255,11 +254,15 @@ void menuAdmin(nodoListaUsuarios * listaUser)
             system("pause");
             break;
         case 4:
-            muestraLista(listaUser);
+            muestraListaAdmin(listaUser);
             system("pause");
             break;
         case 5:
             listaUser=darDeBajaUserAdmin(listaUser);
+            system("pause");
+            break;
+        case 6:
+            listaUser=darDeAltaUserAdmin(listaUser);
             system("pause");
             break;
         case 0:

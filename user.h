@@ -62,6 +62,9 @@ int buscarUltimoIdUsuario (nodoListaUsuarios * lista);
 void muestraUnUsuario(stUsuario u);
 void muestraNodoUser(nodoListaUsuarios * nodo);
 void muestraLista(nodoListaUsuarios * lista);
+void muestraListaAdmin(nodoListaUsuarios * lista);
+void muestraNodoUserAdmin(nodoListaUsuarios * nodo);
+void muestraUnUsuarioAdmin(stUsuario u);
 ///Funciones para verificar
 int verificar(char userIngresado[],char claveIngresado[],nodoListaUsuarios * lista);
 int verificarPassword(char claveIngresado[], nodoListaUsuarios * userAux);
@@ -88,6 +91,7 @@ void cambiarFechaNacimiento(char *fechaNacimiento);
 void cambiarDNI(char *dni);
 nodoListaUsuarios * darDeBajaUser(nodoListaUsuarios * user);
 nodoListaUsuarios * darDeBajaUserAdmin(nodoListaUsuarios * lista);
+nodoListaUsuarios * darDeAltaUserAdmin(nodoListaUsuarios * lista);
 ///Funciones de contenido Random (no las probe todavia)
 int randomRangoUsuarios(int min, int max);
 void setMailRandom(char email[]);

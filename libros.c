@@ -313,7 +313,6 @@ nodo2Libros* buscarLibroPorId(nodo2Libros* lista, int id) {
     return actual;
 }
 
-
 ///Funciones para mostrar
 void muestraUnLibro(stLibro a)
 {

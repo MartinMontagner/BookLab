@@ -22,6 +22,7 @@ int main()
 
     listauser=archivoToLista(ARCHIVO_USER,listauser);
     listauser=cargaUserAdmin(listauser);
+    //cargarUsuarioArchivoRandom(ARCHIVO_USER,listauser);
     listaToArchivo(ARCHIVO_USER,listauser);
 
     menuPrincipal(ARCHIVO_USER,listauser);
