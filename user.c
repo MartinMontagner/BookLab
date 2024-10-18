@@ -15,11 +15,10 @@ nodoListaUsuarios * crearNodo(stUsuario usuario)
 }
 nodoListaUsuarios * crearNodoUser(nodoListaUsuarios * lista)
 {
-    nodoListaUsuarios * aux;
-    aux=inicLista();
+
     stUsuario userAux=cargaDatosUser();
     userAux.idUsuario=sumarId(userAux,lista);
-    aux=crearNodo(userAux);
+    nodoListaUsuarios * aux=crearNodo(userAux);
     return aux;
 }
 nodoListaUsuarios *  archivoToLista(char nombrearchivo[], nodoListaUsuarios * lista)
@@ -77,37 +76,35 @@ nodoListaUsuarios* agregarAlFinal(nodoListaUsuarios* lista, nodoListaUsuarios* n
 
     return lista;
 }
-
 nodoListaUsuarios * agregarEnOrdenId(nodoListaUsuarios * lista, nodoListaUsuarios * nuevo)
 {
-
-    if(lista==NULL)
+    if (lista == NULL)
     {
         lista = nuevo;
     }
+    else if (nuevo->usuario.idUsuario < lista->usuario.idUsuario)
+    {
+        lista = agregarPrincipio(lista, nuevo);
+    }
     else
     {
-        nodoListaUsuarios * aux = lista; // ante
-        if((aux->usuario.idUsuario) >  (nuevo->usuario.idUsuario))
+        nodoListaUsuarios * ante = lista;
+        nodoListaUsuarios * seg = lista->sig;
+
+
+        while (seg && seg->usuario.idUsuario < nuevo->usuario.idUsuario)
         {
-            lista = agregarPrincipio(aux,nuevo);
+            ante = seg;
+            seg = seg->sig;
         }
-        else
-        {
-            nodoListaUsuarios * ante=NULL;
-            nodoListaUsuarios * seg = lista;
-            while(seg && (seg->usuario.idUsuario) < (nuevo->usuario.idUsuario))
-            {
-                ante = seg;
-                seg = seg->sig;
-            }
-            ante->sig = nuevo;
-            nuevo->sig = seg;
-        }
+
+        ante->sig = nuevo;
+        nuevo->sig = seg;
     }
 
     return lista;
 }
+
 
 ///Funciones de busqueda
 nodoListaUsuarios * buscarUsuario(char userIngresado[], nodoListaUsuarios * lista)
@@ -863,7 +860,7 @@ void agregarLibroAFavoritosUsuario(nodoListaUsuarios* nodoUsuario, nodo2Libros* 
     {
         if (usuario->librosFavoritos[i] == idLibro)
         {
-            printf("El libro con ID %d ya está en la lista de favoritos.\n", idLibro);
+            printf("El libro con ID %d ya esta en la lista de favoritos.\n", idLibro);
             return;
         }
     }
@@ -878,7 +875,7 @@ void agregarLibroAFavoritosUsuario(nodoListaUsuarios* nodoUsuario, nodo2Libros* 
         }
         else
         {
-            printf("La lista de libros favoritos está llena.\n");
+            printf("La lista de libros favoritos esta llena.\n");
         }
     }
     else
