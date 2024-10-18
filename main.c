@@ -18,12 +18,14 @@ int main()
 {
     srand(time(NULL));
 
-    nodoListaUsuarios* listauser=inicLista();
 
-    listauser=archivoToLista(ARCHIVO_USER,listauser);
-    listauser=cargaUserAdmin(listauser);
-    //cargarUsuarioArchivoRandom(ARCHIVO_USER,listauser);
-    listaToArchivo(ARCHIVO_USER,listauser);
+    nodoListaUsuarios* listauser = inicLista();
+    listauser = archivoToLista(ARCHIVO_USER, listauser);
+//    listauser = cargaUserAdmin(listauser);
+//    listaToArchivo(ARCHIVO_USER, listauser);
+//    cargarUsuarioArchivoRandom(ARCHIVO_USER, listauser);
+//    listauser = archivoToLista(ARCHIVO_USER, listauser);
+//    muestraLista(listauser);
 
     menuPrincipal(ARCHIVO_USER,listauser);
     return 0;

@@ -358,7 +358,7 @@ stUsuario crearUserAdmin()
     strcpy(admin.dni,"1111");
     strcpy(admin.domicilio.calle,"admin");
     admin.domicilio.altura=1111;
-    admin.genero="M";
+    admin.genero='M';
     strcpy(admin.domicilio.localidad,"Mdp");
     strcpy(admin.domicilio.pais,"Arg");
     strcpy(admin.fechaNacimiento,"01/01/2000");
@@ -990,7 +990,7 @@ void opcionAgregarLibroAFavoritos(nodoListaUsuarios* usuario, nodo2Libros* libro
         break;
 
     default:
-        printf("Opción no válida.\n");
+        printf("Opcion no valida.\n");
         break;
     }
     setColor(7);
@@ -1007,7 +1007,7 @@ void opcionQuitarLibroDeFavoritos(nodoListaUsuarios* usuario, nodo2Libros* libro
 
     if (user->validosLibrosFavs == 0)
     {
-        printf("La lista de favoritos está vacía.\n");
+        printf("La lista de favoritos está vacia.\n");
         return;
     }
 
@@ -1019,7 +1019,7 @@ void opcionQuitarLibroDeFavoritos(nodoListaUsuarios* usuario, nodo2Libros* libro
     printf("\nDeseas quitar algun libro de favoritos?\n");
     printf("1. Si\n");
     printf("2. No\n");
-    printf("Elige una opción (1 o 2): ");
+    printf("Elige una opcion (1 o 2): ");
     scanf("%d", &opcion);
 
     if (opcion == 1)
@@ -1031,11 +1031,11 @@ void opcionQuitarLibroDeFavoritos(nodoListaUsuarios* usuario, nodo2Libros* libro
     }
     else if (opcion == 2)
     {
-        printf("No se quitará ningún libro.\n");
+        printf("No se quitara ningun libro.\n");
     }
     else
     {
-        printf("Opción no válida.\n");
+        printf("Opcion no valida.\n");
     }
     setColor(7);
 }
