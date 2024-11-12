@@ -143,6 +143,16 @@ void cargarLibrosArchivoRandom(char nombreArchivo[])
     }
 }
 
+float promedioValoracion (nodo2Libros * lista)
+{
+    float valoraciones=0;
+    if(lista)
+    {
+        lista->dato.valoracion= calculoValoraciones(lista->lista,lista->dato.idLibro);
+    }
+    return valoraciones;
+}
+
 
 nodo2Libros *  archivoToLista2(char nombreArchivo[], nodo2Libros * listaDoble)
 {
@@ -182,7 +192,7 @@ nodo2Libros * crearNodoDoble(stLibro libro)
     nuevo->dato = libro;
     nuevo->ste = NULL;
     nuevo->ante = NULL;
-
+    nuevo->lista=NULL;
     return nuevo;
 }
 ///Funciones para agregar
@@ -301,11 +311,14 @@ void buscaLibrosPorTitulo (nodo2Libros* lista)
     gets(titulo);
     verLibrosPorTitulo(lista,titulo);
 }
-nodo2Libros* buscarLibroPorId(nodo2Libros* lista, int id) {
+nodo2Libros* buscarLibroPorId(nodo2Libros* lista, int id)
+{
     nodo2Libros* actual = lista;
     int flag=0;
-    while (actual != NULL && flag==0) {
-        if (actual->dato.idLibro == id) {
+    while (actual != NULL && flag==0)
+    {
+        if (actual->dato.idLibro == id)
+        {
             flag=1;
         }
         actual = actual->ste;

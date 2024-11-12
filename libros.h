@@ -8,7 +8,7 @@
 #include <time.h>
 #include <stdbool.h>
 #include <windows.h>
-
+#include "comentario.h"
  typedef struct {
  int idLibro; /// único, autoincremental
  char titulo[100];
@@ -23,7 +23,9 @@ typedef struct nodo2Libros{
     stLibro dato;
     struct nodo2Libros * ste;
     struct nodo2Libros * ante;
+    nodoComentario * lista;
 }nodo2Libros;
+
 ///Carga de libros
 stLibro cargaRandomLibro();
 stLibro cargaUnLibro();

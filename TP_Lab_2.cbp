@@ -31,6 +31,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="comentario.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="comentario.h" />
 		<Unit filename="controlador.c">
 			<Option compilerVar="CC" />
 		</Unit>
