@@ -1,6 +1,6 @@
 #include "controlador.h"
 
-void login (nodoListaUsuarios * lista)
+void login (nodoArbolUsuario * arbol)
 {
     char email[100];
     char password[20];
@@ -19,7 +19,7 @@ void login (nodoListaUsuarios * lista)
         while(esValido==false);
         printf("Password: \n");
         leerPassword(password,sizeof(password));
-        ret=verificar(email,password,lista);//crear funcion verificar
+        ret=verificar(email,password,arbol);//crear funcion verificar
         if(ret==0)
         {
             system("pause");
@@ -29,10 +29,10 @@ void login (nodoListaUsuarios * lista)
     while (ret!=1 && control!=27);
     if(ret==1)
     {
-        nodoListaUsuarios * aux=buscarUsuario(email,lista);
+        nodoArbolUsuario * aux=buscarUsuario(email,arbol);
         if(aux->usuario.esAdmin==1)
         {
-            menuAdmin(lista);// crear un menu para el administrador
+            menuAdmin(arbol);// crear un menu para el administrador
         }
         else
         {
@@ -50,19 +50,19 @@ void login (nodoListaUsuarios * lista)
     }
 
 }
-nodoListaUsuarios * registrarse(nodoListaUsuarios * lista)
+nodoArbolUsuario * registrarse(nodoArbolUsuario * arbol)
 {
-    nodoListaUsuarios * user=NULL;
-    user=crearNodoUser(lista);
-    if(lista==NULL)
+    nodoArbolUsuario * user=NULL;
+    user=crearNodoUser(arbol);
+    if(arbol==NULL)
     {
-        lista=agregarPrincipio(lista,user);
+        arbol=agregarPrincipio(arbol,user);
     }
     else
     {
-        lista=agregarEnOrdenId(lista,user);
+        arbol=agregarEnOrdenId(arbol,user);
     }
-    return lista;
+    return arbol;
 }
 void setColor(int color)
 {

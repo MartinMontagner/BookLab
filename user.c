@@ -1,136 +1,88 @@
 #include "user.h"
 #include <ctype.h>
-
-nodoListaUsuarios * inicLista()
+nodoArbolUsuario * inicArbol()
 {
     return NULL;
 }
-
-nodoListaUsuarios * crearNodo(stUsuario usuario)
+nodoArbolUsuario * crearNodoArbol(stUsuario u)
 {
-    nodoListaUsuarios * nuevo = (nodoListaUsuarios * )malloc(sizeof(nodoListaUsuarios));
-    nuevo->usuario = usuario;
-    nuevo->sig = NULL;
-    return nuevo;
+    nodoArbolUsuario * aux=(nodoArbolUsuario *)malloc(sizeof(nodoArbolUsuario));
+    aux->usuario=u;
+    aux->izq=NULL;
+    aux->der=NULL;
+    return aux;
 }
-nodoListaUsuarios * crearNodoUser(nodoListaUsuarios * lista)
+nodoArbolUsuario * archivoToArbol(char nombreArchivo[],nodoArbolUsuario * arbol)
+{
+    FILE * archi = fopen(nombreArchivo,"rb");
+    stUsuario u;
+    if(archi)
+    {
+        while(fread(&u,sizeof(stUsuario),1,archi)>0)
+        {
+            arbol=insertarNodoArbol(arbol,crearNodoArbol(u));
+        }
+        fclose(archi);
+    }
+    return arbol;
+}
+void arbolToArchivo (char nombreArchivo[], nodoArbolUsuario * arbol)
+{
+    FILE * archi = fopen(nombreArchivo,"wb");
+    if(arbol)
+    {
+        fwrite(arbol->usuario,sizeof(stUsuario),1,archi);
+        arbolToArchivo(nombreArchivo,arbol->izq);
+        arbolToArchivo(nombreArchivo,arbol->der);
+
+    }
+}
+nodoArbolUsuario * insertarNodoArbol(nodoArbolUsuario * arbol,nodoArbolUsuario * nuevo)
+{
+    if(!arbol)
+    {
+        arbol=nuevo;
+    }
+    else
+    {
+        if(arbol->usuario.idUsuario>nuevo->usuario.idUsuario)
+        {
+            arbol->izq=insertarNodoArbol(arbol->izq,nuevo);
+        }
+        else
+        {
+            arbol->der=insertarNodoArbol(arbol->der,nuevo);
+        }
+    }
+    return arbol;
+}
+///FUNCION QUE TENGO QUE VER LA IMPLEMENTACION
+nodoArbolUsuario * crearNodoUser(nodoArbolUsuario * lista)
 {
 
     stUsuario userAux=cargaDatosUser();
     userAux.idUsuario=sumarId(userAux,lista);
-    nodoListaUsuarios * aux=crearNodo(userAux);
+    nodoArbolUsuario * aux=crearNodo(userAux);
     return aux;
-}
-nodoListaUsuarios *  archivoToLista(char nombrearchivo[], nodoListaUsuarios * lista)
-{
-
-    FILE * buffer = fopen(nombrearchivo, "rb");
-    stUsuario aux;
-
-
-    if(buffer)
-    {
-        while(fread(&aux, sizeof(stUsuario), 1, buffer) > 0)
-        {
-            lista = agregarEnOrdenId(lista,crearNodo(aux));
-        }
-        fclose(buffer);
-    }
-
-    return lista;
-
-}
-void listaToArchivo(char nombreArchivo[], nodoListaUsuarios * lista)
-{
-    FILE * buffer = fopen(nombreArchivo,"wb");
-
-    if(buffer)
-    {
-        nodoListaUsuarios* actual = lista;
-        while(actual)
-        {
-            fwrite(&actual->usuario,sizeof(stUsuario),1,buffer);
-            actual=actual->sig;
-        }
-
-        fclose(buffer);
-    }
-}
-///Funciones para agregar
-nodoListaUsuarios * agregarPrincipio(nodoListaUsuarios * lista, nodoListaUsuarios * nuevoNodo)
-{
-    nuevoNodo->sig = lista;
-    return nuevoNodo;
-}
-nodoListaUsuarios* agregarAlFinal(nodoListaUsuarios* lista, nodoListaUsuarios* nuevo)
-{
-    if(!lista)
-    {
-        lista = nuevo;
-    }
-    else
-    {
-        nodoListaUsuarios* ultimo = buscarUltimo(lista);
-        ultimo->sig = nuevo;
-    }
-
-    return lista;
-}
-nodoListaUsuarios * agregarEnOrdenId(nodoListaUsuarios * lista, nodoListaUsuarios * nuevo)
-{
-    if (lista == NULL)
-    {
-        lista = nuevo;
-    }
-    else if (nuevo->usuario.idUsuario < lista->usuario.idUsuario)
-    {
-        lista = agregarPrincipio(lista, nuevo);
-    }
-    else
-    {
-        nodoListaUsuarios * ante = lista;
-        nodoListaUsuarios * seg = lista->sig;
-
-
-        while (seg && seg->usuario.idUsuario < nuevo->usuario.idUsuario)
-        {
-            ante = seg;
-            seg = seg->sig;
-        }
-
-        ante->sig = nuevo;
-        nuevo->sig = seg;
-    }
-
-    return lista;
 }
 
 
 ///Funciones de busqueda
-nodoListaUsuarios * buscarUsuario(char userIngresado[], nodoListaUsuarios * lista)
+nodoArbolUsuario * buscarUsuario(char userIngresado[], nodoArbolUsuario * arbol)
 {
-    nodoListaUsuarios * aux=NULL;
+    nodoArbolUsuario * aux=NULL;
     int flag=0;
-    if(lista && strcmp(lista->usuario.email,userIngresado)==0)
+    if(arbol && strcmp(arbol->usuario.email,userIngresado)==0)
     {
-        aux=lista;
+        aux=arbol;
     }
     else
     {
-        nodoListaUsuarios * seg=lista->sig;
-        while(seg!=NULL && flag==0)
+        if(arbol)
         {
-            if(strcmp(seg->usuario.email,userIngresado)==0)
-            {
-                aux=seg;
-                flag=1;
-            }
-            else
-            {
-                seg=seg->sig;
-            }
+            aux=buscarUsuario(userIngresado,arbol->izq);
+            aux=buscarUsuario(userIngresado,arbol->der);
         }
-
     }
     return aux;
 
@@ -242,10 +194,10 @@ void muestraUnUsuarioAdmin(stUsuario u)
 }
 ///Funciones de verificacion
 
-int verificar(char userIngresado[],char claveIngresado[],nodoListaUsuarios * lista)
+int verificar(char userIngresado[],char claveIngresado[],nodoArbolUsuario * lista)
 {
     int flag=0;
-    nodoListaUsuarios * userAux;
+    nodoArbolUsuario * userAux;
     userAux=buscarUsuario(userIngresado,lista);
     if(userAux!=NULL)
     {
@@ -267,7 +219,7 @@ int verificar(char userIngresado[],char claveIngresado[],nodoListaUsuarios * lis
 }
 
 
-int verificarPassword(char claveIngresado[], nodoListaUsuarios * userAux)
+int verificarPassword(char claveIngresado[], nodoArbolUsuario * userAux)
 {
     int flag=0;
     if(strcmp(userAux->usuario.password,claveIngresado)==0)
@@ -368,7 +320,22 @@ nodoListaUsuarios * cargaUserAdmin(nodoListaUsuarios * listaUser)
     listaToArchivo("usuarios.dat",listaUser);
     return listaUser;
 }
-stUsuario cargaDatosUser()
+int verificarEmailEnArbol(char email[], nodoArbolUsuario * arbol)
+{
+    int flag=1;
+    if(arbol)
+    {
+        if(strcmp(arbol->usuario.email,email)==0)
+        {
+            flag=0;
+        }else
+        {
+            flag=verificarEmailEnArbol(email,arbol->izq);
+            flag=verificarEmailEnArbol(email,arbol->der);
+        }
+    }return flag;
+}
+stUsuario cargaDatosUser(nodoArbolUsuario * arbol)
 {
     char password[20];
     stUsuario user;
@@ -380,8 +347,11 @@ stUsuario cargaDatosUser()
         fflush(stdin);
         gets(user.email);
         esValido=validarEmail(user.email);
+        int flag=verificarEmailEnArbol(user.email,arbol);
     }
-    while(esValido==false);
+    while(esValido==false && flag==0);
+
+
     do
     {
         printf("\nLa password tiene que tener una mayuscula y una minuscula por lo menos\n");
@@ -412,6 +382,7 @@ stUsuario cargaDatosUser()
     user.librosFavoritos[0]=0;
     user.eliminado=0;
     user.esAdmin=0;
+
 
 
     return user;
