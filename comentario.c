@@ -90,6 +90,23 @@ float calculoValoraciones (nodoComentario * lista, int idLibro)
     return valoraciones;
 }
 
+///agregar al final
+nodoComentario * agregarFinal(nodoComentario * lista, nodoComentario * nuevoNodo)
+{
+    if(lista == NULL)
+    {
+        lista = nuevoNodo;
+    }
+    else
+    {
+        nodoComentario * ultimo = buscarUltimoComentario(lista);
+        ultimo->ste = nuevoNodo;
+    }
+    return lista;
+}
+
+
+
 ///Funciones para mostrar
 void muestraUnComentario (stComentario a)
 {

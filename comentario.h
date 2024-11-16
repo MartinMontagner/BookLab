@@ -29,6 +29,7 @@ nodoComentario * buscarUltimoComentario (nodoComentario * lista);
 int buscarUltimoIdComentario (nodoComentario * lista);
 nodoComentario * cargarComentarioEnLista(nodoComentario * lista, int idLibro, int idUsuario);
 float calculoValoraciones (nodoComentario * lista, int idLibro);
+nodoComentario * agregarFinal(nodoComentario * lista, nodoComentario * nuevoNodo);
 ///Funciones para mostrar
 void muestraUnComentario (stComentario a);
 void muestraNodoComentario(nodoComentario * nodo);

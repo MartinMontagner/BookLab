@@ -142,6 +142,22 @@ void cargarLibrosArchivoRandom(char nombreArchivo[])
 
     }
 }
+///FUNCION ALTA
+nodo2Libros * alta (nodo2Libros *listaLibros, nodoComentario * nuevoComentario, int idLibro)
+{
+    nodo2Libros * libroEncontrado = buscarLibroPorId(listaLibros,idLibro);
+    if(libroEncontrado==NULL)
+    {
+        stLibro libro = cargaUnLibro();
+        libro.idLibro=idLibro;
+        nodo2Libros *nuevoLibro = crearNodoDoble(libro);
+        listaLibros = insertarNodoPorId(listaLibros, nuevoLibro);
+        listaLibros->lista = agregarFinal(listaLibros->lista, nuevoComentario);
+    }else{
+        libroEncontrado->lista = agregarFinal(libroEncontrado->lista, nuevoComentario);
+    }
+return listaLibros;
+}
 
 float promedioValoracion (nodo2Libros * lista)
 {
@@ -351,6 +367,7 @@ void muestraListaLibros(nodo2Libros * lista)
         if(lista->dato.eliminado==0)
         {
             muestraNodoDobleLibro(lista);
+            muestraListaComentarios(lista->lista);
         }
         lista = lista->ste;
     }

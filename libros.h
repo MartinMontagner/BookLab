@@ -39,6 +39,7 @@ nodo2Libros * archivoToLista2(char nombreArchivo[], nodo2Libros * listaDoble);
 nodo2Libros * insertarNodoPorId (nodo2Libros * lista, nodo2Libros * nuevoNodo);
 nodo2Libros * agregarPrincipioLibro(nodo2Libros * listaDoble, nodo2Libros * nuevo);
 nodo2Libros * agregarAlFinalLibro(nodo2Libros * listaDoble, nodo2Libros* nuevo);
+nodo2Libros * alta (nodo2Libros *listaLibros, nodoComentario * nuevoComentario, int idLibro);
 ///Funciones de busqueda
 nodo2Libros * buscarUltimoLibro(nodo2Libros* listaDoble);
 void buscaLibrosPorAutor (nodo2Libros* lista);
