@@ -57,12 +57,12 @@ nodoArbolUsuario * insertarNodoArbol(nodoArbolUsuario * arbol,nodoArbolUsuario *
     return arbol;
 }
 ///FUNCION QUE TENGO QUE VER LA IMPLEMENTACION
-nodoArbolUsuario * crearNodoUser(nodoArbolUsuario * lista)
+nodoArbolUsuario * crearNodoUser(nodoArbolUsuario * arbol)
 {
 
     stUsuario userAux=cargaDatosUser();
-    userAux.idUsuario=sumarId(userAux,lista);
-    nodoArbolUsuario * aux=crearNodo(userAux);
+    userAux.idUsuario=sumarId(userAux,arbol);
+    nodoArbolUsuario * aux=crearNodoArbol(userAux);
     return aux;
 }
 
@@ -146,30 +146,31 @@ void muestraUnUsuario(stUsuario u)
     printf("\n-----------------------------------\n");
 }
 
-void muestraNodoUser(nodoListaUsuarios * nodo)
+void muestraNodoUser(nodoArbolUsuario * nodo)
 {
     muestraUnUsuario(nodo->usuario);
 
 }
-void muestraLista(nodoListaUsuarios * lista)
+void muestraArbol(nodoArbolUsuario * arbol)
 {
-    while(lista)
+    if(arbol)
     {
-        muestraNodoUser(lista);
-        lista = lista->sig;
+        muestraArbol(arbol->izq);
+        muestraNodoUser(arbol);
+        muestraArbol(arbol->der);
+    }
+}
+void muestraArbolAdmin(nodoArbolUsuario * arbol)
+{
+    if(arbol)
+    {
+        muestraArbolAdmin(arbol->izq);
+        muestraNodoUserAdmin(arbol);
+        muestraArbolAdmin(arbol->der);
     }
 
 }
-void muestraListaAdmin(nodoListaUsuarios * lista)
-{
-    while(lista)
-    {
-        muestraNodoUserAdmin(lista);
-        lista = lista->sig;
-    }
-
-}
-void muestraNodoUserAdmin(nodoListaUsuarios * nodo)
+void muestraNodoUserAdmin(nodoArbolUsuario * nodo)
 {
     muestraUnUsuarioAdmin(nodo->usuario);
 
@@ -194,11 +195,11 @@ void muestraUnUsuarioAdmin(stUsuario u)
 }
 ///Funciones de verificacion
 
-int verificar(char userIngresado[],char claveIngresado[],nodoArbolUsuario * lista)
+int verificar(char userIngresado[],char claveIngresado[],nodoArbolUsuario * arbol)
 {
     int flag=0;
     nodoArbolUsuario * userAux;
-    userAux=buscarUsuario(userIngresado,lista);
+    userAux=buscarUsuario(userIngresado,arbol);
     if(userAux!=NULL)
     {
         if(verificarPassword(claveIngresado,userAux)==1)
@@ -263,28 +264,25 @@ bool validarEmail(char email[])
     int arrobaPos=-1, puntoPos=-1, longitud=strlen(email), i=0;
     bool esValido=true;
 
-    /// Recorrer el string para buscar '@' y '.'
     for(i=0; i<longitud; i++)
     {
         if(email[i]=='@')
         {
             if(arrobaPos==-1)
             {
-                arrobaPos=i;  /// Guardar la posición del primer '@'
+                arrobaPos=i;
             }
             else
             {
-                esValido=false;  /// Si hay más de un '@', es inválido
+                esValido=false;
             }
         }
 
         if(email[i]=='.')
         {
-            puntoPos=i;  /// Guardar la posición del último '.'
+            puntoPos=i;
         }
     }
-
-    /// Verificar que no haya múltiples '@' y las posiciones de '@' y '.'
     if(arrobaPos==-1 || puntoPos==-1 || puntoPos<=arrobaPos + 1 || puntoPos>=longitud - 1)
     {
         esValido=false;
@@ -313,12 +311,12 @@ stUsuario crearUserAdmin()
     strcpy(admin.fechaNacimiento,"01/01/2000");
     return admin;
 }
-nodoListaUsuarios * cargaUserAdmin(nodoListaUsuarios * listaUser)
+nodoArbolUsuario * cargaUserAdmin(nodoArbolUsuario * arbol)
 {
     stUsuario admin=crearUserAdmin();
-    listaUser=agregarPrincipio(listaUser,crearNodo(admin));
-    listaToArchivo("usuarios.dat",listaUser);
-    return listaUser;
+    arbol=insertarNodoArbol(arbol,crearNodoArbol(admin));
+    arbolToArchivo("usuarios.dat",arbol);
+    return arbol;
 }
 int verificarEmailEnArbol(char email[], nodoArbolUsuario * arbol)
 {
@@ -333,7 +331,12 @@ int verificarEmailEnArbol(char email[], nodoArbolUsuario * arbol)
             flag=verificarEmailEnArbol(email,arbol->izq);
             flag=verificarEmailEnArbol(email,arbol->der);
         }
-    }return flag;
+    }
+    if(flag==0)
+    {
+        printf("\Este email ya esta en uso. Elige otro\n");
+    }
+    return flag;
 }
 stUsuario cargaDatosUser(nodoArbolUsuario * arbol)
 {
@@ -419,15 +422,19 @@ stDomicilio cargaDomicilio()
 
     return domicilio;
 }
-int sumarId(stUsuario user, nodoListaUsuarios * lista)
+nodoArbolUsuario * nodoMasDerecho(nodoArbolUsuario * arbol)
 {
-    nodoListaUsuarios * ultimo = lista;
-    if(lista)
+    if(arbol!=NULL)
     {
-        while(ultimo->sig!=NULL)
-        {
-            ultimo=ultimo->sig;
-        }
+        arbol->der=nodoMasDerecho(arbol->der);
+    }return arbol;
+}
+int sumarId(stUsuario user, nodoArbolUsuario * arbol)
+{
+    nodoArbolUsuario * ultimo = arbol;
+    if(arbol!=NULL)
+    {
+        ultimo=nodoMasDerecho(ultimo);
         user.idUsuario=ultimo->usuario.idUsuario+1;
     }
     else

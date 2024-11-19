@@ -56,7 +56,7 @@ nodoArbolUsuario * registrarse(nodoArbolUsuario * arbol)
     user=crearNodoUser(arbol);
     if(arbol==NULL)
     {
-        arbol=agregarPrincipio(arbol,user);
+        arbol=insertarNodoArbol(arbol,user);
     }
     else
     {

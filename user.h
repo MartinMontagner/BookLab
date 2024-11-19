@@ -66,18 +66,18 @@ nodoListaUsuarios* agregarAlFinal(nodoListaUsuarios* lista, nodoListaUsuarios* n
 nodoListaUsuarios * agregarEnOrdenId(nodoListaUsuarios * lista, nodoListaUsuarios * nuevo);
 ///Funciones de busqueda
 nodoArbolUsuario * buscarUsuario(char userIngresado[], nodoArbolUsuario * lista);
-nodoListaUsuarios* buscarUltimo(nodoListaUsuarios* lista);
-nodoListaUsuarios * buscarUsuarioXId(nodoListaUsuarios * lista,int id);
-int buscarUltimoIdUsuario (nodoListaUsuarios * lista);
+//nodoListaUsuarios* buscarUltimo(nodoListaUsuarios* lista);
+//nodoListaUsuarios * buscarUsuarioXId(nodoListaUsuarios * lista,int id);
+//int buscarUltimoIdUsuario (nodoListaUsuarios * lista);
 ///Funciones para mostrar
 void muestraUnUsuario(stUsuario u);
-void muestraNodoUser(nodoListaUsuarios * nodo);
-void muestraLista(nodoListaUsuarios * lista);
-void muestraListaAdmin(nodoListaUsuarios * lista);
-void muestraNodoUserAdmin(nodoListaUsuarios * nodo);
+void muestraNodoUser(nodoArbolUsuario * nodo);
+void muestraArbol(nodoArbolUsuario * arbol);
+void muestraArbolAdmin(nodoArbolUsuario * arbol);
+void muestraNodoUserAdmin(nodoArbolUsuario * nodo);
 void muestraUnUsuarioAdmin(stUsuario u);
 ///Funciones para verificar
-int verificar(char userIngresado[],char claveIngresado[],nodoListaUsuarios * lista);
+int verificar(char userIngresado[],char claveIngresado[],nodoArbolUsuario * lista);
 int verificarPassword(char claveIngresado[], nodoArbolUsuario * userAux);
 int verificacionPasswordCondiciones(char password[]);
 bool validarEmail(char email[]);///NO HACEN FALTA CAMBIOS
@@ -85,13 +85,14 @@ bool validarEmail(char email[]);///NO HACEN FALTA CAMBIOS
 int verificarEmailEnArbol(char email[], nodoArbolUsuario * arbol);
 ///Funciones de carga
 stUsuario crearUserAdmin();
-nodoListaUsuarios * cargaUserAdmin(nodoListaUsuarios * listaUser);
+nodoArbolUsuario * cargaUserAdmin(nodoArbolUsuario * arbol);
 stUsuario cargaDatosUser();
 stDomicilio cargaDomicilio();
 stUsuario cargaDatosUserRandom();
 stDomicilio cargaDomicilioRandom();
 void cargarUsuarioArchivoRandom(char nombreArchivo[], nodoListaUsuarios * lista);
-int sumarId(stUsuario user, nodoListaUsuarios * lista);
+int sumarId(stUsuario user, nodoArbolUsuario * arbol);
+nodoArbolUsuario * nodoMasDerecho(nodoArbolUsuario * arbol);
 
 ///Menu
 nodoListaUsuarios * modificarDatos(nodoListaUsuarios * user);
