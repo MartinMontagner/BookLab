@@ -96,27 +96,24 @@ nodoListaUsuarios* buscarUltimo(nodoListaUsuarios* lista)
     }
     return seg;
 }
-nodoListaUsuarios * buscarUsuarioXId(nodoListaUsuarios * lista,int id)
+nodoArbolUsuario * buscarUsuarioXId(nodoArbolUsuario * arbol,int id)
 {
-    int flag=0;
-    nodoListaUsuarios * aux=NULL;
-    if(lista && lista->usuario.idUsuario==id)
+    nodoArbolUsuario * aux=NULL;
+    if(arbol!=NULL)
     {
-        aux=lista;
-    }
-    else
-    {
-        nodoListaUsuarios * seg = lista->sig;
-        while(seg!=NULL && flag==0)
+        if(arbol->usuario.idUsuario==id)
         {
-            if(seg->usuario.idUsuario!=id)
+            aux=arbol;
+        }
+        else
+        {
+            if(arbol->usuario.idUsuario>id)
             {
-                seg=seg->sig;
+                arbol->izq=buscarUsuarioXId(arbol->izq,id);
             }
             else
             {
-                aux=seg;
-                flag=1;
+                arbol->der=buscarUsuarioXId(arbol->der,id);
             }
         }
     }
@@ -326,7 +323,8 @@ int verificarEmailEnArbol(char email[], nodoArbolUsuario * arbol)
         if(strcmp(arbol->usuario.email,email)==0)
         {
             flag=0;
-        }else
+        }
+        else
         {
             flag=verificarEmailEnArbol(email,arbol->izq);
             flag=verificarEmailEnArbol(email,arbol->der);
@@ -427,7 +425,8 @@ nodoArbolUsuario * nodoMasDerecho(nodoArbolUsuario * arbol)
     if(arbol!=NULL)
     {
         arbol->der=nodoMasDerecho(arbol->der);
-    }return arbol;
+    }
+    return arbol;
 }
 int sumarId(stUsuario user, nodoArbolUsuario * arbol)
 {
@@ -476,7 +475,7 @@ stDomicilio cargaDomicilioRandom()
     setCpRandom(domicilio.cp);
     return domicilio;
 }
-void cargarUsuarioArchivoRandom(char nombreArchivo[], nodoListaUsuarios * lista)
+void cargarUsuarioArchivoRandom(char nombreArchivo[], nodoArbolUsuario * arbol)
 {
 
     FILE * buffer = fopen(nombreArchivo,"ab");
@@ -484,7 +483,14 @@ void cargarUsuarioArchivoRandom(char nombreArchivo[], nodoListaUsuarios * lista)
     char opcion = 0;
     int i = 0;
 
-    int ultimoIdUsuario = buscarUltimoIdUsuario(lista);
+    nodoArbolUsuario * aux1= nodoMasDerecho(arbol);
+    int ultimoIdUsuario;
+    if(aux1==NULL)
+    {
+        ultimoIdUsuario=0;
+    }else{
+        ultimoIdUsuario=aux1->usuario.idUsuario;
+    }
     if(buffer)
     {
         do
@@ -506,7 +512,7 @@ void cargarUsuarioArchivoRandom(char nombreArchivo[], nodoListaUsuarios * lista)
     }
 }
 ///Menu
-nodoListaUsuarios * modificarDatos(nodoListaUsuarios * user)
+nodoArbolUsuario * modificarDatos(nodoArbolUsuario * user)
 {
     int opcion;
     do
@@ -632,7 +638,7 @@ void cambiarDNI(char *dni)
     scanf("%s", dni);  // Lee el DNI directamente
 }
 
-nodoListaUsuarios * darDeBajaUser(nodoListaUsuarios * user)
+nodoArbolUsuario * darDeBajaUser(nodoArbolUsuario * user)
 {
     int opcion;
 
@@ -652,26 +658,31 @@ nodoListaUsuarios * darDeBajaUser(nodoListaUsuarios * user)
     }
     return user;
 }
-nodoListaUsuarios * darDeBajaUserAdmin(nodoListaUsuarios * lista)
+nodoArbolUsuario * darDeBajaUserAdmin(nodoArbolUsuario * arbol)
 {
     int opcion;
-    nodoListaUsuarios * aux=inicLista();
+    nodoArbolUsuario * aux=inicArbol();
     printf("\nIngrese el ID del usuario que desea dar de baja: \n");
     fflush(stdin);
     scanf("%d",&opcion);
-    aux=buscarUsuarioXId(lista,opcion);
-    aux=darDeBajaUser(aux);
-    return lista;
+    aux=buscarUsuarioXId(arbol,opcion);
+    if(aux==NULL)
+    {
+        printf("\nEl usuario con ID %d no existe.");
+    }else{
+        aux=darDeBajaUser(aux);
+    }
+    return arbol;
 }
-nodoListaUsuarios * darDeAltaUserAdmin(nodoListaUsuarios * lista)
+nodoArbolUsuario * darDeAltaUserAdmin(nodoArbolUsuario * arbol)
 {
     int opcion;
-    nodoListaUsuarios * aux=inicLista();
+    nodoArbolUsuario * aux=inicArbol();
     printf("\nIngrese el ID del usuario que desea dar de alta: \n");
     scanf("%d",&opcion);
-    aux=buscarUsuarioXId(lista,opcion);
+    aux=buscarUsuarioXId(arbol,opcion);
     aux->usuario.eliminado=0;
-    return lista;
+    return arbol;
 }
 
 ///Funciones para crear contenido random

@@ -38,21 +38,13 @@ typedef struct{
     int eliminado; /// 0 si está activo - 1 si está eliminado
 }stUsuario;
 
-//typedef struct nodoListaUsuarios {
-//    stUsuario usuario;
-//    struct nodoListaUsuarios * sig;
-//}nodoListaUsuarios;
 typedef struct{
     stUsuario usuario;
     struct nodoArbolUsuario * izq;
     struct nodoArbolUsuario * der;
 }nodoArbolUsuario;
 
-//nodoListaUsuarios * inicLista();
-//nodoListaUsuarios * crearNodo(stUsuario usuario);
-//nodoListaUsuarios * crearNodoUser(nodoListaUsuarios * lista);
-//nodoListaUsuarios *  archivoToLista(char nombrearchivo[], nodoListaUsuarios * lista);
-//void listaToArchivo(char nombreArchivo[], nodoListaUsuarios * lista);
+
 ///Funciones arbol
 nodoArbolUsuario * inicArbol();
 nodoArbolUsuario * crearNodoArbol(stUsuario u);
@@ -60,15 +52,9 @@ nodoArbolUsuario * archivoToArbol(char nombreArchivo[],nodoArbolUsuario * arbol)
 void arbolToArchivo (char nombreArchivo[], nodoArbolUsuario * arbol);
 nodoArbolUsuario * insertarNodoArbol(nodoArbolUsuario * arbol,nodoArbolUsuario * nuevo);
 
-///Funciones para agregar
-nodoListaUsuarios * agregarPrincipio(nodoListaUsuarios * lista, nodoListaUsuarios * nuevoNodo);
-nodoListaUsuarios* agregarAlFinal(nodoListaUsuarios* lista, nodoListaUsuarios* nuevo);
-nodoListaUsuarios * agregarEnOrdenId(nodoListaUsuarios * lista, nodoListaUsuarios * nuevo);
 ///Funciones de busqueda
 nodoArbolUsuario * buscarUsuario(char userIngresado[], nodoArbolUsuario * lista);
-//nodoListaUsuarios* buscarUltimo(nodoListaUsuarios* lista);
-//nodoListaUsuarios * buscarUsuarioXId(nodoListaUsuarios * lista,int id);
-//int buscarUltimoIdUsuario (nodoListaUsuarios * lista);
+nodoArbolUsuario * buscarUsuarioXId(nodoArbolUsuario * arbol,int id);
 ///Funciones para mostrar
 void muestraUnUsuario(stUsuario u);
 void muestraNodoUser(nodoArbolUsuario * nodo);
@@ -80,8 +66,7 @@ void muestraUnUsuarioAdmin(stUsuario u);
 int verificar(char userIngresado[],char claveIngresado[],nodoArbolUsuario * lista);
 int verificarPassword(char claveIngresado[], nodoArbolUsuario * userAux);
 int verificacionPasswordCondiciones(char password[]);
-bool validarEmail(char email[]);///NO HACEN FALTA CAMBIOS
-///HACER FUNCION VERIFICAR QUE EMAIL NO SE REPITA EN EL ARBOL
+bool validarEmail(char email[]);
 int verificarEmailEnArbol(char email[], nodoArbolUsuario * arbol);
 ///Funciones de carga
 stUsuario crearUserAdmin();
@@ -90,12 +75,12 @@ stUsuario cargaDatosUser();
 stDomicilio cargaDomicilio();
 stUsuario cargaDatosUserRandom();
 stDomicilio cargaDomicilioRandom();
-void cargarUsuarioArchivoRandom(char nombreArchivo[], nodoListaUsuarios * lista);
 int sumarId(stUsuario user, nodoArbolUsuario * arbol);
 nodoArbolUsuario * nodoMasDerecho(nodoArbolUsuario * arbol);
+void cargarUsuarioArchivoRandom(char nombreArchivo[], nodoArbolUsuario * arbol);
 
 ///Menu
-nodoListaUsuarios * modificarDatos(nodoListaUsuarios * user);
+nodoArbolUsuario * modificarDatos(nodoArbolUsuario * user);
 void opcionesModificarDatos();
 stUsuario cambioUserName(stUsuario user);
 stUsuario cambioPassword(stUsuario user);
@@ -103,9 +88,9 @@ void leerPassword(char *password, int maxLength);
 void cambioGenero(char *genero);
 void cambiarFechaNacimiento(char *fechaNacimiento);
 void cambiarDNI(char *dni);
-nodoListaUsuarios * darDeBajaUser(nodoListaUsuarios * user);
-nodoListaUsuarios * darDeBajaUserAdmin(nodoListaUsuarios * lista);
-nodoListaUsuarios * darDeAltaUserAdmin(nodoListaUsuarios * lista);
+nodoArbolUsuario * darDeBajaUser(nodoArbolUsuario * user);
+nodoArbolUsuario * darDeBajaUserAdmin(nodoArbolUsuario * arbol);
+nodoArbolUsuario * darDeAltaUserAdmin(nodoArbolUsuario * arbol);
 ///Funciones de contenido Random (no las probe todavia)
 int randomRangoUsuarios(int min, int max);
 void setMailRandom(char email[]);
