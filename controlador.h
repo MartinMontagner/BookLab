@@ -12,14 +12,14 @@
 #include "user.h"
 #include "libros.h"
 
-void login (nodoListaUsuarios * lista);
-nodoListaUsuarios * registrarse(nodoListaUsuarios * lista);
+void login (nodoArbolUsuario * arbol);
+nodoArbolUsuario * registrarse(nodoArbolUsuario * arbol);
 void setColor(int color);
 void escribirConRetraso(const char *texto, int delay);
-void menuUser();
+void menuUser(nodoArbolUsuario * user);
 void mostrarMenuUser();
 void mostrarMenuLibros();
-void menuLibros( nodoListaUsuarios * user);
+void menuLibros( nodoArbolUsuario * user);
 void mostrarMenuAdmin();
-void menuAdmin();
+void menuAdmin(nodoArbolUsuario * arbol);
 #endif // CONTROLADOR_H_INCLUDED

@@ -8,10 +8,12 @@
 
 #include "controlador.h"
 #include "user.h"
+#include "comentario.h"
+#include "libros.h"
 #define ARCHIVO_LIBROS "libros.dat"
 #define ARCHIVO_USER "usuarios.dat"
 
-void menuPrincipal(char archivoUser[], nodoListaUsuarios * listaUser);
+void menuPrincipal(char archivoUser[], nodoArbolUsuario * arbol);
 void mostrarMenuInicial();
 
 int main()
@@ -19,19 +21,19 @@ int main()
     srand(time(NULL));
 
 
-    nodoListaUsuarios* listauser = inicLista();
-    listauser = archivoToLista(ARCHIVO_USER, listauser);
-//    listauser = cargaUserAdmin(listauser);
-//    listaToArchivo(ARCHIVO_USER, listauser);
-//    cargarUsuarioArchivoRandom(ARCHIVO_USER, listauser);
-//    listauser = archivoToLista(ARCHIVO_USER, listauser);
-//    muestraLista(listauser);
+    nodoArbolUsuario* arbol = inicArbol();
+    arbol = archivoToArbol(ARCHIVO_USER, arbol);
+//    arbol = cargaUserAdmin(arbol);
+//    listaToArchivo(ARCHIVO_USER, arbol);
+//    cargarUsuarioArchivoRandom(ARCHIVO_USER, arbol);
+//    arbol = archivoToLista(ARCHIVO_USER, arbol);
+//    muestraLista(arbol);
 
-    menuPrincipal(ARCHIVO_USER,listauser);
+    menuPrincipal(ARCHIVO_USER,arbol);
     return 0;
 }
 
-void menuPrincipal(char archivoUser[], nodoListaUsuarios *listaUser)
+void menuPrincipal(char archivoUser[], nodoArbolUsuario *arbol)
 {
     int opcion;
 
@@ -48,14 +50,14 @@ void menuPrincipal(char archivoUser[], nodoListaUsuarios *listaUser)
         {
         case 1:
             system("cls");
-            login(listaUser);
+            login(arbol);
             break;
 
         case 2:
             printf("\n--- Registrarse en el sistema ---\n");
             /// Logica de registro de usuario
-            listaUser= registrarse(listaUser);
-            listaToArchivo(archivoUser,listaUser);
+            arbol= registrarse(arbol);
+            arbolToArchivo(archivoUser,arbol);
             break;
 
         case 0:

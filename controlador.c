@@ -52,16 +52,8 @@ void login (nodoArbolUsuario * arbol)
 }
 nodoArbolUsuario * registrarse(nodoArbolUsuario * arbol)
 {
-    nodoArbolUsuario * user=NULL;
-    user=crearNodoUser(arbol);
-    if(arbol==NULL)
-    {
-        arbol=insertarNodoArbol(arbol,user);
-    }
-    else
-    {
-        arbol=agregarEnOrdenId(arbol,user);
-    }
+    nodoArbolUsuario * user=crearNodoUser(arbol);
+    arbol=insertarNodoArbol(arbol,user);
     return arbol;
 }
 void setColor(int color)
@@ -93,7 +85,7 @@ void mostrarMenuUser()
     escribirConRetraso("\n====================================\n", 5);
     setColor(7);
 }
-void menuUser(nodoListaUsuarios * user)
+void menuUser(nodoArbolUsuario * user)
 {
     int opcion;
     do
@@ -152,7 +144,7 @@ void mostrarMenuLibros()
     escribirConRetraso("\n====================================\n", 5);
     setColor(7);
 }
-void menuLibros( nodoListaUsuarios * user)
+void menuLibros( nodoArbolUsuario * user)
 {
     nodo2Libros * libros=inicListaDoble();
     libros=archivoToLista2("libros.dat",libros);
@@ -226,7 +218,7 @@ void mostrarMenuAdmin()
     escribirConRetraso("\n====================================\n", 5);
     setColor(7);
 }
-void menuAdmin(nodoListaUsuarios * listaUser)
+void menuAdmin(nodoArbolUsuario * arbol)
 {
     nodo2Libros * libros=inicListaDoble();
     libros=archivoToLista2("libros.dat",libros);
@@ -254,15 +246,15 @@ void menuAdmin(nodoListaUsuarios * listaUser)
             system("pause");
             break;
         case 4:
-            muestraListaAdmin(listaUser);
+            muestraArbolAdmin(arbol);
             system("pause");
             break;
         case 5:
-            listaUser=darDeBajaUserAdmin(listaUser);
+            arbol=darDeBajaUserAdmin(arbol);
             system("pause");
             break;
         case 6:
-            listaUser=darDeAltaUserAdmin(listaUser);
+            arbol=darDeAltaUserAdmin(arbol);
             system("pause");
             break;
         case 0:
@@ -275,5 +267,5 @@ void menuAdmin(nodoListaUsuarios * listaUser)
         }
     }
     while(opcion != 0);
-    listaToArchivo("usuarios.dat",listaUser);
+    arbolToArchivo("usuarios.dat",arbol);
 }

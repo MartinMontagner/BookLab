@@ -38,7 +38,7 @@ typedef struct{
     int eliminado; /// 0 si está activo - 1 si está eliminado
 }stUsuario;
 
-typedef struct{
+typedef struct nodoArbolUsuario{
     stUsuario usuario;
     struct nodoArbolUsuario * izq;
     struct nodoArbolUsuario * der;
@@ -51,7 +51,7 @@ nodoArbolUsuario * crearNodoArbol(stUsuario u);
 nodoArbolUsuario * archivoToArbol(char nombreArchivo[],nodoArbolUsuario * arbol);
 void arbolToArchivo (char nombreArchivo[], nodoArbolUsuario * arbol);
 nodoArbolUsuario * insertarNodoArbol(nodoArbolUsuario * arbol,nodoArbolUsuario * nuevo);
-
+nodoArbolUsuario * crearNodoUser(nodoArbolUsuario * arbol);
 ///Funciones de busqueda
 nodoArbolUsuario * buscarUsuario(char userIngresado[], nodoArbolUsuario * lista);
 nodoArbolUsuario * buscarUsuarioXId(nodoArbolUsuario * arbol,int id);
@@ -82,7 +82,7 @@ void cargarUsuarioArchivoRandom(char nombreArchivo[], nodoArbolUsuario * arbol);
 ///Menu
 nodoArbolUsuario * modificarDatos(nodoArbolUsuario * user);
 void opcionesModificarDatos();
-stUsuario cambioUserName(stUsuario user);
+void cambioUserName(char *userName);
 stUsuario cambioPassword(stUsuario user);
 void leerPassword(char *password, int maxLength);
 void cambioGenero(char *genero);
@@ -107,9 +107,9 @@ void setLocalidadRandom(char localidad[]);
 void setPaisRandom(char pais[]);
 
 ///Funciones de Favoritos
-void agregarLibroAFavoritosUsuario(nodoListaUsuarios* nodoUsuario, nodo2Libros* listaLibros, int idLibro);
-void mostrarLibrosFavoritos(nodoListaUsuarios* nodoUsuario, nodo2Libros* listaLibros);
-void quitarLibroDeFavoritosUsuario(nodoListaUsuarios* nodoUsuario, int idLibro);
-void opcionAgregarLibroAFavoritos(nodoListaUsuarios* usuario, nodo2Libros* libros);
-void opcionQuitarLibroDeFavoritos(nodoListaUsuarios* usuario, nodo2Libros* libros);
+void agregarLibroAFavoritosUsuario(nodoArbolUsuario* nodoUsuario, nodo2Libros* listaLibros, int idLibro);
+void mostrarLibrosFavoritos(nodoArbolUsuario* nodoUsuario, nodo2Libros* listaLibros);
+void quitarLibroDeFavoritosUsuario(nodoArbolUsuario* nodoUsuario, int idLibro);
+void opcionAgregarLibroAFavoritos(nodoArbolUsuario* usuario, nodo2Libros* libros);
+void opcionQuitarLibroDeFavoritos(nodoArbolUsuario* usuario, nodo2Libros* libros);
 #endif // USER_H_INCLUDED

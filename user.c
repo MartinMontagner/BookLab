@@ -31,7 +31,8 @@ void arbolToArchivo (char nombreArchivo[], nodoArbolUsuario * arbol)
     FILE * archi = fopen(nombreArchivo,"wb");
     if(arbol)
     {
-        fwrite(arbol->usuario,sizeof(stUsuario),1,archi);
+        stUsuario aux=arbol->usuario;
+        fwrite(&aux,sizeof(stUsuario),1,archi);
         arbolToArchivo(nombreArchivo,arbol->izq);
         arbolToArchivo(nombreArchivo,arbol->der);
 
@@ -71,7 +72,6 @@ nodoArbolUsuario * crearNodoUser(nodoArbolUsuario * arbol)
 nodoArbolUsuario * buscarUsuario(char userIngresado[], nodoArbolUsuario * arbol)
 {
     nodoArbolUsuario * aux=NULL;
-    int flag=0;
     if(arbol && strcmp(arbol->usuario.email,userIngresado)==0)
     {
         aux=arbol;
@@ -83,19 +83,9 @@ nodoArbolUsuario * buscarUsuario(char userIngresado[], nodoArbolUsuario * arbol)
             aux=buscarUsuario(userIngresado,arbol->izq);
             aux=buscarUsuario(userIngresado,arbol->der);
         }
-    }
-    return aux;
+    }return aux;
+}
 
-}
-nodoListaUsuarios* buscarUltimo(nodoListaUsuarios* lista)
-{
-    nodoListaUsuarios* seg = lista;
-    while(seg->sig != NULL)
-    {
-        seg = seg->sig;
-    }
-    return seg;
-}
 nodoArbolUsuario * buscarUsuarioXId(nodoArbolUsuario * arbol,int id)
 {
     nodoArbolUsuario * aux=NULL;
@@ -119,12 +109,7 @@ nodoArbolUsuario * buscarUsuarioXId(nodoArbolUsuario * arbol,int id)
     }
     return aux;
 }
-int buscarUltimoIdUsuario (nodoListaUsuarios * lista)
-{
-    nodoListaUsuarios * ultimo= buscarUltimo(lista);
-    int id=ultimo->usuario.idUsuario;
-    return id;
-}
+
 ///Funciones para Mostrar
 
 void muestraUnUsuario(stUsuario u)
@@ -341,6 +326,7 @@ stUsuario cargaDatosUser(nodoArbolUsuario * arbol)
     char password[20];
     stUsuario user;
     bool esValido=false;
+    int flag=0;
 //funcion para verificar escritura email
     do
     {
@@ -348,9 +334,8 @@ stUsuario cargaDatosUser(nodoArbolUsuario * arbol)
         fflush(stdin);
         gets(user.email);
         esValido=validarEmail(user.email);
-        int flag=verificarEmailEnArbol(user.email,arbol);
-    }
-    while(esValido==false && flag==0);
+        flag=verificarEmailEnArbol(user.email,arbol);
+    }while(esValido==false && flag==0);
 
 
     do
@@ -528,7 +513,7 @@ nodoArbolUsuario * modificarDatos(nodoArbolUsuario * user)
             user->usuario.domicilio=cargaDomicilio();
             break;
         case 2:
-            user->usuario=cambioUserName(user->usuario);
+            cambioUserName(user->usuario.username);
             break;
         case 3:
             user->usuario=cambioPassword(user->usuario);
@@ -561,13 +546,10 @@ void opcionesModificarDatos()
     printf("\n   6. DNI\n");
     printf("\n   0. Salir\n");
 }
-stUsuario cambioUserName(stUsuario user)
+void cambioUserName(char * userName)
 {
-    char userName[20];
     printf("\nIngrese su nombre: \n");
-    scanf("%s",&userName);
-    strcpy(user.username,userName);
-    return user;
+    scanf("%c",userName);
 }
 
 stUsuario cambioPassword(stUsuario user)
@@ -668,7 +650,7 @@ nodoArbolUsuario * darDeBajaUserAdmin(nodoArbolUsuario * arbol)
     aux=buscarUsuarioXId(arbol,opcion);
     if(aux==NULL)
     {
-        printf("\nEl usuario con ID %d no existe.");
+        printf("\nEl usuario con ID %d no existe.",opcion);
     }else{
         aux=darDeBajaUser(aux);
     }
@@ -835,7 +817,7 @@ void setPaisRandom(char pais[])
 
 
 ///Funciones de favoritos
-void agregarLibroAFavoritosUsuario(nodoListaUsuarios* nodoUsuario, nodo2Libros* listaLibros, int idLibro)
+void agregarLibroAFavoritosUsuario(nodoArbolUsuario* nodoUsuario, nodo2Libros* listaLibros, int idLibro)
 {
     if (nodoUsuario == NULL)
     {
@@ -873,7 +855,7 @@ void agregarLibroAFavoritosUsuario(nodoListaUsuarios* nodoUsuario, nodo2Libros* 
     }
 }
 
-void mostrarLibrosFavoritos(nodoListaUsuarios* nodoUsuario, nodo2Libros* listaLibros)
+void mostrarLibrosFavoritos(nodoArbolUsuario* nodoUsuario, nodo2Libros* listaLibros)
 {
     if (nodoUsuario == NULL)
     {
@@ -889,9 +871,9 @@ void mostrarLibrosFavoritos(nodoListaUsuarios* nodoUsuario, nodo2Libros* listaLi
     }
     else
     {
-        setColor(1);
+        //setColor(1);
         printf("Libros favoritos de %s:\n", usuario->username);
-        setColor(7);
+        //setColor(7);
         for (int i = 0; i < usuario->validosLibrosFavs; i++)
         {
             int idFavorito = usuario->librosFavoritos[i];
@@ -908,7 +890,7 @@ void mostrarLibrosFavoritos(nodoListaUsuarios* nodoUsuario, nodo2Libros* listaLi
     }
 }
 
-void quitarLibroDeFavoritosUsuario(nodoListaUsuarios* nodoUsuario, int idLibro)
+void quitarLibroDeFavoritosUsuario(nodoArbolUsuario* nodoUsuario, int idLibro)
 {
     if (nodoUsuario == NULL)
     {
@@ -939,17 +921,17 @@ void quitarLibroDeFavoritosUsuario(nodoListaUsuarios* nodoUsuario, int idLibro)
         printf("El libro con ID %d no está en la lista de favoritos del usuario %s.\n", idLibro, usuario->username);
     }
 }
-void opcionAgregarLibroAFavoritos(nodoListaUsuarios* usuario, nodo2Libros* libros)
+void opcionAgregarLibroAFavoritos(nodoArbolUsuario * usuario, nodo2Libros* libros)
 {
-    if (usuario == NULL)
-    {
-        printf("Usuario no encontrado.\n");
-        return;
-    }
+//    if (usuario == NULL)
+//    {
+//        printf("Usuario no encontrado.\n");
+//        return;
+//    }
 
     int opcion;
     int idLibro;
-    setColor(1);
+    //setColor(1);
     printf("Conoces el ID del libro que quieres agregar a favoritos?\n");
     printf("1. Si\n");
     printf("2. No, mostrar lista de libros\n");
@@ -979,9 +961,9 @@ void opcionAgregarLibroAFavoritos(nodoListaUsuarios* usuario, nodo2Libros* libro
         printf("Opcion no valida.\n");
         break;
     }
-    setColor(7);
+    //setColor(7);
 }
-void opcionQuitarLibroDeFavoritos(nodoListaUsuarios* usuario, nodo2Libros* libros)
+void opcionQuitarLibroDeFavoritos(nodoArbolUsuario* usuario, nodo2Libros* libros)
 {
     if (usuario == NULL)
     {
@@ -1001,7 +983,7 @@ void opcionQuitarLibroDeFavoritos(nodoListaUsuarios* usuario, nodo2Libros* libro
     int idLibro;
 
     mostrarLibrosFavoritos(usuario, libros);
-    setColor(1);
+    //setColor(1);
     printf("\nDeseas quitar algun libro de favoritos?\n");
     printf("1. Si\n");
     printf("2. No\n");
@@ -1023,7 +1005,7 @@ void opcionQuitarLibroDeFavoritos(nodoListaUsuarios* usuario, nodo2Libros* libro
     {
         printf("Opcion no valida.\n");
     }
-    setColor(7);
+    //setColor(7);
 }
 
 
