@@ -7,12 +7,10 @@
 #include <windows.h>
 
 #include "controlador.h"
-#include "user.h"
-#include "comentario.h"
-#include "libros.h"
+
 #define ARCHIVO_LIBROS "libros.dat"
 #define ARCHIVO_USER "usuarios.dat"
-
+#define ARCHIVO_COMENTARIOS "comentarios.dat"
 void menuPrincipal(char archivoUser[], nodoArbolUsuario * arbol);
 void mostrarMenuInicial();
 

@@ -10,7 +10,7 @@
 #include <windows.h>
 #include <unistd.h>
 #include "user.h"
-#include "libros.h"
+//#include "libros.h"
 
 void login (nodoArbolUsuario * arbol);
 nodoArbolUsuario * registrarse(nodoArbolUsuario * arbol);
@@ -22,4 +22,5 @@ void mostrarMenuLibros();
 void menuLibros( nodoArbolUsuario * user);
 void mostrarMenuAdmin();
 void menuAdmin(nodoArbolUsuario * arbol);
+void mostrarMenuComentario();
 #endif // CONTROLADOR_H_INCLUDED

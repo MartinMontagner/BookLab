@@ -1011,5 +1011,3 @@ void opcionQuitarLibroDeFavoritos(nodoArbolUsuario* usuario, nodo2Libros* libros
 
 
 
-
-

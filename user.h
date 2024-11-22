@@ -82,7 +82,7 @@ void cargarUsuarioArchivoRandom(char nombreArchivo[], nodoArbolUsuario * arbol);
 ///Menu
 nodoArbolUsuario * modificarDatos(nodoArbolUsuario * user);
 void opcionesModificarDatos();
-void cambioUserName(char *userName);
+void cambioUserName(char * userName);
 stUsuario cambioPassword(stUsuario user);
 void leerPassword(char *password, int maxLength);
 void cambioGenero(char *genero);

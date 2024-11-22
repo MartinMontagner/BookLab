@@ -39,7 +39,7 @@ nodo2Libros * archivoToLista2(char nombreArchivo[], nodo2Libros * listaDoble);
 nodo2Libros * insertarNodoPorId (nodo2Libros * lista, nodo2Libros * nuevoNodo);
 nodo2Libros * agregarPrincipioLibro(nodo2Libros * listaDoble, nodo2Libros * nuevo);
 nodo2Libros * agregarAlFinalLibro(nodo2Libros * listaDoble, nodo2Libros* nuevo);
-nodo2Libros * alta (nodo2Libros *listaLibros, nodoComentario * nuevoComentario, int idLibro);
+
 ///Funciones de busqueda
 nodo2Libros * buscarUltimoLibro(nodo2Libros* listaDoble);
 void buscaLibrosPorAutor (nodo2Libros* lista);
@@ -67,5 +67,13 @@ void setEditorialRandom(char editorial[]);
 void setAutorRandom(char autor[]);
 ///Funcion de guardar en archivo
 void agregarLibrosAlArchivo(nodo2Libros* lista,char nombreArchivo []);
+
+
+///FUNCIONES NUEVAS
+nodo2Libros * ingresarLibros (nodo2Libros *lista, int idUsuario);
+nodo2Libros * alta (nodo2Libros *listaLibros, nodoComentario * nuevoComentario, int idLibro);
+void mostrarComentariosUsuario(nodo2Libros * listaLibros, int idUsuario);
+
+
 
 #endif // LIBROS_H_INCLUDED

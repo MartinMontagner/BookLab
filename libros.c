@@ -150,24 +150,72 @@ nodo2Libros * alta (nodo2Libros *listaLibros, nodoComentario * nuevoComentario, 
     {
         stLibro libro = cargaUnLibro();
         libro.idLibro=idLibro;
+        libro.valoracion= calculoValoraciones(listaLibros->lista,listaLibros->dato.idLibro);
         nodo2Libros *nuevoLibro = crearNodoDoble(libro);
         listaLibros = insertarNodoPorId(listaLibros, nuevoLibro);
-        listaLibros->lista = agregarFinal(listaLibros->lista, nuevoComentario);
-    }else{
-        libroEncontrado->lista = agregarFinal(libroEncontrado->lista, nuevoComentario);
+        listaLibros->lista = insertarNodoPorIdComentario(listaLibros->lista, nuevoComentario);
     }
-return listaLibros;
+    else
+    {
+        libroEncontrado->lista = insertarNodoPorIdComentario(libroEncontrado->lista, nuevoComentario);
+        libroEncontrado->dato.valoracion= calculoValoraciones(libroEncontrado->lista,libroEncontrado->dato.idLibro);
+    }
+    return listaLibros;
+}
+nodo2Libros * ingresarLibros (nodo2Libros *lista, int idUsuario)
+{
+    char continuar='s';
+    stComentario aux;
+    int idLibro;
+
+    while(continuar=='s')
+    {
+        aux=cargaUnComentario();
+        printf("\nA que libro desea ingresar el comentario?: \n");
+        fflush(stdin);
+        scanf("%d", &aux.idLibro);
+        aux.idUsuario=idUsuario;
+        idLibro=aux.idLibro;
+        nodoComentario * coment = crearNodoComentario(aux);
+        lista = alta(lista,coment,idLibro);
+        printf("\n\nDesea continuar presione s:  ");
+        fflush(stdin);
+        scanf("%c", &continuar);
+        printf("\n\n");
+    }
+    return lista;
 }
 
-float promedioValoracion (nodo2Libros * lista)
-{
-    float valoraciones=0;
-    if(lista)
-    {
-        lista->dato.valoracion= calculoValoraciones(lista->lista,lista->dato.idLibro);
+
+void mostrarComentariosUsuario(nodo2Libros * listaLibros, int idUsuario) {
+    nodo2Libros * libroActual = listaLibros;
+    int comentariosEncontrados = 0;
+
+    printf("\nComentarios del usuario con ID %d:\n", idUsuario);
+
+    while (libroActual != NULL) {
+        nodoComentario * comentarioActual = libroActual->lista;
+
+        // Recorrer todos los comentarios de cada libro
+        while (comentarioActual != NULL) {
+            if (comentarioActual->comentario.idUsuario == idUsuario) {
+                // Mostrar comentario solo si pertenece al usuario
+                comentariosEncontrados++;
+                printf("\nLibro: %s (ID: %d)\n", libroActual->dato.titulo, libroActual->dato.idLibro);
+                muestraNodoComentario(comentarioActual);
+                printf("----------------------------------------------------\n");
+            }
+            comentarioActual = comentarioActual->ste;
+        }
+        libroActual = libroActual->ste;
     }
-    return valoraciones;
+
+    if (comentariosEncontrados == 0) {
+        printf("No se encontraron comentarios para este usuario.\n");
+    }
 }
+
+
 
 
 nodo2Libros *  archivoToLista2(char nombreArchivo[], nodo2Libros * listaDoble)
@@ -351,6 +399,7 @@ void muestraUnLibro(stLibro a)
     printf("Editorial:................%s\n",a.editorial);
     printf("Autor:....................%s\n",a.autor);
     printf("Categoria:................%s\n",a.categoria);
+    printf("Valoracion:...............%.2f estrellas\n",a.valoracion);
     printf("ID:.......................%d\n",a.idLibro);
 
 }
@@ -449,7 +498,6 @@ void verLibrosPorTitulo (nodo2Libros * lista, char titulo[])
 ///Funcion dar de baja libro
 void darDeBajaLogica (nodo2Libros* lista)
 {
-//    nodo2Libros * actual=lista;
     int id=0;
     printf("Ingrese id del libro a ocultar: \n");
     fflush(stdin);

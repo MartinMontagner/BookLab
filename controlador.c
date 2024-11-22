@@ -125,7 +125,7 @@ void menuUser(nodoArbolUsuario * user)
         }
     }
     while(opcion != 0);
-    listaToArchivo("usuarios.dat",user);
+    arbolToArchivo("usuarios.dat",user);
 }
 void mostrarMenuLibros()
 {
@@ -268,4 +268,60 @@ void menuAdmin(nodoArbolUsuario * arbol)
     }
     while(opcion != 0);
     arbolToArchivo("usuarios.dat",arbol);
+}
+
+void menuComentario( nodoArbolUsuario * user, nodo2Libros * lista)
+{
+    nodoComentario * listaComentarios=inicListaComentario();
+    listaComentarios= archivoToListaComentario("comentarios.dat",listaComentarios);
+    int opcion;
+    do
+    {
+        system("pause");
+        system("cls");
+        mostrarMenuComentario();
+        printf("\nSeleccione una opcion: ");
+        fflush(stdin);
+        scanf("%d",&opcion);
+
+        switch(opcion)
+        {
+        case 1:
+            system("cls");
+            //Ver mis comentarios;
+            mostrarComentariosUsuario(lista,user->usuario.idUsuario);
+            break;
+        case 2:
+            //Agregar Comentario
+            lista= ingresarLibros(lista,user->usuario.idUsuario);
+            //falta guardar en archivo comentarios.
+            break;
+
+        case 3:
+            //Editar o eliminar comentario
+            modificarComentario(listaComentarios);
+            break;
+        case 0:
+            system("cls");
+
+        default:
+            printf("\nOpcion no valida. Por favor, intenta nuevamente.\n");
+            break;
+        }
+    }
+    while(opcion != 0);
+}
+
+void mostrarMenuComentario()
+{
+    setColor(1);
+    escribirConRetraso("\n====================================", 5);
+    escribirConRetraso("\n    Sistema de Gestion de Libros", 5);
+    escribirConRetraso("\n====================================", 5);
+    escribirConRetraso("\n   1. Ver mis comentarios", 5);
+    escribirConRetraso("\n   2. Agregar comentarios", 5);
+    escribirConRetraso("\n   3. Editar o eliminar comentarios", 5);
+    escribirConRetraso("\n   0. Salir", 5);
+    escribirConRetraso("\n====================================\n", 5);
+    setColor(7);
 }
