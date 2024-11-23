@@ -9,6 +9,7 @@
 #include <stdbool.h>
 #include <windows.h>
 #include "comentario.h"
+
  typedef struct {
  int idLibro; /// único, autoincremental
  char titulo[100];

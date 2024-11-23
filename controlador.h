@@ -16,7 +16,7 @@ void login (nodoArbolUsuario * arbol);
 nodoArbolUsuario * registrarse(nodoArbolUsuario * arbol);
 void setColor(int color);
 void escribirConRetraso(const char *texto, int delay);
-void menuUser(nodoArbolUsuario * user);
+void menuUser(nodoArbolUsuario ** user);
 void mostrarMenuUser();
 void mostrarMenuLibros();
 void menuLibros( nodoArbolUsuario * user);

@@ -19,7 +19,7 @@ void login (nodoArbolUsuario * arbol)
         while(esValido==false);
         printf("Password: \n");
         leerPassword(password,sizeof(password));
-        ret=verificar(email,password,arbol);//crear funcion verificar
+        ret=verificar(email,password,arbol);
         if(ret==0)
         {
             system("pause");
@@ -32,13 +32,14 @@ void login (nodoArbolUsuario * arbol)
         nodoArbolUsuario * aux=buscarUsuario(email,arbol);
         if(aux->usuario.esAdmin==1)
         {
-            menuAdmin(arbol);// crear un menu para el administrador
+            menuAdmin(arbol);
         }
         else
         {
-            if(aux->usuario.eliminado==0)//crear y modificar funcion
+            if(aux->usuario.eliminado==0)
             {
-                menuUser(aux);
+                menuUser(&aux);
+                arbolToArchivo("usuarios.dat",arbol);
             }
             else
             {
@@ -85,7 +86,7 @@ void mostrarMenuUser()
     escribirConRetraso("\n====================================\n", 5);
     setColor(7);
 }
-void menuUser(nodoArbolUsuario * user)
+void menuUser(nodoArbolUsuario ** user)
 {
     int opcion;
     do
@@ -99,20 +100,20 @@ void menuUser(nodoArbolUsuario * user)
         switch(opcion)
         {
         case 1:
-            muestraNodoUser(user);
+            muestraNodoUser((*user));
             system("pause");
             break;
 
         case 2:
-            user=modificarDatos(user);
+            user=modificarDatos((*user));
             break;
 
         case 3:
-            user=darDeBajaUser(user);
+            user=darDeBajaUser((*user));
             break;
 
         case 4:
-            menuLibros(user);
+            menuLibros((*user));
             break;
 
         case 0:
@@ -125,7 +126,7 @@ void menuUser(nodoArbolUsuario * user)
         }
     }
     while(opcion != 0);
-    arbolToArchivo("usuarios.dat",user);
+    //arbolToArchivo("usuarios.dat",user);
 }
 void mostrarMenuLibros()
 {

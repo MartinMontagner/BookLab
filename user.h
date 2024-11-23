@@ -49,9 +49,11 @@ typedef struct nodoArbolUsuario{
 nodoArbolUsuario * inicArbol();
 nodoArbolUsuario * crearNodoArbol(stUsuario u);
 nodoArbolUsuario * archivoToArbol(char nombreArchivo[],nodoArbolUsuario * arbol);
+void arbolToArchivoAux(FILE *archi, nodoArbolUsuario *arbol);
 void arbolToArchivo (char nombreArchivo[], nodoArbolUsuario * arbol);
 nodoArbolUsuario * insertarNodoArbol(nodoArbolUsuario * arbol,nodoArbolUsuario * nuevo);
 nodoArbolUsuario * crearNodoUser(nodoArbolUsuario * arbol);
+
 ///Funciones de busqueda
 nodoArbolUsuario * buscarUsuario(char userIngresado[], nodoArbolUsuario * lista);
 nodoArbolUsuario * buscarUsuarioXId(nodoArbolUsuario * arbol,int id);
@@ -71,11 +73,11 @@ int verificarEmailEnArbol(char email[], nodoArbolUsuario * arbol);
 ///Funciones de carga
 stUsuario crearUserAdmin();
 nodoArbolUsuario * cargaUserAdmin(nodoArbolUsuario * arbol);
-stUsuario cargaDatosUser();
+stUsuario cargaDatosUser(nodoArbolUsuario *  arbol);
 stDomicilio cargaDomicilio();
 stUsuario cargaDatosUserRandom();
 stDomicilio cargaDomicilioRandom();
-int sumarId(stUsuario user, nodoArbolUsuario * arbol);
+int sumarId(nodoArbolUsuario * arbol);
 nodoArbolUsuario * nodoMasDerecho(nodoArbolUsuario * arbol);
 void cargarUsuarioArchivoRandom(char nombreArchivo[], nodoArbolUsuario * arbol);
 
