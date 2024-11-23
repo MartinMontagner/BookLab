@@ -526,8 +526,8 @@ nodoArbolUsuario * modificarDatos(nodoArbolUsuario * user)
     {
         system("cls");
         printf("\nQue dato desea cambiar\n");
-        fflush(stdin);
         opcionesModificarDatos();
+        fflush(stdin);
         scanf("%d",&opcion);
         switch(opcion)
         {
@@ -571,7 +571,7 @@ void opcionesModificarDatos()
 void cambioUserName(char * userName)
 {
     printf("\nIngrese su nombre: \n");
-    scanf("%c",userName);
+    scanf("%s",userName);
 }
 
 stUsuario cambioPassword(stUsuario user)
@@ -616,52 +616,38 @@ void leerPassword(char *password, int maxLength)
 
     password[i] = '\0';
 }
-
-void cambioGenero(char *genero)
-{
-    if (*genero == 'm' || *genero == 'M')
-    {
-        strcpy(genero, "F");
-    }
-    else
-    {
-        strcpy(genero, "M");
-    }
+void cambioGenero(char *genero) {
+    *genero = (*genero == 'M' || *genero == 'm') ? 'F' : 'M';
 }
-
-void cambiarFechaNacimiento(char *fechaNacimiento)
-{
+void cambiarFechaNacimiento(char *fechaNacimiento) {
     printf("\nIngrese su fecha de nacimiento (dd/mm/yyyy): \n");
-    scanf("%s", fechaNacimiento);  // Lee la fecha de nacimiento directamente
+    fgets(fechaNacimiento, 11, stdin);
+    strtok(fechaNacimiento, "\n");
 }
 
-
-void cambiarDNI(char *dni)
-{
+void cambiarDNI(char *dni) {
     printf("\nIngrese su DNI: \n");
-    scanf("%s", dni);  // Lee el DNI directamente
+    scanf("%s",dni);
 }
-
-nodoArbolUsuario * darDeBajaUser(nodoArbolUsuario * user)
-{
+nodoArbolUsuario * darDeBajaUser(nodoArbolUsuario *user) {
     int opcion;
 
     printf("\nSi ingresa 1 se dara de baja\n");
-    printf("\nSi ingresa 0 vuelve al menu\n");
-    scanf("%d",&opcion);
-    switch(opcion)
-    {
-    case 1:
-        user->usuario.eliminado=-1;
-        break;
+    printf("Si ingresa 0 vuelve al menu\n");
+    scanf("%d", &opcion);
 
-    case 0:
-        system("cls");
+    if (opcion == 1) {
+        user->usuario.eliminado = -1;
+        printf("\nUsuario dado de baja.\n");
+    } else if (opcion == 0) {
         printf("\n--- Volviendo al menu ---\n");
-        break;
+    } else {
+        printf("\nOpcion no valida.\n");
     }
     return user;
 }
+
+
 nodoArbolUsuario * darDeBajaUserAdmin(nodoArbolUsuario * arbol)
 {
     int opcion;

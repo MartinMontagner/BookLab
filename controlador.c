@@ -38,7 +38,7 @@ void login (nodoArbolUsuario * arbol)
         {
             if(aux->usuario.eliminado==0)
             {
-                menuUser(&aux);
+                aux=menuUser(aux);
                 arbolToArchivo("usuarios.dat",arbol);
             }
             else
@@ -86,7 +86,7 @@ void mostrarMenuUser()
     escribirConRetraso("\n====================================\n", 5);
     setColor(7);
 }
-void menuUser(nodoArbolUsuario ** user)
+nodoArbolUsuario * menuUser(nodoArbolUsuario * user)
 {
     int opcion;
     do
@@ -100,20 +100,20 @@ void menuUser(nodoArbolUsuario ** user)
         switch(opcion)
         {
         case 1:
-            muestraNodoUser((*user));
+            muestraNodoUser(user);
             system("pause");
             break;
 
         case 2:
-            user=modificarDatos((*user));
+            user=modificarDatos(user);
             break;
 
         case 3:
-            user=darDeBajaUser((*user));
+            user=darDeBajaUser(user);
             break;
 
         case 4:
-            menuLibros((*user));
+            menuLibros(user);
             break;
 
         case 0:
@@ -126,7 +126,7 @@ void menuUser(nodoArbolUsuario ** user)
         }
     }
     while(opcion != 0);
-    //arbolToArchivo("usuarios.dat",user);
+    return user;
 }
 void mostrarMenuLibros()
 {
