@@ -82,14 +82,14 @@ nodoArbolUsuario * nodoMasDerecho(nodoArbolUsuario * arbol);
 void cargarUsuarioArchivoRandom(char nombreArchivo[], nodoArbolUsuario * arbol);
 
 ///Menu
-nodoArbolUsuario * modificarDatos(nodoArbolUsuario * user);
+nodoArbolUsuario * modificarDatos(nodoArbolUsuario * user,nodoArbolUsuario * arbol);
 void opcionesModificarDatos();
 void cambioUserName(char * userName);
 stUsuario cambioPassword(stUsuario user);
 void leerPassword(char *password, int maxLength);
 void cambioGenero(char *genero);
 void cambiarFechaNacimiento(char *fechaNacimiento);
-void cambiarDNI(char *dni);
+void cambiarEmail(char *email,nodoArbolUsuario * arbol);
 nodoArbolUsuario * darDeBajaUser(nodoArbolUsuario * user);
 nodoArbolUsuario * darDeBajaUserAdmin(nodoArbolUsuario * arbol);
 nodoArbolUsuario * darDeAltaUserAdmin(nodoArbolUsuario * arbol);

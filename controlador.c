@@ -38,8 +38,7 @@ void login (nodoArbolUsuario * arbol)
         {
             if(aux->usuario.eliminado==0)
             {
-                aux=menuUser(aux);
-                arbolToArchivo("usuarios.dat",arbol);
+                aux=menuUser(aux,arbol);
             }
             else
             {
@@ -48,8 +47,7 @@ void login (nodoArbolUsuario * arbol)
             }
 
         }
-    }
-
+    }arbolToArchivo("usuarios.dat",arbol);
 }
 nodoArbolUsuario * registrarse(nodoArbolUsuario * arbol)
 {
@@ -86,7 +84,7 @@ void mostrarMenuUser()
     escribirConRetraso("\n====================================\n", 5);
     setColor(7);
 }
-nodoArbolUsuario * menuUser(nodoArbolUsuario * user)
+nodoArbolUsuario * menuUser(nodoArbolUsuario * user,nodoArbolUsuario * arbol)
 {
     int opcion;
     do
@@ -105,7 +103,7 @@ nodoArbolUsuario * menuUser(nodoArbolUsuario * user)
             break;
 
         case 2:
-            user=modificarDatos(user);
+            user=modificarDatos(user,arbol);
             break;
 
         case 3:

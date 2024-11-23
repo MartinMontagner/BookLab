@@ -39,7 +39,7 @@ void arbolToArchivoAux(FILE *archi, nodoArbolUsuario *arbol)
 
 void arbolToArchivo(char nombreArchivo[], nodoArbolUsuario *arbol)
 {
-    FILE *archi = fopen(nombreArchivo, "ab");
+    FILE *archi = fopen(nombreArchivo, "wb");
     if (archi)
     {
         arbolToArchivoAux(archi, arbol);
@@ -519,7 +519,7 @@ void cargarUsuarioArchivoRandom(char nombreArchivo[], nodoArbolUsuario * arbol)
     }
 }
 ///Menu
-nodoArbolUsuario * modificarDatos(nodoArbolUsuario * user)
+nodoArbolUsuario * modificarDatos(nodoArbolUsuario * user,nodoArbolUsuario * arbol)
 {
     int opcion;
     do
@@ -532,7 +532,8 @@ nodoArbolUsuario * modificarDatos(nodoArbolUsuario * user)
         switch(opcion)
         {
         case 1:
-            user->usuario.domicilio=cargaDomicilio();
+            ///cambiar email
+            cambiarEmail(&user->usuario.email,arbol);
             break;
         case 2:
             cambioUserName(user->usuario.username);
@@ -547,7 +548,7 @@ nodoArbolUsuario * modificarDatos(nodoArbolUsuario * user)
             cambiarFechaNacimiento(user->usuario.fechaNacimiento);
             break;
         case 6:
-            cambiarDNI(user->usuario.dni);
+            user->usuario.domicilio=cargaDomicilio();
             break;
         case 0:
             system("cls");
@@ -560,13 +561,26 @@ nodoArbolUsuario * modificarDatos(nodoArbolUsuario * user)
 }
 void opcionesModificarDatos()
 {
-    printf("\n   1. Domicilio\n");
+    printf("\n   1. Email\n");
     printf("\n   2. Nombre\n");
     printf("\n   3. Password\n");
     printf("\n   4. Genero\n");
     printf("\n   5. Fecha de nacimiento\n");
-    printf("\n   6. DNI\n");
+    printf("\n   6. Domicilio\n");
     printf("\n   0. Salir\n");
+}
+void cambiarEmail(char *email,nodoArbolUsuario * arbol)
+{
+    bool esValido = false;
+    int flag = 0;
+
+    while (esValido==false && flag == 0)
+    {
+        printf("Ingrese su email: \n");
+        scanf("%s",email);
+        esValido = validarEmail(email);
+        flag = verificarEmailEnArbol(email, arbol);
+    }
 }
 void cambioUserName(char * userName)
 {
@@ -621,14 +635,10 @@ void cambioGenero(char *genero) {
 }
 void cambiarFechaNacimiento(char *fechaNacimiento) {
     printf("\nIngrese su fecha de nacimiento (dd/mm/yyyy): \n");
-    fgets(fechaNacimiento, 11, stdin);
-    strtok(fechaNacimiento, "\n");
+    scanf("%s",fechaNacimiento);
 }
 
-void cambiarDNI(char *dni) {
-    printf("\nIngrese su DNI: \n");
-    scanf("%s",dni);
-}
+
 nodoArbolUsuario * darDeBajaUser(nodoArbolUsuario *user) {
     int opcion;
 
