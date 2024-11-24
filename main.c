@@ -21,11 +21,11 @@ int main()
 
     nodoArbolUsuario* arbol = inicArbol();
     arbol = archivoToArbol(ARCHIVO_USER, arbol);
-    arbol = cargaUserAdmin(arbol);
-    cargarUsuarioArchivoRandom(ARCHIVO_USER, arbol);
-    arbol = archivoToArbol(ARCHIVO_USER, arbol);
-    arbolToArchivo(ARCHIVO_USER,arbol);
-    muestraArbol(arbol);
+//    arbol = cargaUserAdmin(arbol);
+//    cargarUsuarioArchivoRandom(ARCHIVO_USER, arbol);
+//    arbol = archivoToArbol(ARCHIVO_USER, arbol);
+//    arbolToArchivo(ARCHIVO_USER,arbol);
+//    muestraArbol(arbol);
 
     menuPrincipal(ARCHIVO_USER,arbol);
     return 0;

@@ -139,6 +139,7 @@ void mostrarMenuLibros()
     escribirConRetraso("\n   5. Agregar un libro a favoritos", 5);
     escribirConRetraso("\n   6. Agregar un libro al sistema", 5);
     escribirConRetraso("\n   7. Ver libros favoritos", 5);
+    escribirConRetraso("\n   8. Ver comentarios", 5);
     escribirConRetraso("\n   0. Salir", 5);
     escribirConRetraso("\n====================================\n", 5);
     setColor(7);
@@ -190,7 +191,10 @@ void menuLibros( nodoArbolUsuario * user)
             /// ver favoritos
             opcionQuitarLibroDeFavoritos(user,libros);
             break;
-
+        case 8:
+            /// ver comentarios
+            menuComentario(user,libros);
+            break;
         case 0:
             system("cls");
 
@@ -274,9 +278,10 @@ void menuComentario( nodoArbolUsuario * user, nodo2Libros * lista)
     nodoComentario * listaComentarios=inicListaComentario();
     listaComentarios= archivoToListaComentario("comentarios.dat",listaComentarios);
     int opcion;
+    int idComentario;
     do
     {
-        system("pause");
+
         system("cls");
         mostrarMenuComentario();
         printf("\nSeleccione una opcion: ");
@@ -292,23 +297,29 @@ void menuComentario( nodoArbolUsuario * user, nodo2Libros * lista)
             break;
         case 2:
             //Agregar Comentario
+
             lista= ingresarLibros(lista,user->usuario.idUsuario);
-            //falta guardar en archivo comentarios.
+            agregarComentariosAlArchivo(listaComentarios,"comentarios.dat");
             break;
 
         case 3:
             //Editar o eliminar comentario
-            modificarComentario(listaComentarios);
+            printf("Ingrese el id del comentario que desea cambiar: \n");
+            fflush(stdin);
+            scanf("%d",&idComentario);
+            while (getchar() != '\n');
+            modificarComentario(listaComentarios, idComentario);
             break;
         case 0:
             system("cls");
-
+            break;
         default:
             printf("\nOpcion no valida. Por favor, intenta nuevamente.\n");
             break;
         }
     }
     while(opcion != 0);
+
 }
 
 void mostrarMenuComentario()

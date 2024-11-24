@@ -40,11 +40,11 @@ nodoComentario * agregarPrincipioComentario(nodoComentario * lista, nodoComentar
 nodoComentario * insertarNodoPorIdComentario (nodoComentario * lista, nodoComentario * nuevoNodo);
 nodoComentario *  archivoToListaComentario(char nombreArchivo[], nodoComentario * listaDoble);
 ///Funciones para cambiar el comentario
-void cambioTitulo(char * titulo);
-void cambioDescripcion(char * descripcion);
-void cambioPuntaje (int * puntaje);
-void eliminarComentario(nodoComentario * lista);
-nodoComentario * modificarComentario(nodoComentario * comentario);
+void cambioTitulo(nodoComentario * lista, int idComentario);
+void cambioDescripcion(nodoComentario * lista, int idComentario);
+void cambioPuntaje (nodoComentario * lista, int idComentario);
+void eliminarComentario(nodoComentario * lista,int idComentario);
+nodoComentario * modificarComentario(nodoComentario * lista, int idComentario);
 
 ///Funciones para mostrar
 void muestraUnComentario (stComentario a);
@@ -54,5 +54,5 @@ void muestraListaComentariosAdmin (nodoComentario * lista);
 void opcionesModificarComentario();
 
 ///FALTA TERMINAR MENUS, FUNCION DE GUARDAR COMENTARIOS EN EL ARCHIVO. PENSAR DONDE PONER MENU COMENTARIO, Y DONDE PONER LA OPCION DE VER TODOS LOS COMENTARIOS.
-
+void agregarComentariosAlArchivo(nodoComentario* lista,char nombreArchivo []);
 #endif // COMENTARIO_H_INCLUDED

@@ -74,7 +74,7 @@ void agregarLibrosAlArchivo(nodo2Libros* lista,char nombreArchivo []);
 nodo2Libros * ingresarLibros (nodo2Libros *lista, int idUsuario);
 nodo2Libros * alta (nodo2Libros *listaLibros, nodoComentario * nuevoComentario, int idLibro);
 void mostrarComentariosUsuario(nodo2Libros * listaLibros, int idUsuario);
-
+int buscarUltimoIdGlobal(nodo2Libros *listaLibros);
 
 
 #endif // LIBROS_H_INCLUDED
