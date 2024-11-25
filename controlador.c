@@ -294,11 +294,13 @@ void menuComentario( nodoArbolUsuario * user, nodo2Libros * lista)
             system("cls");
             //Ver mis comentarios;
             mostrarComentariosUsuario(lista,user->usuario.idUsuario);
+            system("pause");
             break;
         case 2:
             //Agregar Comentario
 
             lista= ingresarLibros(lista,user->usuario.idUsuario);
+            listaComentarios=agregarFinal(listaComentarios,lista->lista);
             agregarComentariosAlArchivo(listaComentarios,"comentarios.dat");
             break;
 

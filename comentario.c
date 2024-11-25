@@ -104,7 +104,7 @@ float calculoValoraciones (nodoComentario * lista, int idLibro)
     }
     if(contadorComentarios!=0)
     {
-        total=valoraciones/contadorComentarios;
+        total=(float)valoraciones/contadorComentarios;
     }
 
     return total;
@@ -175,7 +175,7 @@ void eliminarComentario(nodoComentario * lista,int idComentario)
 nodoComentario * modificarComentario(nodoComentario * lista, int idComentario)
 {
     int opcion;
-    char resp;
+    char resp="";
     do
     {
         system("cls");
