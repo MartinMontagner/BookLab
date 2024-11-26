@@ -27,7 +27,7 @@
 	"user.h"
 	<ctype.h>
 
-1732477995 source:c:\users\carla\desktop\booklab\main.c
+1732630865 source:c:\users\carla\desktop\booklab\main.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
@@ -37,7 +37,7 @@
 	<windows.h>
 	"controlador.h"
 
-1732475153 c:\users\carla\desktop\booklab\user.h
+1732630865 c:\users\carla\desktop\booklab\user.h
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
@@ -48,10 +48,10 @@
 	<unistd.h>
 	"libros.h"
 
-1732489154 source:c:\users\carla\desktop\booklab\controlador.c
+1732632733 source:c:\users\carla\desktop\booklab\controlador.c
 	"controlador.h"
 
-1732475153 c:\users\carla\desktop\booklab\controlador.h
+1732630865 c:\users\carla\desktop\booklab\controlador.h
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
@@ -62,11 +62,11 @@
 	<unistd.h>
 	"user.h"
 
-1732475153 source:c:\users\carla\desktop\booklab\user.c
+1732630865 source:c:\users\carla\desktop\booklab\user.c
 	"user.h"
 	<ctype.h>
 
-1732487599 c:\users\carla\desktop\booklab\libros.h
+1732631508 c:\users\carla\desktop\booklab\libros.h
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
@@ -76,7 +76,7 @@
 	<windows.h>
 	"comentario.h"
 
-1732488128 source:c:\users\carla\desktop\booklab\libros.c
+1732632460 source:c:\users\carla\desktop\booklab\libros.c
 	"libros.h"
 
 1732494098 source:c:\users\40306\desktop\booklab\libros.c
@@ -155,7 +155,7 @@
 	<windows.h>
 	"comentario.h"
 
-1732488737 c:\users\carla\desktop\booklab\comentario.h
+1732630865 c:\users\carla\desktop\booklab\comentario.h
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
@@ -165,7 +165,7 @@
 	<windows.h>
 	<unistd.h>
 
-1732487599 source:c:\users\carla\desktop\booklab\comentario.c
+1732630865 source:c:\users\carla\desktop\booklab\comentario.c
 	"comentario.h"
 
 1732592841 source:c:\users\martin\desktop\booklab\comentario.c

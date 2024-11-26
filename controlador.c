@@ -126,24 +126,45 @@ nodoArbolUsuario * menuUser(nodoArbolUsuario * user,nodoArbolUsuario * arbol)
     while(opcion != 0);
     return user;
 }
+//void mostrarMenuLibros()
+//{
+//    setColor(1);
+//    escribirConRetraso("\n====================================", 5);
+//    escribirConRetraso("\n    Sistema de Gestion de Libros", 5);
+//    escribirConRetraso("\n====================================", 5);
+//    escribirConRetraso("\n   1. Ver todos los libros", 5);
+//    escribirConRetraso("\n   2. Buscar por categoria", 5);
+//    escribirConRetraso("\n   3. Buscar por autor", 5);
+//    escribirConRetraso("\n   4. Buscar por titulo", 5);
+//    escribirConRetraso("\n   5. Agregar un libro a favoritos", 5);
+//    escribirConRetraso("\n   6. Agregar un libro al sistema", 5);
+//    escribirConRetraso("\n   7. Ver libros favoritos", 5);
+//    escribirConRetraso("\n   8. Ver comentarios", 5);
+//    escribirConRetraso("\n   0. Salir", 5);
+//    escribirConRetraso("\n====================================\n", 5);
+//    setColor(7);
+//}
 void mostrarMenuLibros()
 {
     setColor(1);
-    escribirConRetraso("\n====================================", 5);
-    escribirConRetraso("\n    Sistema de Gestion de Libros", 5);
-    escribirConRetraso("\n====================================", 5);
-    escribirConRetraso("\n   1. Ver todos los libros", 5);
-    escribirConRetraso("\n   2. Buscar por categoria", 5);
-    escribirConRetraso("\n   3. Buscar por autor", 5);
-    escribirConRetraso("\n   4. Buscar por titulo", 5);
-    escribirConRetraso("\n   5. Agregar un libro a favoritos", 5);
-    escribirConRetraso("\n   6. Agregar un libro al sistema", 5);
-    escribirConRetraso("\n   7. Ver libros favoritos", 5);
-    escribirConRetraso("\n   8. Ver comentarios", 5);
-    escribirConRetraso("\n   0. Salir", 5);
-    escribirConRetraso("\n====================================\n", 5);
+    printf("\n====================================");
+    printf("\n    Sistema de Gestion de Libros");
+    printf("\n====================================");
+    printf("\n   1. Ver todos los libros");
+    printf("\n   2. Buscar por categoria");
+    printf("\n   3. Buscar por autor");
+    printf("\n   4. Buscar por titulo");
+    printf("\n   5. Agregar un libro a favoritos");
+    printf("\n   6. Agregar un libro al sistema");
+    printf("\n   7. Ver libros favoritos");
+    printf("\n   8. Ver comentarios");
+    printf("\n   0. Salir");
+    printf("\n====================================\n");
     setColor(7);
 }
+
+
+
 void menuLibros( nodoArbolUsuario * user)
 {
     nodo2Libros * ldl=inicListaDoble();
@@ -185,7 +206,10 @@ void menuLibros( nodoArbolUsuario * user)
         case 6:
             /// agregar un libro
             ldl=cargarLibroEnLista(ldl);
-            ldlToArchivo(ldl,"librosComentarios.dat");
+            guardarLibroEnArchivo(ldl,"libros2.dat");
+//            ldlToArchivo(ldl,"librosComentarios.dat");
+//            ldl=agregarLibro(ldl,"libros2.dat");
+            printf("\nSe guardo el libro\n");
             break;
         case 7:
             /// ver favoritos
@@ -204,7 +228,74 @@ void menuLibros( nodoArbolUsuario * user)
         }
     }
     while(opcion != 0);
+    ldlToArchivo(ldl,"librosComentarios.dat");
 }
+
+
+
+void menuComentario( nodoArbolUsuario * user, nodo2Libros * ldl)
+{
+
+    int opcion;
+    int idComentario;
+    do
+    {
+
+        system("cls");
+        mostrarMenuComentario();
+        printf("\nSeleccione una opcion: ");
+        fflush(stdin);
+        scanf("%d",&opcion);
+
+        switch(opcion)
+        {
+        case 1:
+            system("cls");
+            //Ver mis comentarios;
+            mostrarComentariosUsuario(ldl,user->usuario.idUsuario);
+            system("pause");
+            break;
+        case 2:
+            //Agregar Comentario
+            ///funcion que cree un comentario y lo asigne a un libro
+            ldl=agregarComentarioLibroPrueba(ldl,user->usuario.idUsuario,"comentarios.dat");
+//            ldlToArchivo(ldl,"librosComentarios.dat");
+            break;
+
+        case 3:
+            //Editar o eliminar comentario
+//            printf("Ingrese el id del comentario que desea cambiar: \n");
+//            fflush(stdin);
+//            scanf("%d",&idComentario);
+//            while (getchar() != '\n');
+//            modificarComentario(lista->lista, idComentario);
+//            break;
+        case 0:
+            system("cls");
+            break;
+        default:
+            printf("\nOpcion no valida. Por favor, intenta nuevamente.\n");
+            break;
+        }
+    }
+    while(opcion != 0);
+
+}
+
+void mostrarMenuComentario()
+{
+    setColor(1);
+    escribirConRetraso("\n====================================", 5);
+    escribirConRetraso("\n    Sistema de Gestion de Libros", 5);
+    escribirConRetraso("\n====================================", 5);
+    escribirConRetraso("\n   1. Ver mis comentarios", 5);
+    escribirConRetraso("\n   2. Agregar comentarios", 5);
+    escribirConRetraso("\n   3. Editar o eliminar comentarios", 5);
+    escribirConRetraso("\n   0. Salir", 5);
+    escribirConRetraso("\n====================================\n", 5);
+    setColor(7);
+}
+
 void mostrarMenuAdmin()
 {
     setColor(2);
@@ -271,67 +362,4 @@ void menuAdmin(nodoArbolUsuario * arbol)
     }
     while(opcion != 0);
     arbolToArchivo("usuarios.dat",arbol);
-}
-
-void menuComentario( nodoArbolUsuario * user, nodo2Libros * ldl)
-{
-
-    int opcion;
-    int idComentario;
-    do
-    {
-
-        system("cls");
-        mostrarMenuComentario();
-        printf("\nSeleccione una opcion: ");
-        fflush(stdin);
-        scanf("%d",&opcion);
-
-        switch(opcion)
-        {
-        case 1:
-            system("cls");
-            //Ver mis comentarios;
-            mostrarComentariosUsuario(ldl,user->usuario.idUsuario);
-            system("pause");
-            break;
-        case 2:
-            //Agregar Comentario
-            ///funcion que cree un comentario y lo asigne a un libro
-            ldl=agregarComentarioLibro(ldl,user->usuario.idUsuario);
-            ldlToArchivo(ldl,"librosComentarios.dat");
-            break;
-
-        case 3:
-            //Editar o eliminar comentario
-//            printf("Ingrese el id del comentario que desea cambiar: \n");
-//            fflush(stdin);
-//            scanf("%d",&idComentario);
-//            while (getchar() != '\n');
-//            modificarComentario(lista->lista, idComentario);
-//            break;
-        case 0:
-            system("cls");
-            break;
-        default:
-            printf("\nOpcion no valida. Por favor, intenta nuevamente.\n");
-            break;
-        }
-    }
-    while(opcion != 0);
-
-}
-
-void mostrarMenuComentario()
-{
-    setColor(1);
-    escribirConRetraso("\n====================================", 5);
-    escribirConRetraso("\n    Sistema de Gestion de Libros", 5);
-    escribirConRetraso("\n====================================", 5);
-    escribirConRetraso("\n   1. Ver mis comentarios", 5);
-    escribirConRetraso("\n   2. Agregar comentarios", 5);
-    escribirConRetraso("\n   3. Editar o eliminar comentarios", 5);
-    escribirConRetraso("\n   0. Salir", 5);
-    escribirConRetraso("\n====================================\n", 5);
-    setColor(7);
 }

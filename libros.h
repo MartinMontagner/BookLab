@@ -93,5 +93,9 @@ int buscarUltimoIdGlobal(nodo2Libros *listaLibros);
 stComentario refactorizacionComentario(stLibroComentario a);
 stLibro refactorizacionLibro(stLibroComentario a);
 nodo2Libros * agregarComentarioLibro(nodo2Libros * listaLibros, int idUsuario);
-
+///PARA PROBAR OTRA COSA
+void guardarEnArchivoCompuesto(nodo2Libros* ldl, char archivoCompuesto[]);
+void guardarLibroEnArchivo(nodo2Libros * ldl, char nombreArchivo[]);
+nodo2Libros* agregarLibro(nodo2Libros* listaLibros, char archivoLibros[]);
+nodo2Libros* agregarComentarioLibroPrueba(nodo2Libros* listaLibros, int idUsuario, char archivoComentarios[]);
 #endif // LIBROS_H_INCLUDED
