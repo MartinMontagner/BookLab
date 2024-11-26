@@ -168,7 +168,7 @@ void mostrarMenuLibros()
 void menuLibros( nodoArbolUsuario * user)
 {
     nodo2Libros * ldl=inicListaDoble();
-    ldl=archivoToLista2("librosComentarios.dat",ldl);
+    ldl=archivoToLDL("libros.dat","comentarios.dat",ldl);
     int opcion;
     do
     {
@@ -206,9 +206,6 @@ void menuLibros( nodoArbolUsuario * user)
         case 6:
             /// agregar un libro
             ldl=cargarLibroEnLista(ldl);
-//            ldlToArchivo(ldl,"librosComentarios.dat");
-            //printf("\nSe guardo el libro\n");
-            system("pause");
             break;
         case 7:
             /// ver favoritos
@@ -220,6 +217,7 @@ void menuLibros( nodoArbolUsuario * user)
             break;
         case 0:
             system("cls");
+            break;
 
         default:
             printf("\nOpcion no valida. Por favor, intenta nuevamente.\n");
@@ -227,7 +225,7 @@ void menuLibros( nodoArbolUsuario * user)
         }
     }
     while(opcion != 0);
-    ldlToArchivo(ldl,"librosComentarios.dat");
+    ldlToArchivo(ldl,"libros.dat","comentarios.dat");
 }
 
 
@@ -257,8 +255,7 @@ nodo2Libros * menuComentario( nodoArbolUsuario * user, nodo2Libros * ldl)
         case 2:
             //Agregar Comentario
             ///funcion que cree un comentario y lo asigne a un libro
-            ldl=agregarComentarioLibroPrueba(ldl,user->usuario.idUsuario,"comentarios.dat");
-//            ldlToArchivo(ldl,"librosComentarios.dat");
+            ldl=agregarComentarioLibro(ldl,user->usuario.idUsuario);
             break;
 
         case 3:
@@ -313,8 +310,8 @@ void mostrarMenuAdmin()
 }
 void menuAdmin(nodoArbolUsuario * arbol)
 {
-    nodo2Libros * libros=inicListaDoble();
-    libros=archivoToLista2("libros.dat",libros);
+    nodo2Libros * ldl=inicListaDoble();
+    ldl=archivoToLDL("libros.dat","comentarios.dat",ldl);
     int opcion;
     do
     {
@@ -326,16 +323,16 @@ void menuAdmin(nodoArbolUsuario * arbol)
         switch(opcion)
         {
         case 1:
-            darDeBajaLogica(libros);
+            darDeBajaLogica(ldl);
             system("pause");
             break;
         case 2:
-            libros=cargarLibroEnLista(libros);
-            ldlToArchivo(libros,"librosComentarios.dat");
+            ldl=cargarLibroEnLista(ldl);
+            guardarLibros(ldl,"libros.dat");
             system("pause");
             break;
         case 3:
-            muestraListaLibrosAdmin(libros);
+            muestraListaLibrosAdmin(ldl);
             system("pause");
             break;
         case 4:

@@ -8,23 +8,9 @@
 #include <time.h>
 #include <stdbool.h>
 #include <windows.h>
+
 #include "comentario.h"
-typedef struct{
-    int idLibro; /// único, autoincremental
-    char titulo[100];
-    char editorial[50];
-    char autor[50];
-    char categoria[50];
-    float valoracion;
-    int eliminado;
-    int idComentario;  /// único, autoincremental
-    int idUsuario;
-    char tituloComentario[100];
-    char descripcion[500];
-    int puntaje; /// de 0 a 5 "estrellas"
-    char fechaComentario[20]; /// o se puede hacer con dia, mes, anio.
-    int eliminadoComentario;
-}stLibroComentario;
+
  typedef struct {
  int idLibro; /// único, autoincremental
  char titulo[100];
@@ -50,7 +36,9 @@ void cargarLibrosArchivoRandom(char nombreArchivo[]);
 ///Funciones de listas dobles
 nodo2Libros * inicListaDoble();
 nodo2Libros * crearNodoDoble(stLibro libro);
-nodo2Libros * archivoToLista2(char nombreArchivo[], nodo2Libros * ldl);
+nodo2Libros * archivoToLDL(char archivoLibros[],char archivoComentarios[],nodo2Libros * ldl);
+nodo2Libros *  archivoToListaLibros(char nombreArchivoLibro[], nodo2Libros * ldl);
+nodo2Libros * archivoToListaComentarios(char nombreArchivoCom[],nodo2Libros * ldl);
 ///Funciones de agregar
 nodo2Libros * insertarNodoPorId (nodo2Libros * lista, nodo2Libros * nuevoNodo);
 nodo2Libros * agregarPrincipioLibro(nodo2Libros * listaDoble, nodo2Libros * nuevo);
@@ -82,20 +70,16 @@ void setTituloRandom(char titulo[]);
 void setEditorialRandom(char editorial[]);
 void setAutorRandom(char autor[]);
 ///Funcion de guardar en archivo
-void ldlToArchivo(nodo2Libros* lista,char nombreArchivo []);
-void guardarComentarios(nodoComentario* lista, FILE * archi);
+void ldlToArchivo(nodo2Libros* ldl, char archivoLibros[],char archivoComentarios[]);
+void guardarLibros(nodo2Libros * libros, char archi[]);
+void guardarComentarios(nodoComentario* lista, char archi[]);
 
 ///FUNCIONES NUEVAS
 nodo2Libros * ingresarLibros (nodo2Libros *lista, int idUsuario);
-nodo2Libros * alta (nodo2Libros *listaLibros, stComentario comentario, stLibro libro);
+nodo2Libros * alta(nodo2Libros *listaLibros, stComentario comentario, int idLibro);
 void mostrarComentariosUsuario(nodo2Libros * listaLibros, int idUsuario);
 int buscarUltimoIdGlobal(nodo2Libros *listaLibros);
-stComentario refactorizacionComentario(stLibroComentario a);
-stLibro refactorizacionLibro(stLibroComentario a);
+
 nodo2Libros * agregarComentarioLibro(nodo2Libros * listaLibros, int idUsuario);
-///PARA PROBAR OTRA COSA
-void guardarEnArchivoCompuesto(nodo2Libros* ldl, char archivoCompuesto[]);
-void guardarLibroEnArchivo(nodo2Libros * ldl, char nombreArchivo[]);
-nodo2Libros* agregarLibro(nodo2Libros* listaLibros, char archivoLibros[]);
-nodo2Libros* agregarComentarioLibroPrueba(nodo2Libros* listaLibros, int idUsuario, char archivoComentarios[]);
+
 #endif // LIBROS_H_INCLUDED

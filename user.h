@@ -9,10 +9,12 @@
 #include <stdbool.h>
 #include <windows.h>
 #include <unistd.h>
+
 #include "libros.h"
 
 
-typedef struct{
+typedef struct
+{
     char calle[50];
     int altura;
     int cp;
@@ -23,7 +25,8 @@ typedef struct{
 
 
 
-typedef struct{
+typedef struct
+{
     int idUsuario;//
     char email[100];//
     char password[20];
@@ -36,13 +39,14 @@ typedef struct{
     char dni[10];
     stDomicilio domicilio;
     int eliminado; /// 0 si está activo - 1 si está eliminado
-}stUsuario;
+} stUsuario;
 
-typedef struct nodoArbolUsuario{
+typedef struct nodoArbolUsuario
+{
     stUsuario usuario;
     struct nodoArbolUsuario * izq;
     struct nodoArbolUsuario * der;
-}nodoArbolUsuario;
+} nodoArbolUsuario;
 
 
 ///Funciones arbol
