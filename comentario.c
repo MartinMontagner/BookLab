@@ -56,30 +56,37 @@ nodoComentario * buscarUltimoComentario (nodoComentario * lista)
     return seg;
 }
 
-
-int buscarUltimoIdComentario (nodoComentario * lista)
-{
-    int id=1;
-    nodoComentario * ultimo= buscarUltimoComentario(lista);
-    if(ultimo!=NULL)
-    {
-        id=ultimo->comentario.idComentario + 1;
+int buscarUltimoIdComentario(nodoComentario * lista) {
+    int id = 1;
+    nodoComentario * actual = lista;
+    while (actual != NULL) {
+        if (actual->comentario.idComentario >= id) {
+            id = actual->comentario.idComentario + 1;
+        }
+        actual = actual->ste;
     }
     return id;
 }
 
-
-
+int contarComentarios(nodoComentario * lista) {
+    int count = 0;
+    nodoComentario * aux = lista;
+    while (aux) {
+        count++;
+        aux = aux->ste;
+    }
+    return count;
+}
 
 
 nodoComentario * cargarComentarioEnLista(nodoComentario * lista, int idLibro, int idUsuario)
 {
     stComentario comentario;
     comentario=cargaUnComentario();
-    comentario.idComentario=buscarUltimoIdComentario(lista)+1;
+    comentario.idComentario=buscarUltimoIdComentario(lista);
     comentario.idLibro=idLibro;
     comentario.idUsuario=idUsuario;
-    lista=insertarNodoPorIdComentario(lista,crearNodoComentario(comentario));
+    lista = agregarFinal(lista, crearNodoComentario(comentario));
     return lista;
 }
 
@@ -233,19 +240,17 @@ nodoComentario *  archivoToListaComentario(char nombreArchivo[], nodoComentario 
 }
 
 ///agregar al final
-nodoComentario * agregarFinal(nodoComentario * lista, nodoComentario * nuevoNodo)
-{
-    if(lista == NULL)
-    {
+nodoComentario * agregarFinal(nodoComentario * lista, nodoComentario * nuevoNodo) {
+    if (lista == NULL) {
         lista = nuevoNodo;
-    }
-    else
-    {
+    } else {
         nodoComentario * ultimo = buscarUltimoComentario(lista);
         ultimo->ste = nuevoNodo;
+        nuevoNodo->ante = ultimo;
     }
     return lista;
 }
+
 nodoComentario * agregarPrincipioComentario(nodoComentario * lista, nodoComentario * nuevo)
 {
     nuevo->ste = lista;

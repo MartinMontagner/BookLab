@@ -23,4 +23,5 @@ void menuLibros( nodoArbolUsuario * user);
 void mostrarMenuAdmin();
 void menuAdmin(nodoArbolUsuario * arbol);
 void mostrarMenuComentario();
+int contarComentarios(nodoComentario * lista);
 #endif // CONTROLADOR_H_INCLUDED
