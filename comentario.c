@@ -75,15 +75,11 @@ int buscarUltimoIdComentario (nodoComentario * lista)
 nodoComentario * cargarComentarioEnLista(nodoComentario * lista, int idLibro, int idUsuario)
 {
     stComentario comentario;
-    if(lista)
-    {
-
-        comentario=cargaUnComentario();
-        comentario.idComentario=buscarUltimoIdComentario(lista)+1;
-        comentario.idLibro=idLibro;
-        comentario.idUsuario=idUsuario;
-        lista=insertarNodoPorId(lista,crearNodoComentario(comentario));
-    }
+    comentario=cargaUnComentario();
+    comentario.idComentario=buscarUltimoIdComentario(lista)+1;
+    comentario.idLibro=idLibro;
+    comentario.idUsuario=idUsuario;
+    lista=insertarNodoPorIdComentario(lista,crearNodoComentario(comentario));
     return lista;
 }
 
@@ -351,16 +347,16 @@ void agregarComentariosAlArchivo(nodoComentario* lista,char nombreArchivo [])
 {
     FILE *archivo = fopen(nombreArchivo, "wb");
 
-    if (!archivo)
-    {
-        printf("Error al abrir el archivo.\n");
-    }
     nodoComentario* actual = lista;
-    while (actual)
+    if (archivo)
     {
-        fwrite(&actual->comentario, sizeof(stComentario), 1, archivo);
-        actual = actual->ste;
+        while (actual)
+        {
+            fwrite(&actual->comentario, sizeof(stComentario), 1, archivo);
+            actual = actual->ste;
+        }
     }
 
     fclose(archivo);
+    printf("Error al abrir el archivo.\n");
 }

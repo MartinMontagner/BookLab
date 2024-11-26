@@ -839,12 +839,6 @@ void setPaisRandom(char pais[])
 ///Funciones de favoritos
 void agregarLibroAFavoritosUsuario(nodoArbolUsuario* nodoUsuario, nodo2Libros* listaLibros, int idLibro)
 {
-    if (nodoUsuario == NULL)
-    {
-        printf("Usuario no encontrado.\n");
-        return;
-    }
-
     stUsuario* usuario = &nodoUsuario->usuario;
 
     for (int i = 0; i < usuario->validosLibrosFavs; i++)
@@ -877,12 +871,6 @@ void agregarLibroAFavoritosUsuario(nodoArbolUsuario* nodoUsuario, nodo2Libros* l
 
 void mostrarLibrosFavoritos(nodoArbolUsuario* nodoUsuario, nodo2Libros* listaLibros)
 {
-    if (nodoUsuario == NULL)
-    {
-        printf("Usuario no encontrado.\n");
-        return;
-    }
-
     stUsuario* usuario = &nodoUsuario->usuario;
 
     if (usuario->validosLibrosFavs == 0)
@@ -912,11 +900,6 @@ void mostrarLibrosFavoritos(nodoArbolUsuario* nodoUsuario, nodo2Libros* listaLib
 
 void quitarLibroDeFavoritosUsuario(nodoArbolUsuario* nodoUsuario, int idLibro)
 {
-    if (nodoUsuario == NULL)
-    {
-        printf("Usuario no encontrado.\n");
-        return;
-    }
 
     stUsuario* usuario = &nodoUsuario->usuario;
     int encontrado = 0;
@@ -943,11 +926,6 @@ void quitarLibroDeFavoritosUsuario(nodoArbolUsuario* nodoUsuario, int idLibro)
 }
 void opcionAgregarLibroAFavoritos(nodoArbolUsuario * usuario, nodo2Libros* libros)
 {
-//    if (usuario == NULL)
-//    {
-//        printf("Usuario no encontrado.\n");
-//        return;
-//    }
 
     int opcion;
     int idLibro;
@@ -985,12 +963,6 @@ void opcionAgregarLibroAFavoritos(nodoArbolUsuario * usuario, nodo2Libros* libro
 }
 void opcionQuitarLibroDeFavoritos(nodoArbolUsuario* usuario, nodo2Libros* libros)
 {
-    if (usuario == NULL)
-    {
-        printf("Usuario no encontrado.\n");
-        return;
-    }
-
     stUsuario* user = &usuario->usuario;
 
     if (user->validosLibrosFavs == 0)

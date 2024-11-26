@@ -77,9 +77,7 @@ stLibro cargaUnLibro()
     fflush(stdin);
     gets(aux.categoria);
 
-    /*printf("Ingrese la valoracion: \n");
-    fflush(stdin);
-    scanf("%f", &aux.valoracion);*/
+    aux.valoracion=0;
     aux.eliminado=0;
 
     return aux;
@@ -103,18 +101,21 @@ stLibro cargaRandomLibro()
 nodo2Libros * cargarLibroEnLista(nodo2Libros * lista)
 {
     stLibro libro1;
-    char opcion='s';
-    while(opcion=='s')
+    char opcion = 's';
+    while (opcion == 's')
     {
-        libro1=cargaUnLibro();
-        libro1.idLibro=buscarUltimoId(lista)+1;
-        lista=insertarNodoPorId(lista,crearNodoDoble(libro1));
-        printf("\nDesea seguir agregando?s/n\n");
-        opcion = getchar();
-        while (getchar() != '\n');
+        libro1 = cargaUnLibro();
+        libro1.idLibro = 1+buscarUltimoId(lista) ;
+        lista = insertarNodoPorId(lista, crearNodoDoble(libro1));
+
+        printf("\nDesea seguir agregando? (s/n): ");
+        fflush(stdin);
+        scanf(" %c", &opcion); // Añade un espacio antes de %c para ignorar espacios y saltos de línea
     }
     return lista;
 }
+
+
 void cargarLibrosArchivoRandom(char nombreArchivo[])
 {
 
@@ -158,29 +159,15 @@ int buscarUltimoIdGlobal(nodo2Libros *listaLibros) {
     return maxId;
 }
 
-nodo2Libros * alta(nodo2Libros *listaLibros, nodoComentario *nuevoComentario, int idLibro) {
-    // Buscar el libro por su ID
-    nodo2Libros *libroEncontrado = buscarLibroPorId(listaLibros, idLibro);
+nodo2Libros * alta(nodo2Libros *listaLibros, stComentario comentario, stLibro libro) {
 
-    if (libroEncontrado == NULL) {
-        // Crear un nuevo libro si no existe
-        stLibro libro = cargaUnLibro();
-        libro.idLibro = idLibro;
-        libro.valoracion = 0;
+    nodo2Libros * libroABuscar = buscarLibroPorId(listaLibros,libro.idLibro);
 
-        nodo2Libros *nuevoLibro = crearNodoDoble(libro);
-        listaLibros = insertarNodoPorId(listaLibros, nuevoLibro);
-
-        // Asignar el ID del comentario en la nueva lista de comentarios
-        nuevoComentario->comentario.idComentario = buscarUltimoIdGlobal(listaLibros)+1; // Primer ID en la nueva lista
-        nuevoLibro->lista = insertarNodoPorIdComentario(nuevoLibro->lista, nuevoComentario);
-        nuevoLibro->dato.valoracion = calculoValoraciones(nuevoLibro->lista, idLibro);
-    } else {
-        nuevoComentario->comentario.idComentario = buscarUltimoIdGlobal(listaLibros)+1;
-        libroEncontrado->lista = insertarNodoPorIdComentario(libroEncontrado->lista, nuevoComentario);
-        libroEncontrado->dato.valoracion = calculoValoraciones(libroEncontrado->lista, idLibro);
+    if(libroABuscar==NULL)
+    {
+        listaLibros=agregarAlFinalLibro(listaLibros,crearNodoDoble(libro));
     }
-
+    libroABuscar->lista=agregarFinal(libroABuscar->lista,crearNodoComentario(comentario));
     return listaLibros;
 }
 
@@ -198,8 +185,9 @@ nodo2Libros * ingresarLibros (nodo2Libros *lista, int idUsuario)
         scanf("%d", &idLibro);
         aux.idUsuario=idUsuario;
         aux.idLibro=idLibro-1;
+        nodo2Libros * libro=buscarLibroPorId(lista,idLibro);
         nodoComentario * coment = crearNodoComentario(aux);
-        lista = alta(lista,coment,idLibro-1);
+        libro->lista = agregarFinal(libro->lista,coment);//alta(lista,coment,idLibro-1);
         printf("\n\nDesea continuar presione s:  ");
         fflush(stdin);
         scanf("%c", &continuar);
@@ -207,7 +195,15 @@ nodo2Libros * ingresarLibros (nodo2Libros *lista, int idUsuario)
     }
     return lista;
 }
-
+nodo2Libros * agregarComentarioLibro(nodo2Libros * listaLibros, int idUsuario)
+{
+    int idLibro=0;
+    printf("\nIngrese el ID del libro al que desea cargar un comentario:");
+    scanf("%d",&idLibro);
+    idLibro=idLibro-1;
+    listaLibros->lista=cargarComentarioEnLista(listaLibros->lista,idLibro,idUsuario);
+    return listaLibros;
+}
 
 void mostrarComentariosUsuario(nodo2Libros * listaLibros, int idUsuario)
 {
@@ -243,32 +239,59 @@ void mostrarComentariosUsuario(nodo2Libros * listaLibros, int idUsuario)
 }
 
 
-
-
-nodo2Libros *  archivoToLista2(char nombreArchivo[], nodo2Libros * listaDoble)
+nodo2Libros *  archivoToLista2(char nombreArchivo[], nodo2Libros * ldl)
 {
 
     FILE * buffer = fopen(nombreArchivo, "rb");
-    stLibro aux;
-
+    stLibroComentario aux;
 
     if(buffer)
     {
         while(fread(&aux, sizeof(stLibro), 1, buffer) > 0)
         {
-            listaDoble = insertarNodoPorId(listaDoble,crearNodoDoble(aux));
+            stComentario com=refactorizacionComentario(aux);
+            stLibro libro=refactorizacionLibro(aux);
+            ldl=alta(ldl,com,libro);
         }
         fclose(buffer);
     }
 
-    return listaDoble;
+    return ldl;
 }
-
+stComentario refactorizacionComentario(stLibroComentario a)
+{
+    stComentario c;
+    strcpy(c.descripcion,a.descripcion);
+    c.eliminado=a.eliminadoComentario;
+    strcpy(c.fechaComentario,a.fechaComentario);
+    c.idComentario=a.idComentario;
+    c.idLibro=a.idLibro;
+    c.idUsuario=a.idUsuario;
+    c.puntaje=a.puntaje;
+    strcpy(c.tituloComentario,a.tituloComentario);
+    return c;
+}
+stLibro refactorizacionLibro(stLibroComentario a)
+{
+    stLibro l;
+    strcpy(l.autor,a.autor);
+    strcpy(l.categoria,a.categoria);
+    strcpy(l.editorial,a.editorial);
+    l.eliminado=a.eliminado;
+    l.idLibro=a.idLibro;
+    strcpy(l.titulo,a.titulo);
+    l.valoracion=a.valoracion;
+    return l;
+}
 ///Busqueda de Id para seguir incrementando
 int buscarUltimoId (nodo2Libros* listaDoble)
 {
     nodo2Libros * ultimo= buscarUltimoLibro(listaDoble);
-    int id=ultimo->dato.idLibro;
+    int id=0;
+    if(ultimo!=NULL)
+    {
+        id=ultimo->dato.idLibro;
+    }
     return id;
 }
 ///Funciones de listas
@@ -283,30 +306,42 @@ nodo2Libros * crearNodoDoble(stLibro libro)
     nuevo->dato = libro;
     nuevo->ste = NULL;
     nuevo->ante = NULL;
-    nuevo->lista=NULL;
+    nuevo->lista=inicListaComentario();
     return nuevo;
 }
 ///Funciones para agregar
-void agregarLibrosAlArchivo(nodo2Libros* lista,char nombreArchivo [])
+
+void ldlToArchivo(nodo2Libros* ldl, char nombreArchivo[])
 {
-    FILE *archivo = fopen(nombreArchivo, "wb");
+    FILE * archi = fopen(nombreArchivo, "wb");
+    nodo2Libros * aux = ldl;
 
-    if (!archivo)
+    if (archi)
     {
-        printf("Error al abrir el archivo.\n");
+        while (aux)
+        {
+            printf("Guardando libro con ID: %d\n", aux->dato.idLibro); // Mensaje para depurar
+            fwrite(&(aux->dato), sizeof(stLibro), 1, archi);
+            guardarComentarios(aux->lista, archi);
+            aux = aux->ste;
+        }
+        fclose(archi);
     }
-
-    nodo2Libros* actual = lista;
-
-
-    while (actual)
+    else
     {
-
-        fwrite(&actual->dato, sizeof(stLibro), 1, archivo);
-        actual = actual->ste;
+        printf("Error al abrir el archivo\n");
     }
+}
 
-    fclose(archivo);
+void guardarComentarios(nodoComentario* lista, FILE * archi)
+{
+    nodoComentario* aux = lista;
+    while (aux)
+    {
+        printf("Guardando comentario con ID: %d\n", aux->comentario.idComentario); // Mensaje para depurar
+        fwrite(&(aux->comentario), sizeof(stComentario), 1, archi);
+        aux = aux->ste;
+    }
 }
 
 nodo2Libros * agregarPrincipioLibro(nodo2Libros * listaDoble, nodo2Libros * nuevo)
@@ -321,7 +356,7 @@ nodo2Libros * agregarPrincipioLibro(nodo2Libros * listaDoble, nodo2Libros * nuev
 
 nodo2Libros * agregarAlFinalLibro(nodo2Libros * listaDoble, nodo2Libros* nuevo)
 {
-    if(!listaDoble)
+    if(listaDoble==NULL)
     {
         listaDoble = nuevo;
     }

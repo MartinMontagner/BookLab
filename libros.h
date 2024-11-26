@@ -9,7 +9,22 @@
 #include <stdbool.h>
 #include <windows.h>
 #include "comentario.h"
-
+typedef struct{
+    int idLibro; /// único, autoincremental
+    char titulo[100];
+    char editorial[50];
+    char autor[50];
+    char categoria[50];
+    float valoracion;
+    int eliminado;
+    int idComentario;  /// único, autoincremental
+    int idUsuario;
+    char tituloComentario[100];
+    char descripcion[500];
+    int puntaje; /// de 0 a 5 "estrellas"
+    char fechaComentario[20]; /// o se puede hacer con dia, mes, anio.
+    int eliminadoComentario;
+}stLibroComentario;
  typedef struct {
  int idLibro; /// único, autoincremental
  char titulo[100];
@@ -35,7 +50,7 @@ void cargarLibrosArchivoRandom(char nombreArchivo[]);
 ///Funciones de listas dobles
 nodo2Libros * inicListaDoble();
 nodo2Libros * crearNodoDoble(stLibro libro);
-nodo2Libros * archivoToLista2(char nombreArchivo[], nodo2Libros * listaDoble);
+nodo2Libros * archivoToLista2(char nombreArchivo[], nodo2Libros * ldl);
 ///Funciones de agregar
 nodo2Libros * insertarNodoPorId (nodo2Libros * lista, nodo2Libros * nuevoNodo);
 nodo2Libros * agregarPrincipioLibro(nodo2Libros * listaDoble, nodo2Libros * nuevo);
@@ -67,14 +82,16 @@ void setTituloRandom(char titulo[]);
 void setEditorialRandom(char editorial[]);
 void setAutorRandom(char autor[]);
 ///Funcion de guardar en archivo
-void agregarLibrosAlArchivo(nodo2Libros* lista,char nombreArchivo []);
-
+void ldlToArchivo(nodo2Libros* lista,char nombreArchivo []);
+void guardarComentarios(nodoComentario* lista, FILE * archi);
 
 ///FUNCIONES NUEVAS
 nodo2Libros * ingresarLibros (nodo2Libros *lista, int idUsuario);
-nodo2Libros * alta (nodo2Libros *listaLibros, nodoComentario * nuevoComentario, int idLibro);
+nodo2Libros * alta (nodo2Libros *listaLibros, stComentario comentario, stLibro libro);
 void mostrarComentariosUsuario(nodo2Libros * listaLibros, int idUsuario);
 int buscarUltimoIdGlobal(nodo2Libros *listaLibros);
-
+stComentario refactorizacionComentario(stLibroComentario a);
+stLibro refactorizacionLibro(stLibroComentario a);
+nodo2Libros * agregarComentarioLibro(nodo2Libros * listaLibros, int idUsuario);
 
 #endif // LIBROS_H_INCLUDED

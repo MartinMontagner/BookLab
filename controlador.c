@@ -146,8 +146,8 @@ void mostrarMenuLibros()
 }
 void menuLibros( nodoArbolUsuario * user)
 {
-    nodo2Libros * libros=inicListaDoble();
-    libros=archivoToLista2("libros.dat",libros);
+    nodo2Libros * ldl=inicListaDoble();
+    ldl=archivoToLista2("librosComentarios.dat",ldl);
     int opcion;
     do
     {
@@ -162,38 +162,38 @@ void menuLibros( nodoArbolUsuario * user)
         {
         case 1:
             system("cls");
-            muestraListaLibros(libros);
+            muestraListaLibros(ldl);
             break;
         case 2:
             ///buscar por categoria
-            buscaLibrosPorCategoria(libros);
+            buscaLibrosPorCategoria(ldl);
             break;
 
         case 3:
             /// buscar por autor
-            buscaLibrosPorAutor(libros);
+            buscaLibrosPorAutor(ldl);
             break;
 
         case 4:
             /// buscar por titulo
-            buscaLibrosPorTitulo(libros);
+            buscaLibrosPorTitulo(ldl);
             break;
         case 5:
             /// agregar un libro a favoritos
-            opcionAgregarLibroAFavoritos(user,libros);
+            opcionAgregarLibroAFavoritos(user,ldl);
             break;
         case 6:
             /// agregar un libro
-            libros=cargarLibroEnLista(libros);
-            agregarLibrosAlArchivo(libros,"libros.dat");
+            ldl=cargarLibroEnLista(ldl);
+            ldlToArchivo(ldl,"librosComentarios.dat");
             break;
         case 7:
             /// ver favoritos
-            opcionQuitarLibroDeFavoritos(user,libros);
+            opcionQuitarLibroDeFavoritos(user,ldl);
             break;
         case 8:
             /// ver comentarios
-            menuComentario(user,libros);
+            menuComentario(user,ldl);
             break;
         case 0:
             system("cls");
@@ -241,7 +241,7 @@ void menuAdmin(nodoArbolUsuario * arbol)
             break;
         case 2:
             libros=cargarLibroEnLista(libros);
-            agregarLibrosAlArchivo(libros,"libros.dat");
+            ldlToArchivo(libros,"librosComentarios.dat");
             system("pause");
             break;
         case 3:
@@ -273,10 +273,9 @@ void menuAdmin(nodoArbolUsuario * arbol)
     arbolToArchivo("usuarios.dat",arbol);
 }
 
-void menuComentario( nodoArbolUsuario * user, nodo2Libros * lista)
+void menuComentario( nodoArbolUsuario * user, nodo2Libros * ldl)
 {
-    nodoComentario * listaComentarios=inicListaComentario();
-    listaComentarios= archivoToListaComentario("comentarios.dat",listaComentarios);
+
     int opcion;
     int idComentario;
     do
@@ -293,25 +292,24 @@ void menuComentario( nodoArbolUsuario * user, nodo2Libros * lista)
         case 1:
             system("cls");
             //Ver mis comentarios;
-            mostrarComentariosUsuario(lista,user->usuario.idUsuario);
+            mostrarComentariosUsuario(ldl,user->usuario.idUsuario);
             system("pause");
             break;
         case 2:
             //Agregar Comentario
-
-            lista= ingresarLibros(lista,user->usuario.idUsuario);
-            listaComentarios=agregarFinal(listaComentarios,lista->lista);
-            agregarComentariosAlArchivo(listaComentarios,"comentarios.dat");
+            ///funcion que cree un comentario y lo asigne a un libro
+            ldl=agregarComentarioLibro(ldl,user->usuario.idUsuario);
+            ldlToArchivo(ldl,"librosComentarios.dat");
             break;
 
         case 3:
             //Editar o eliminar comentario
-            printf("Ingrese el id del comentario que desea cambiar: \n");
-            fflush(stdin);
-            scanf("%d",&idComentario);
-            while (getchar() != '\n');
-            modificarComentario(listaComentarios, idComentario);
-            break;
+//            printf("Ingrese el id del comentario que desea cambiar: \n");
+//            fflush(stdin);
+//            scanf("%d",&idComentario);
+//            while (getchar() != '\n');
+//            modificarComentario(lista->lista, idComentario);
+//            break;
         case 0:
             system("cls");
             break;
