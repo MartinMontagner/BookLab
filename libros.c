@@ -356,30 +356,47 @@ nodo2Libros * crearNodoDoble(stLibro libro)
     return nuevo;
 }
 ///Funciones para agregar
-void ldlToArchivo(nodo2Libros* ldl, char nombreArchivo[])
+//void ldlToArchivo(nodo2Libros* ldl, char nombreArchivo[])
+//{
+//    FILE * archi = fopen(nombreArchivo, "wb");
+//    nodo2Libros * aux1 = ldl;
+//    stLibroComentario aux;
+//
+//    if (archi)
+//    {
+//        while(aux1)
+//        {
+//            fwrite(&aux, sizeof(stLibroComentario), 1, archi);
+////            int numComentarios = contarComentarios(aux->lista);
+////            fwrite(&numComentarios, sizeof(int), 1, archi);
+////            guardarComentarios(aux->lista, archi);
+//            aux1 = aux1->ste;
+//        }
+//    }
+//    else
+//    {
+//        printf("Error al abrir el archivo\n");
+//    }
+//    fclose(archi);
+//}
+
+void ldlToArchivo (nodo2Libros * ldl, char nombreArchivo[])
 {
-    FILE * archi = fopen(nombreArchivo, "wb");
-    nodo2Libros * aux = ldl;
-
-    if (archi)
+    nodo2Libros * aux=ldl;
+    while(aux)
     {
-        while(aux)
+        FILE * archi =fopen(nombreArchivo,"wb");
+        if(archi)
         {
-            fwrite(&(aux->dato), sizeof(stLibro), 1, archi);
-            int numComentarios = contarComentarios(aux->lista);
-            fwrite(&numComentarios, sizeof(int), 1, archi);
-            guardarComentarios(aux->lista, archi);
-            aux = aux->ste;
+            stLibro aux1;
+            fwrite(&aux1,sizeof(stLibro),1,archi);
+            guardarComentarios(aux->lista,archi);
+
         }
+        aux=aux->ste;
+        fclose(archi);
     }
-    else
-    {
-        printf("Error al abrir el archivo\n");
-    }
-    fclose(archi);
 }
-
-
 
 
 void guardarComentarios(nodoComentario* lista, FILE * archi)

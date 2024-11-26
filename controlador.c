@@ -206,10 +206,9 @@ void menuLibros( nodoArbolUsuario * user)
         case 6:
             /// agregar un libro
             ldl=cargarLibroEnLista(ldl);
-            guardarLibroEnArchivo(ldl,"libros2.dat");
 //            ldlToArchivo(ldl,"librosComentarios.dat");
-//            ldl=agregarLibro(ldl,"libros2.dat");
-            printf("\nSe guardo el libro\n");
+            //printf("\nSe guardo el libro\n");
+            system("pause");
             break;
         case 7:
             /// ver favoritos
@@ -217,7 +216,7 @@ void menuLibros( nodoArbolUsuario * user)
             break;
         case 8:
             /// ver comentarios
-            menuComentario(user,ldl);
+            ldl=menuComentario(user,ldl);
             break;
         case 0:
             system("cls");
@@ -233,7 +232,7 @@ void menuLibros( nodoArbolUsuario * user)
 
 
 
-void menuComentario( nodoArbolUsuario * user, nodo2Libros * ldl)
+nodo2Libros * menuComentario( nodoArbolUsuario * user, nodo2Libros * ldl)
 {
 
     int opcion;
@@ -279,7 +278,7 @@ void menuComentario( nodoArbolUsuario * user, nodo2Libros * ldl)
         }
     }
     while(opcion != 0);
-
+    return ldl;
 }
 
 void mostrarMenuComentario()

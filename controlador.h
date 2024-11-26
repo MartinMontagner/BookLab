@@ -24,4 +24,5 @@ void mostrarMenuAdmin();
 void menuAdmin(nodoArbolUsuario * arbol);
 void mostrarMenuComentario();
 int contarComentarios(nodoComentario * lista);
+nodo2Libros * menuComentario( nodoArbolUsuario * user, nodo2Libros * ldl);
 #endif // CONTROLADOR_H_INCLUDED
