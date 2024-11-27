@@ -81,5 +81,6 @@ void mostrarComentariosUsuario(nodo2Libros * listaLibros, int idUsuario);
 int buscarUltimoIdGlobal(nodo2Libros *listaLibros);
 
 nodo2Libros * agregarComentarioLibro(nodo2Libros * listaLibros, int idUsuario);
-
+//nodo2Libros * buscarComentarioPorId(nodo2Libros * ldl, int id);
+nodo2Libros * modificarComentario (nodo2Libros * ldl);
 #endif // LIBROS_H_INCLUDED

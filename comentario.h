@@ -23,7 +23,7 @@ typedef struct {
 }stComentario;
 
 
-typedef struct{
+typedef struct nodoComentario{
     stComentario comentario;
     struct nodoComentario * ste;
     struct nodoComentario * ante;
@@ -41,11 +41,11 @@ nodoComentario * agregarPrincipioComentario(nodoComentario * lista, nodoComentar
 nodoComentario * insertarNodoPorIdComentario (nodoComentario * lista, nodoComentario * nuevoNodo);
 nodoComentario *  archivoToListaComentario(char nombreArchivo[], nodoComentario * listaDoble);
 ///Funciones para cambiar el comentario
-void cambioTitulo(nodoComentario * lista, int idComentario);
-void cambioDescripcion(nodoComentario * lista, int idComentario);
-void cambioPuntaje (nodoComentario * lista, int idComentario);
-void eliminarComentario(nodoComentario * lista,int idComentario);
-nodoComentario * modificarComentario(nodoComentario * lista, int idComentario);
+nodoComentario * cambioTitulo(nodoComentario * lista);
+nodoComentario * cambioDescripcion(nodoComentario * lista);
+nodoComentario * cambioPuntaje (nodoComentario * lista);
+nodoComentario * eliminarComentario(nodoComentario * lista);
+//nodoComentario * modificarComentario(nodoComentario * lista);
 
 ///Funciones para mostrar
 void muestraUnComentario (stComentario a);
@@ -56,4 +56,5 @@ void opcionesModificarComentario();
 
 ///FALTA TERMINAR MENUS, FUNCION DE GUARDAR COMENTARIOS EN EL ARCHIVO. PENSAR DONDE PONER MENU COMENTARIO, Y DONDE PONER LA OPCION DE VER TODOS LOS COMENTARIOS.
 void agregarComentariosAlArchivo(nodoComentario* lista,char nombreArchivo []);
+nodoComentario * buscarComentarioPorId(nodoComentario* lista, int id);
 #endif // COMENTARIO_H_INCLUDED

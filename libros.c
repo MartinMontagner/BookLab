@@ -222,11 +222,11 @@ nodo2Libros * agregarComentarioLibro(nodo2Libros * listaLibros, int idUsuario)
     }
     else
     {
-        libroABuscar->lista=cargarComentarioEnLista(listaLibros->lista,idLibro,idUsuario);
+        libroABuscar->lista=cargarComentarioEnLista(libroABuscar->lista,idLibro,idUsuario);
+        libroABuscar->dato.valoracion=calculoValoraciones(libroABuscar->lista,idLibro);
     }
     return listaLibros;
 }
-
 void mostrarComentariosUsuario(nodo2Libros * listaLibros, int idUsuario)
 {
     nodo2Libros * libroActual = listaLibros;
@@ -241,13 +241,16 @@ void mostrarComentariosUsuario(nodo2Libros * listaLibros, int idUsuario)
         // Recorrer todos los comentarios de cada libro
         while (comentarioActual != NULL)
         {
+
             if (comentarioActual->comentario.idUsuario == idUsuario)
             {
-                // Mostrar comentario solo si pertenece al usuario
-                comentariosEncontrados++;
-                printf("\nLibro: %s (ID: %d)\n", libroActual->dato.titulo, libroActual->dato.idLibro);
-                muestraNodoComentario(comentarioActual);
-                printf("----------------------------------------------------\n");
+                if(comentarioActual->comentario.eliminado==0)
+                {
+                    comentariosEncontrados++;
+                    printf("\nLibro: %s (ID: %d)\n", libroActual->dato.titulo, libroActual->dato.idLibro);
+                    muestraNodoComentario(comentarioActual);
+                    printf("----------------------------------------------------\n");
+                }
             }
             comentarioActual = comentarioActual->ste;
         }
@@ -259,6 +262,7 @@ void mostrarComentariosUsuario(nodo2Libros * listaLibros, int idUsuario)
         printf("No se encontraron comentarios para este usuario.\n");
     }
 }
+
 nodo2Libros * archivoToLDL(char archivoLibros[],char archivoComentarios[],nodo2Libros * ldl)
 {
     ldl=archivoToListaLibros(archivoLibros,ldl);
@@ -291,7 +295,7 @@ nodo2Libros * archivoToListaComentarios(char nombreArchivoCom[],nodo2Libros * ld
     {
         while(fread(&comentario,sizeof(stComentario),1,archi)>0)
         {
-            ldl=alta(ldl,comentario,aux->dato.idLibro);
+            ldl=alta(ldl,comentario,comentario.idLibro);
         }
     }
     return ldl;
@@ -597,5 +601,80 @@ void darDeBajaLogica (nodo2Libros* lista)
     }
 }
 
+nodo2Libros * modificarComentario (nodo2Libros * ldl)
+{
+    int opcion;
+    int volverAtras=0;
+    char resp="";
+    int idComentario;
+    int idLibro;
 
+    printf("Ingrese el id del libro al que quiere modificar comentarios: \n");
+    fflush(stdin);
+    scanf("%d",&idLibro);
+    printf("Ingrese el id del comentario que desea cambiar: \n");
+    fflush(stdin);
+    scanf("%d",&idComentario);
+    while (getchar() != '\n');
+    ldl=buscarLibroPorId(ldl,idLibro);
+    nodoComentario * aux=buscarComentarioPorId(ldl,idComentario);
+    if(aux==NULL)
+    {
+        printf("\nNo se encontro comentario");
+                system("pause");
+    }
+    do
+    {
+        system("cls");
+        system("pause");
+        opcionesModificarComentario();
+        printf("\nIngrese que desea cambiar\n");
+        fflush(stdin);
+        scanf(" %d",&opcion);
+        switch(opcion)
+        {
+        case 1:
+            aux=cambioTitulo(aux);
+            printf("es despues de aca");
+            break;
+        case 2:
+            aux=cambioDescripcion(aux);
+            break;
+        case 3:
+            aux=cambioPuntaje(aux);
+            break;
+        case 4:
+            printf("Estas seguro que deseas eliminar el comentario? s / n\n");
+            fflush(stdin);
+            scanf("%c",&resp);
+            if(resp=='s')
+            {
+                aux=eliminarComentario(aux);
+                volverAtras=1;
+            }
+            break;
+        case 0:
+            system("cls");
+            printf("\n--- Volviendo al menu ---\n");
+            break;
+        }
+    }
+    while(opcion!=0 && volverAtras==0);
+    ldl->lista=aux;
+
+    return ldl;
+}
+//nodo2Libros * buscarComentarioPorId(nodo2Libros * ldl, int id)
+//{
+//
+//    while (actual != NULL)
+//    {
+//        if (actual->comentario.idComentario == id)
+//        {
+//            return actual;
+//        }
+//        actual = actual->ste;
+//    }
+//    return NULL;
+//}
 

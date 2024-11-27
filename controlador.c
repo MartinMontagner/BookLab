@@ -234,7 +234,7 @@ nodo2Libros * menuComentario( nodoArbolUsuario * user, nodo2Libros * ldl)
 {
 
     int opcion;
-    int idComentario;
+
     do
     {
 
@@ -260,12 +260,8 @@ nodo2Libros * menuComentario( nodoArbolUsuario * user, nodo2Libros * ldl)
 
         case 3:
             //Editar o eliminar comentario
-//            printf("Ingrese el id del comentario que desea cambiar: \n");
-//            fflush(stdin);
-//            scanf("%d",&idComentario);
-//            while (getchar() != '\n');
-//            modificarComentario(lista->lista, idComentario);
-//            break;
+            ldl=modificarComentario(ldl);
+            break;
         case 0:
             system("cls");
             break;

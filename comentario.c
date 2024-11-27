@@ -113,110 +113,98 @@ float calculoValoraciones (nodoComentario * lista, int idLibro)
     return total;
 }
 ///Funciones para cambiar el comentario
-void cambioTitulo(nodoComentario * lista, int idComentario)
+
+nodoComentario * cambioTitulo(nodoComentario * lista)
 {
-    int flag=0;
-    while(lista && flag==0)
-    {
-        if(lista->comentario.idComentario==idComentario)
-        {
-            printf("\nIngrese el titulo: \n");
-            fflush(stdin);
-            gets(lista->comentario.tituloComentario);
-            flag=1;
-        }
-        lista=lista->ste;
-    }
+    nodoComentario * actual= lista;
+    printf("\nIngrese el titulo: \n");
+    fflush(stdin);
+    gets(actual->comentario.tituloComentario);
+    return actual;
+}
+nodoComentario * cambioDescripcion(nodoComentario * lista)
+{
+    nodoComentario * actual= lista;
+    printf("\nIngrese la descripcion: \n");
+    fflush(stdin);
+    gets(actual->comentario.descripcion);
+    return actual;
 }
 
-void cambioDescripcion(nodoComentario * lista, int idComentario)
-{
-    int flag=0;
-    while(lista && flag==0)
-    {
-        if(lista->comentario.idComentario==idComentario)
-        {
-            printf("\nIngrese la descripcion: \n");
-            fflush(stdin);
-            gets(lista->comentario.descripcion);
-            flag=1;
-        }
-        lista=lista->ste;
-    }
-}
 
-void cambioPuntaje (nodoComentario * lista, int idComentario)
+nodoComentario * cambioPuntaje (nodoComentario * lista)
 {
-    int flag=0;
-    while(lista && flag==0)
-    {
-        if(lista->comentario.idComentario == idComentario)
-        {
-            printf("Ingrese el nuevo puntaje: \n");
-            fflush(stdin);
-            scanf("%d",lista->comentario.puntaje);
-            flag=1;
-        }
-        lista=lista->ste;
-    }
+    nodoComentario * actual= lista;
+    printf("Ingrese el nuevo puntaje: \n");
+    fflush(stdin);
+    scanf(" %d",&actual->comentario.puntaje);
+    return actual;
 }
-void eliminarComentario(nodoComentario * lista,int idComentario)
+nodoComentario * eliminarComentario(nodoComentario * lista)
 {
-    int flag=0;
-    while(lista && flag==0)
-    {
-        if(lista->comentario.idComentario==idComentario)
-        {
-            lista->comentario.eliminado=1;
-            flag=1;
-        }
-        lista->ste;
-    }
+    nodoComentario * actual= lista;
+    actual->comentario.eliminado=1;
+    return actual;
 }
 
 ///Para menu
-nodoComentario * modificarComentario(nodoComentario * lista, int idComentario)
-{
-    int opcion;
-    char resp="";
-    do
-    {
-        system("cls");
-        system("pause");
-        opcionesModificarComentario();
-        printf("\nIngrese que desea cambiar\n");
-        fflush(stdin);
-        scanf("%d",&opcion);
-        switch(opcion)
-        {
-        case 1:
-            cambioTitulo(lista, idComentario);
-            break;
-        case 2:
-            cambioDescripcion(lista, idComentario);
-            break;
-        case 3:
-            cambioPuntaje(lista, idComentario);
-            break;
-        case 4:
-            printf("Estas seguro que deseas eliminar el comentario? s / n\n");
-            fflush(stdin);
-            scanf("%c",&resp);
-            if(resp=='s')
-            {
-                eliminarComentario(lista,idComentario);
-            }
-            break;
-        case 0:
-            system("cls");
-            printf("\n--- Volviendo al menu ---\n");
-            break;
-        }
-    }
-    while(opcion!=0);
-    agregarComentariosAlArchivo(lista,"comentarios.dat");
-    return lista;
-}
+//nodoComentario * modificarComentario (nodoComentario * lista)
+//{
+//    int opcion;
+//    int volverAtras=0;
+//    char resp="";
+//    int idComentario;
+//    printf("Ingrese el id del comentario que desea cambiar: \n");
+//    fflush(stdin);
+//    scanf("%d",&idComentario);
+//    while (getchar() != '\n');
+//    lista=buscarComentarioPorId(lista,idComentario);
+//    if(lista==NULL)
+//    {
+//        printf("\nNo se encontro comentario");
+//                system("pause");
+//    }
+//    do
+//    {
+//        system("cls");
+//        system("pause");
+//        opcionesModificarComentario();
+//        printf("\nIngrese que desea cambiar\n");
+//        fflush(stdin);
+//        scanf(" %d",&opcion);
+//        switch(opcion)
+//        {
+//        case 1:
+//            lista=cambioTitulo(lista);
+//            printf("es despues de aca");
+//            break;
+//        case 2:
+//            lista=cambioDescripcion(lista);
+//            break;
+//        case 3:
+//            lista=cambioPuntaje(lista);
+//            break;
+//        case 4:
+//            printf("Estas seguro que deseas eliminar el comentario? s / n\n");
+//            fflush(stdin);
+//            scanf("%c",&resp);
+//            if(resp=='s')
+//            {
+//                lista=eliminarComentario(lista);
+//                volverAtras=1;
+//            }
+//            break;
+//        case 0:
+//            system("cls");
+//            printf("\n--- Volviendo al menu ---\n");
+//            break;
+//        }
+//    }
+//    while(opcion!=0 && volverAtras==0);
+//
+//    return lista;
+//}
+
 
 
 
@@ -365,3 +353,17 @@ void agregarComentariosAlArchivo(nodoComentario* lista,char nombreArchivo [])
     fclose(archivo);
     printf("Error al abrir el archivo.\n");
 }
+nodoComentario * buscarComentarioPorId(nodoComentario * lista, int id)
+{
+    nodoComentario* actual = lista;
+    while (actual != NULL)
+    {
+        if (actual->comentario.idComentario == id)
+        {
+            return actual;
+        }
+        actual = actual->ste;
+    }
+    return NULL;
+}
+
