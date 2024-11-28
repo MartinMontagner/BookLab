@@ -57,11 +57,13 @@ void darDeBajaLogica (nodo2Libros* lista);
 ///Funciones para mostrar
 void muestraUnLibro(stLibro a);
 void muestraNodoDobleLibro(nodo2Libros * nodo);
+void muestraNodoDobleLibroAdmin(nodo2Libros * nodo);
 void muestraListaLibros(nodo2Libros * lista);
 void muestraListaLibrosAdmin (nodo2Libros * lista);
 void verLibrosPorCategoria (nodo2Libros * lista, char categoria[]);
 void verLibrosPorAutor (nodo2Libros * lista, char autor[]);
 void verLibrosPorTitulo (nodo2Libros * lista, char titulo[]);
+void recorreYMuestraListaComentAdmin (nodo2Libros * ldl);
 ///Menu
 
 ///Funciones para crear contenido random
@@ -69,18 +71,17 @@ int randomRango(int min, int max);
 void setTituloRandom(char titulo[]);
 void setEditorialRandom(char editorial[]);
 void setAutorRandom(char autor[]);
+
+///FUNCIONES NUEVAS
+
+nodo2Libros * alta(nodo2Libros *listaLibros, stComentario comentario, int idLibro);
+void mostrarComentariosUsuario(nodo2Libros * listaLibros, int idUsuario);
+nodo2Libros * agregarComentarioLibro(nodo2Libros * listaLibros, int idUsuario);
+//nodo2Libros * buscarComentarioPorId(nodo2Libros * ldl, int id);
+nodo2Libros * modificarComentario (nodo2Libros * ldl);
+nodo2Libros * eliminarComentarioAdmin(nodo2Libros * ldl);
 ///Funcion de guardar en archivo
 void ldlToArchivo(nodo2Libros* ldl, char archivoLibros[],char archivoComentarios[]);
 void guardarLibros(nodo2Libros * libros, char archi[]);
 void guardarComentarios(nodoComentario* lista, char archi[]);
-
-///FUNCIONES NUEVAS
-nodo2Libros * ingresarLibros (nodo2Libros *lista, int idUsuario);
-nodo2Libros * alta(nodo2Libros *listaLibros, stComentario comentario, int idLibro);
-void mostrarComentariosUsuario(nodo2Libros * listaLibros, int idUsuario);
-int buscarUltimoIdGlobal(nodo2Libros *listaLibros);
-
-nodo2Libros * agregarComentarioLibro(nodo2Libros * listaLibros, int idUsuario);
-//nodo2Libros * buscarComentarioPorId(nodo2Libros * ldl, int id);
-nodo2Libros * modificarComentario (nodo2Libros * ldl);
 #endif // LIBROS_H_INCLUDED

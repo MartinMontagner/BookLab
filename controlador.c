@@ -47,7 +47,8 @@ void login (nodoArbolUsuario * arbol)
             }
 
         }
-    }arbolToArchivo("usuarios.dat",arbol);
+    }
+    arbolToArchivo("usuarios.dat",arbol);
 }
 nodoArbolUsuario * registrarse(nodoArbolUsuario * arbol)
 {
@@ -300,6 +301,7 @@ void mostrarMenuAdmin()
     escribirConRetraso("\n   4-Ver usuarios", 5);
     escribirConRetraso("\n   5-Dar de baja usuario", 5);
     escribirConRetraso("\n   6-Dar de alta usuario", 5);
+    escribirConRetraso("\n   7-Ver comentarios", 5);
     escribirConRetraso("\n   0-Salir", 5);
     escribirConRetraso("\n====================================\n", 5);
     setColor(7);
@@ -341,6 +343,16 @@ void menuAdmin(nodoArbolUsuario * arbol)
             break;
         case 6:
             arbol=darDeAltaUserAdmin(arbol);
+            system("pause");
+            break;
+        case 7:
+            //ver todos los comentarios
+            recorreYMuestraListaComentAdmin(ldl);
+            system("pause");
+            break;
+        case 8:
+            //eliminar comentario
+           ldl= eliminarComentarioAdmin(ldl);
             system("pause");
             break;
         case 0:

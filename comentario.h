@@ -54,7 +54,14 @@ void muestraListaComentarios(nodoComentario * lista);
 void muestraListaComentariosAdmin (nodoComentario * lista);
 void opcionesModificarComentario();
 
-///FALTA TERMINAR MENUS, FUNCION DE GUARDAR COMENTARIOS EN EL ARCHIVO. PENSAR DONDE PONER MENU COMENTARIO, Y DONDE PONER LA OPCION DE VER TODOS LOS COMENTARIOS.
-void agregarComentariosAlArchivo(nodoComentario* lista,char nombreArchivo []);
+///Funciones para crear contenido random
+
+void setTituloComentarioRandom(char tituloComentario[]);
+void setDescripcionRandom(char descripcion[]);
+void setFechaComentarioRandom(char fechaComentario[]);
+stComentario cargaRandomComentario(int idComentario, int idLibro, int idUsuario);
+void generarComentariosRandom(char nombreArchivo[], int cantidad);
+
+//void agregarComentariosAlArchivo(nodoComentario* lista,char nombreArchivo []);
 nodoComentario * buscarComentarioPorId(nodoComentario* lista, int id);
 #endif // COMENTARIO_H_INCLUDED
