@@ -35,17 +35,18 @@ nodoComentario * crearNodoComentario(stComentario coment);
 nodoComentario * buscarUltimoComentario (nodoComentario * lista);
 int buscarUltimoIdComentario (nodoComentario * lista);
 nodoComentario * cargarComentarioEnLista(nodoComentario * lista, int idLibro, int idUsuario);
+int contarComentarios(nodoComentario * lista);
 float calculoValoraciones (nodoComentario * lista, int idLibro);
 nodoComentario * agregarFinal(nodoComentario * lista, nodoComentario * nuevoNodo);
 nodoComentario * agregarPrincipioComentario(nodoComentario * lista, nodoComentario * nuevo);
 nodoComentario * insertarNodoPorIdComentario (nodoComentario * lista, nodoComentario * nuevoNodo);
 nodoComentario *  archivoToListaComentario(char nombreArchivo[], nodoComentario * listaDoble);
 ///Funciones para cambiar el comentario
-nodoComentario * cambioTitulo(nodoComentario * lista);
-nodoComentario * cambioDescripcion(nodoComentario * lista);
-nodoComentario * cambioPuntaje (nodoComentario * lista);
-nodoComentario * eliminarComentario(nodoComentario * lista);
-//nodoComentario * modificarComentario(nodoComentario * lista);
+void cambioTitulo(nodoComentario * lista);
+void cambioDescripcion(nodoComentario * lista);
+void cambioPuntaje (nodoComentario * lista);
+void eliminarComentario(nodoComentario * lista);
+
 
 ///Funciones para mostrar
 void muestraUnComentario (stComentario a);
@@ -62,6 +63,6 @@ void setFechaComentarioRandom(char fechaComentario[]);
 stComentario cargaRandomComentario(int idComentario, int idLibro, int idUsuario);
 void generarComentariosRandom(char nombreArchivo[], int cantidad);
 
-//void agregarComentariosAlArchivo(nodoComentario* lista,char nombreArchivo []);
+
 nodoComentario * buscarComentarioPorId(nodoComentario* lista, int id);
 #endif // COMENTARIO_H_INCLUDED

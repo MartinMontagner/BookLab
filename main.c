@@ -5,6 +5,7 @@
 #include <time.h>
 #include <stdbool.h>
 #include <windows.h>
+#include <unistd.h>
 
 #include "controlador.h"
 

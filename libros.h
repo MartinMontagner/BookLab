@@ -8,6 +8,8 @@
 #include <time.h>
 #include <stdbool.h>
 #include <windows.h>
+#include <unistd.h>
+
 
 #include "comentario.h"
 
@@ -83,5 +85,5 @@ nodo2Libros * eliminarComentarioAdmin(nodo2Libros * ldl);
 ///Funcion de guardar en archivo
 void ldlToArchivo(nodo2Libros* ldl, char archivoLibros[],char archivoComentarios[]);
 void guardarLibros(nodo2Libros * libros, char archi[]);
-void guardarComentarios(nodoComentario* lista, char archi[]);
+void guardarComentarios(nodoComentario* lista, FILE * archivo);
 #endif // LIBROS_H_INCLUDED

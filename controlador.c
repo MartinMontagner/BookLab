@@ -127,24 +127,7 @@ nodoArbolUsuario * menuUser(nodoArbolUsuario * user,nodoArbolUsuario * arbol)
     while(opcion != 0);
     return user;
 }
-//void mostrarMenuLibros()
-//{
-//    setColor(1);
-//    escribirConRetraso("\n====================================", 5);
-//    escribirConRetraso("\n    Sistema de Gestion de Libros", 5);
-//    escribirConRetraso("\n====================================", 5);
-//    escribirConRetraso("\n   1. Ver todos los libros", 5);
-//    escribirConRetraso("\n   2. Buscar por categoria", 5);
-//    escribirConRetraso("\n   3. Buscar por autor", 5);
-//    escribirConRetraso("\n   4. Buscar por titulo", 5);
-//    escribirConRetraso("\n   5. Agregar un libro a favoritos", 5);
-//    escribirConRetraso("\n   6. Agregar un libro al sistema", 5);
-//    escribirConRetraso("\n   7. Ver libros favoritos", 5);
-//    escribirConRetraso("\n   8. Ver comentarios", 5);
-//    escribirConRetraso("\n   0. Salir", 5);
-//    escribirConRetraso("\n====================================\n", 5);
-//    setColor(7);
-//}
+
 void mostrarMenuLibros()
 {
     setColor(1);
@@ -302,6 +285,7 @@ void mostrarMenuAdmin()
     escribirConRetraso("\n   5-Dar de baja usuario", 5);
     escribirConRetraso("\n   6-Dar de alta usuario", 5);
     escribirConRetraso("\n   7-Ver comentarios", 5);
+    escribirConRetraso("\n   8-Eliminar comentario", 5);
     escribirConRetraso("\n   0-Salir", 5);
     escribirConRetraso("\n====================================\n", 5);
     setColor(7);
