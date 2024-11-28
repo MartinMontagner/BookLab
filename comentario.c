@@ -261,7 +261,7 @@ void muestraListaComentariosAdmin (nodoComentario * lista)
     {
         muestraNodoComentario(lista);
         printf("IdLibro:..................%d\n",lista->comentario.idLibro);
-        printf("IdUsuario:................&d\n",lista->comentario.idUsuario);
+        printf("IdUsuario:................%d\n",lista->comentario.idUsuario);
         printf("Eliminado:................%d\n",lista->comentario.eliminado);
         lista=lista->ste;
     }
