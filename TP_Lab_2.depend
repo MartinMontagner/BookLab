@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1732831172 source:c:\users\martin\desktop\booklab\controlador.c
+1732835643 source:c:\users\martin\desktop\booklab\controlador.c
 	"controlador.h"
 
 1732830498 source:c:\users\martin\desktop\booklab\main.c
@@ -24,7 +24,7 @@
 	<unistd.h>
 	"libros.h"
 
-1732829466 source:c:\users\martin\desktop\booklab\user.c
+1732847507 source:c:\users\martin\desktop\booklab\user.c
 	"user.h"
 	<ctype.h>
 
@@ -143,7 +143,7 @@
 	<unistd.h>
 	"user.h"
 
-1732834208 source:c:\users\martin\desktop\booklab\libros.c
+1732835304 source:c:\users\martin\desktop\booklab\libros.c
 	"libros.h"
 
 1732835304 c:\users\martin\desktop\booklab\libros.h
@@ -170,7 +170,7 @@
 1732771129 source:c:\users\carla\desktop\booklab\comentario.c
 	"comentario.h"
 
-1732834197 source:c:\users\martin\desktop\booklab\comentario.c
+1732836923 source:c:\users\martin\desktop\booklab\comentario.c
 	"comentario.h"
 
 1732834197 c:\users\martin\desktop\booklab\comentario.h

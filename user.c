@@ -315,6 +315,7 @@ nodoArbolUsuario * cargaUserAdmin(nodoArbolUsuario * arbol)
     arbol=insertarNodoArbol(arbol,crearNodoArbol(admin));
     return arbol;
 }
+
 int verificarEmailEnArbol(char email[], nodoArbolUsuario *arbol)
 {
     int flag = 1;
@@ -322,10 +323,11 @@ int verificarEmailEnArbol(char email[], nodoArbolUsuario *arbol)
     if (arbol != NULL)
     {
 
+
         if (strcmp(arbol->usuario.email, email) == 0)
         {
             flag = 0;
-            printf("Este email ya está en uso. Elige otro\n");
+            printf("Este email ya esta en uso: %s\n", email);
         }
         else
         {
@@ -343,6 +345,7 @@ int verificarEmailEnArbol(char email[], nodoArbolUsuario *arbol)
 
     return flag;
 }
+
 
 stUsuario cargaDatosUser(nodoArbolUsuario * arbol)
 {
@@ -533,7 +536,7 @@ nodoArbolUsuario * modificarDatos(nodoArbolUsuario * user,nodoArbolUsuario * arb
         {
         case 1:
             ///cambiar email
-            cambiarEmail(&user->usuario.email,arbol);
+            cambiarEmail(user->usuario.email,arbol);
             break;
         case 2:
             cambioUserName(user->usuario.username);
@@ -569,19 +572,33 @@ void opcionesModificarDatos()
     printf("\n   6. Domicilio\n");
     printf("\n   0. Salir\n");
 }
-void cambiarEmail(char *email,nodoArbolUsuario * arbol)
+void cambiarEmail(char *email, nodoArbolUsuario *arbol)
 {
+    char nuevoEmail[100];
     bool esValido = false;
-    int flag = 0;
+    int flag = 1;
 
-    while (esValido==false && flag == 0)
+    do
     {
-        printf("Ingrese su email: \n");
-        scanf("%s",email);
-        esValido = validarEmail(email);
-        flag = verificarEmailEnArbol(email, arbol);
-    }
+        printf("Ingrese su nuevo email: \n");
+        scanf("%s", nuevoEmail);
+        esValido = validarEmail(nuevoEmail);
+
+        if (esValido)
+        {
+            flag = verificarEmailEnArbol(nuevoEmail, arbol);
+        }
+
+    } while (!esValido || flag == 0);
+
+    strcpy(email, nuevoEmail);
+    printf("Email actualizado correctamente.\n");
+    system("pause");
 }
+
+
+
+
 void cambioUserName(char * userName)
 {
     printf("\nIngrese su nombre: \n");
